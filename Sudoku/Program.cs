@@ -159,13 +159,10 @@ namespace Sudoku
             // Check box.
             // Note this also covers and its own cell and those that are already tested for the row and column.
             // TODO Should be optimized.
-            for (int boxCellRowIndex = 0; boxCellRowIndex < 3; boxCellRowIndex++)
+            for (int boxCellRow = boxStartRow; boxCellRow < boxStartRow + 3; boxCellRow++)
             {
-                for (int boxCellColumnIndex = 0; boxCellColumnIndex < 3; boxCellColumnIndex++)
+                for (int boxcellColumn = boxStartColumn; boxcellColumn < boxStartColumn + 3; boxcellColumn++)
                 {
-                    var boxCellRow = boxStartRow + boxCellRowIndex;
-                    var boxcellColumn = boxStartColumn + boxCellColumnIndex;
-
                     // Debug.
                     Console.WriteLine($"boxCell({boxCellRow},{boxcellColumn}) = {puzzle[boxCellRow, boxcellColumn]}");
 
