@@ -62,9 +62,11 @@ namespace Sudoku
 
         public static void PrintPuzzle(int[,] puzzle)
         {
+            var boxLine = "+-----+-----+-----+";
+
             for (int row = 0; row < 9; row++)
             {
-                if (row % 3 == 0) Console.WriteLine("+-----+-----+-----+");
+                if (row % 3 == 0) Console.WriteLine(boxLine);
 
                 for (int column = 0; column < 9; column++)
                     Console.Write("|{0}", puzzle[row, column]);
@@ -72,7 +74,7 @@ namespace Sudoku
                 Console.WriteLine("|");
             }
 
-            Console.WriteLine("+-----+-----+-----+");
+            Console.WriteLine(boxLine);
         }
 
         public static bool SolveCell(int[,] puzzle, int cellRow, int cellColumn)
@@ -139,8 +141,8 @@ namespace Sudoku
         private static bool FigureAvailable(int[,] puzzle, int cellRow, int cellColumn, int figure)
         {
             // Debug.
-            Console.WriteLine();
-            Console.WriteLine($"Cell({cellRow},{cellColumn}), {nameof(figure)} = {figure}");
+            //Console.WriteLine();
+            //Console.WriteLine($"Cell({cellRow},{cellColumn}), {nameof(figure)} = {figure}");
 
             for (int i = 0; i < 9; i++)
             {
@@ -164,7 +166,7 @@ namespace Sudoku
                 for (int boxcellColumn = boxStartColumn; boxcellColumn < boxStartColumn + 3; boxcellColumn++)
                 {
                     // Debug.
-                    Console.WriteLine($"boxCell({boxCellRow},{boxcellColumn}) = {puzzle[boxCellRow, boxcellColumn]}");
+                    //Console.WriteLine($"boxCell({boxCellRow},{boxcellColumn}) = {puzzle[boxCellRow, boxcellColumn]}");
 
                     if (puzzle[boxCellRow, boxcellColumn] == figure)
                         return false;
