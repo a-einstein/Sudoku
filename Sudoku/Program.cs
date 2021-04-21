@@ -44,23 +44,23 @@ namespace Sudoku
 
         private static void Handle(int[,] puzzle)
         {
+            Show(puzzle);
+
             var timeStart = DateTime.Now;
             var solved = SolveCell(puzzle, 0, 0);
             var duration = DateTime.Now - timeStart;
-
-            Console.WriteLine();
 
             if (solved)
             {
                 Console.WriteLine($"Solved in {duration}.");
 
-                PrintPuzzle(puzzle);
+                Show(puzzle);
             }
             else
                 Console.WriteLine($"Failed in {duration}.");
         }
 
-        public static void PrintPuzzle(int[,] puzzle)
+        public static void Show(int[,] puzzle)
         {
             var boxLine = "+-----+-----+-----+";
 
@@ -75,6 +75,8 @@ namespace Sudoku
             }
 
             Console.WriteLine(boxLine);
+
+            Console.WriteLine();
         }
 
         public static bool SolveCell(int[,] puzzle, int cellRow, int cellColumn)
