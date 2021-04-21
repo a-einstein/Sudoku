@@ -1,14 +1,29 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
+using System.Windows.Forms;
 
 namespace Sudoku
 {
     class Program
     {
+        [STAThread]
         static void Main(string[] args)
         {
-            int[][,] puzzles = new int[][,] 
+            int[][,] puzzles = GetPuzzles();
+
+            foreach (var puzzle in puzzles)
             {
-                /*
+                Handle(puzzle);
+            }
+        }
+
+        private static int[][,] GetPuzzles()
+        {
+            OpenPuzzle();
+
+            int[][,] puzzles = new int[][,]
+            {
                 new int[,] {
                     { 3, 2, 1, 7, 0, 4, 0, 0, 0 },
                     { 6, 4, 0, 0, 9, 0, 0, 0, 7 },
@@ -20,7 +35,6 @@ namespace Sudoku
                     { 2, 0, 0, 0, 7, 0, 0, 1, 9 },
                     { 0, 0, 0, 6, 0, 9, 5, 8, 2 }
                 },
-                */
 
                 // CleVR
                new int[,] {
@@ -36,14 +50,28 @@ namespace Sudoku
                 }
             };
 
-            foreach (var puzzle in puzzles)
+            return puzzles;
+        }
+
+        private static void OpenPuzzle()
+        {
+            var initialDirectory = Path.GetFullPath(Directory.GetCurrentDirectory() + "\\..\\..\\..\\..\\puzzles");
+
+            var fileDialog = new OpenFileDialog
             {
-                Handle(puzzle);
-            }
+                Title = "Read Sudoku",
+                Filter = "TXT files|*.txt",
+                InitialDirectory = initialDirectory
+            };
+
+            fileDialog.ShowDialog();
         }
 
         private static void Handle(int[,] puzzle)
         {
+            var taskLine = "===============================";
+            Debug.WriteLine(taskLine);
+
             Show(puzzle);
 
             var timeStart = DateTime.Now;
@@ -52,31 +80,31 @@ namespace Sudoku
 
             if (solved)
             {
-                Console.WriteLine($"Solved in {duration}.");
+                Debug.WriteLine($"Solved in {duration}.");
 
                 Show(puzzle);
             }
             else
-                Console.WriteLine($"Failed in {duration}.");
+                Debug.WriteLine($"Failed in {duration}.");
         }
 
         public static void Show(int[,] puzzle)
         {
-            var boxLine = "+-----+-----+-----+";
+            var boxLine = "+---------+---------+---------+";
 
             for (int row = 0; row < 9; row++)
             {
-                if (row % 3 == 0) Console.WriteLine(boxLine);
+                if (row % 3 == 0) Debug.WriteLine(boxLine);
 
                 for (int column = 0; column < 9; column++)
-                    Console.Write("|{0}", puzzle[row, column]);
+                    Debug.Write($"{(column % 3 == 0 ? "| " : " ")}{puzzle[row, column]} ");
 
-                Console.WriteLine("|");
+                Debug.WriteLine("|");
             }
 
-            Console.WriteLine(boxLine);
+            Debug.WriteLine(boxLine);
 
-            Console.WriteLine();
+            Debug.WriteLine(null);
         }
 
         public static bool SolveCell(int[,] puzzle, int cellRow, int cellColumn)
@@ -142,9 +170,9 @@ namespace Sudoku
 
         private static bool FigureAvailable(int[,] puzzle, int cellRow, int cellColumn, int figure)
         {
-            // Debug.
-            //Console.WriteLine();
-            //Console.WriteLine($"Cell({cellRow},{cellColumn}), {nameof(figure)} = {figure}");
+            // TODO Make this conditional.
+            //Debug.WriteLine();
+            //Debug.WriteLine($"Cell({cellRow},{cellColumn}), {nameof(figure)} = {figure}");
 
             for (int i = 0; i < 9; i++)
             {
@@ -167,8 +195,7 @@ namespace Sudoku
             {
                 for (int boxcellColumn = boxStartColumn; boxcellColumn < boxStartColumn + 3; boxcellColumn++)
                 {
-                    // Debug.
-                    //Console.WriteLine($"boxCell({boxCellRow},{boxcellColumn}) = {puzzle[boxCellRow, boxcellColumn]}");
+                    //Debug.WriteLine($"boxCell({boxCellRow},{boxcellColumn}) = {puzzle[boxCellRow, boxcellColumn]}");
 
                     if (puzzle[boxCellRow, boxcellColumn] == figure)
                         return false;
