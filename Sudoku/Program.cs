@@ -139,31 +139,39 @@ namespace Sudoku
         private static bool FigureAvailable(int[,] puzzle, int cellRow, int cellColumn, int figure)
         {
             // Debug.
-            //Console.WriteLine();
-            //Console.WriteLine($"Cell({cellRow},{cellColumn}), {nameof(figure)} = {figure}");
+            Console.WriteLine();
+            Console.WriteLine($"Cell({cellRow},{cellColumn}), {nameof(figure)} = {figure}");
+
+            for (int i = 0; i < 9; i++)
+            {
+                // Check column at cellRow.
+                if (puzzle[cellRow, i] == figure)
+                    return false;
+
+                // Check row at cellColumn.
+                if (puzzle[i, cellColumn] == figure)
+                    return false;
+            }
 
             int boxStartRow = (cellRow / 3) * 3;
             int boxStartColumn = (cellColumn / 3) * 3;
 
-            for (int i = 0; i < 9; i++)
+            // Check box.
+            // Note this also covers and its own cell and those that are already tested for the row and column.
+            // TODO Should be optimized.
+            for (int boxCellRowIndex = 0; boxCellRowIndex < 3; boxCellRowIndex++)
             {
-                // Vary column at cellRow.
-                if (puzzle[cellRow, i] == figure)
-                    return false;
+                for (int boxCellColumnIndex = 0; boxCellColumnIndex < 3; boxCellColumnIndex++)
+                {
+                    var boxCellRow = boxStartRow + boxCellRowIndex;
+                    var boxcellColumn = boxStartColumn + boxCellColumnIndex;
 
-                // Vary row at cellColumn.
-                if (puzzle[i, cellColumn] == figure)
-                    return false;
+                    // Debug.
+                    Console.WriteLine($"boxCell({boxCellRow},{boxcellColumn}) = {puzzle[boxCellRow, boxcellColumn]}");
 
-                // TODO This repeats 3 times and does not cover the whole box!
-                var boxCellRow = boxStartRow + (i % 3);
-                var boxCellColumn = boxStartColumn + (i / 3);
-
-                // Debug.
-                //Console.WriteLine($"{nameof(i)} = {i}, boxCell({boxCellRow},{boxStartColumn})");
-
-                if (puzzle[boxCellRow, boxCellColumn] == figure)
-                    return false;
+                    if (puzzle[boxCellRow, boxcellColumn] == figure)
+                        return false;
+                }
             }
 
             return true;
