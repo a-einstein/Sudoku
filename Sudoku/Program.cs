@@ -6,36 +6,55 @@ namespace Sudoku
     {
         static void Main(string[] args)
         {
-            int[,] puzzle = {
-                { 3, 2, 1, 7, 0, 4, 0, 0, 0 },
-                { 6, 4, 0, 0, 9, 0, 0, 0, 7 },
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 4, 5, 9, 0, 0 },
-                { 0, 0, 5, 1, 8, 7, 4, 0, 0 },
-                { 0, 0, 4, 9, 6, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 2, 0, 0, 0, 7, 0, 0, 1, 9 },
-                { 0, 0, 0, 6, 0, 9, 5, 8, 2 }
+            int[][,] puzzles = new int[][,]                {
+                new int[,] {
+                    { 3, 2, 1, 7, 0, 4, 0, 0, 0 },
+                    { 6, 4, 0, 0, 9, 0, 0, 0, 7 },
+                    { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                    { 0, 0, 0, 0, 4, 5, 9, 0, 0 },
+                    { 0, 0, 5, 1, 8, 7, 4, 0, 0 },
+                    { 0, 0, 4, 9, 6, 0, 0, 0, 0 },
+                    { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                    { 2, 0, 0, 0, 7, 0, 0, 1, 9 },
+                    { 0, 0, 0, 6, 0, 9, 5, 8, 2 }
+                },
+
+                // CleVR
+               new int[,] {
+                    {0,0,0,7,0,4,0,0,5},
+                    {0,2,0,0,1,0,0,7,0},
+                    {0,0,0,0,8,0,0,0,2},
+                    {0,9,0,0,0,6,2,5,0},
+                    {6,0,0,0,7,0,0,0,8},
+                    {0,5,3,2,0,0,0,1,0},
+                    {4,0,0,0,9,0,0,0,0},
+                    {0,3,0,0,6,0,0,9,0},
+                    {2,0,0,4,0,7,0,0,0}
+                }
             };
 
-            if (SolveSudoku(puzzle, 0, 0))
+            foreach (var puzzle in puzzles)
+            {
+                Handle(puzzle);
+            }
+        }
+
+        private static void Handle(int[,] puzzle)
+        {
+            var timeStart= DateTime.Now;
+            var solved = SolveSudoku(puzzle, 0, 0);
+            var duration = DateTime.Now - timeStart;
+
+            Console.WriteLine();
+
+            if (solved)
+            {
+                Console.WriteLine($"Solved in {duration}.");
+
                 PrintSudoku(puzzle);
-
-            // CleVR
-            int[,] puzzleCleVR = {
-                {0,0,0,7,0,4,0,0,5},
-                {0,2,0,0,1,0,0,7,0},
-                {0,0,0,0,8,0,0,0,2},
-                {0,9,0,0,0,6,2,5,0},
-                {6,0,0,0,7,0,0,0,8},
-                {0,5,3,2,0,0,0,1,0},
-                {4,0,0,0,9,0,0,0,0},
-                {0,3,0,0,6,0,0,9,0},
-                {2,0,0,4,0,7,0,0,0}
-            };
-
-            if (SolveSudoku(puzzleCleVR, 0, 0))
-                PrintSudoku(puzzleCleVR);
+            }
+            else
+                Console.WriteLine($"Failed in {duration}.");
         }
 
         public static void PrintSudoku(int[,] puzzle)
