@@ -54,24 +54,25 @@ namespace Sudoku
             {
                 Console.WriteLine($"Solved in {duration}.");
 
-                PrintSudoku(puzzle);
+                PrintPuzzle(puzzle);
             }
             else
                 Console.WriteLine($"Failed in {duration}.");
         }
 
-        public static void PrintSudoku(int[,] puzzle)
+        public static void PrintPuzzle(int[,] puzzle)
         {
-            Console.WriteLine("+-----+-----+-----+");
-
-            for (int i = 1; i < 10; ++i)
+            for (int row = 0; row < 9; row++)
             {
-                for (int j = 1; j < 10; ++j)
-                    Console.Write("|{0}", puzzle[i - 1, j - 1]);
+                if (row % 3 == 0) Console.WriteLine("+-----+-----+-----+");
+
+                for (int column = 0; column < 9; column++)
+                    Console.Write("|{0}", puzzle[row, column]);
 
                 Console.WriteLine("|");
-                if (i % 3 == 0) Console.WriteLine("+-----+-----+-----+");
             }
+
+            Console.WriteLine("+-----+-----+-----+");
         }
 
         public static bool SolveCell(int[,] puzzle, int cellRow, int cellColumn)
@@ -96,7 +97,7 @@ namespace Sudoku
                 // Cell has NO value.
                 else
                 {
-                    for (int figure = 1; figure <= 9; ++figure)
+                    for (int figure = 1; figure <= 9; figure++)
                     {
                         if (FigureAvailable(puzzle, cellRow, cellColumn, figure))
                         {
@@ -138,13 +139,13 @@ namespace Sudoku
         private static bool FigureAvailable(int[,] puzzle, int cellRow, int cellColumn, int figure)
         {
             // Debug.
-            Console.WriteLine();
-            Console.WriteLine($"Cell({cellRow},{cellColumn}), {nameof(figure)} = {figure}");
+            //Console.WriteLine();
+            //Console.WriteLine($"Cell({cellRow},{cellColumn}), {nameof(figure)} = {figure}");
 
             int boxStartRow = (cellRow / 3) * 3;
             int boxStartColumn = (cellColumn / 3) * 3;
 
-            for (int i = 0; i < 9; ++i)
+            for (int i = 0; i < 9; i++)
             {
                 // Vary column at cellRow.
                 if (puzzle[cellRow, i] == figure)
@@ -159,7 +160,7 @@ namespace Sudoku
                 var boxCellColumn = boxStartColumn + (i / 3);
 
                 // Debug.
-                Console.WriteLine($"{nameof(i)} = {i}, boxCell({boxCellRow},{boxStartColumn})");
+                //Console.WriteLine($"{nameof(i)} = {i}, boxCell({boxCellRow},{boxStartColumn})");
 
                 if (puzzle[boxCellRow, boxCellColumn] == figure)
                     return false;
