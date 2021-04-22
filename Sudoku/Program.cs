@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Sudoku
@@ -10,52 +11,15 @@ namespace Sudoku
         [STAThread]
         static void Main(string[] args)
         {
-            int[][,] puzzles = GetPuzzles();
+            var puzzle = ReadPuzzle();
 
-            foreach (var puzzle in puzzles)
-            {
+            if (puzzle != null) 
                 Handle(puzzle);
-            }
         }
 
-        private static int[][,] GetPuzzles()
+        private static int[,] ReadPuzzle()
         {
-            OpenPuzzle();
-
-            int[][,] puzzles = new int[][,]
-            {
-                new int[,] {
-                    { 3, 2, 1, 7, 0, 4, 0, 0, 0 },
-                    { 6, 4, 0, 0, 9, 0, 0, 0, 7 },
-                    { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                    { 0, 0, 0, 0, 4, 5, 9, 0, 0 },
-                    { 0, 0, 5, 1, 8, 7, 4, 0, 0 },
-                    { 0, 0, 4, 9, 6, 0, 0, 0, 0 },
-                    { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                    { 2, 0, 0, 0, 7, 0, 0, 1, 9 },
-                    { 0, 0, 0, 6, 0, 9, 5, 8, 2 }
-                },
-
-                // CleVR
-               new int[,] {
-                    {0,0,0,7,0,4,0,0,5},
-                    {0,2,0,0,1,0,0,7,0},
-                    {0,0,0,0,8,0,0,0,2},
-                    {0,9,0,0,0,6,2,5,0},
-                    {6,0,0,0,7,0,0,0,8},
-                    {0,5,3,2,0,0,0,1,0},
-                    {4,0,0,0,9,0,0,0,0},
-                    {0,3,0,0,6,0,0,9,0},
-                    {2,0,0,4,0,7,0,0,0}
-                }
-            };
-
-            return puzzles;
-        }
-
-        private static void OpenPuzzle()
-        {
-            var initialDirectory = Path.GetFullPath(Directory.GetCurrentDirectory() + "\\..\\..\\..\\..\\puzzles");
+            var initialDirectory = Path.GetFullPath(Directory.GetCurrentDirectory() + "\\..\\..\\..\\..\\..\\puzzles");
 
             var fileDialog = new OpenFileDialog
             {
@@ -64,7 +28,47 @@ namespace Sudoku
                 InitialDirectory = initialDirectory
             };
 
-            fileDialog.ShowDialog();
+            int[,] puzzle = null;
+
+            if (fileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string[] fileLines = File.ReadAllLines(fileDialog.FileName);
+
+                if (fileLines.Length != 9)
+                {
+                    throw new InvalidDataException("Puzzle must have 9 rows.");
+                }
+
+                puzzle = new int[9, 9];
+
+                for (int row = 0; row < 9; row++)
+                {
+                    var fileLine = fileLines[row];
+
+                    // Only keep digits.
+                    var line = Regex.Replace(fileLine, @"\D", "");
+
+                    if (line.Length != 9)
+                    {
+                        throw new InvalidDataException($"Row {row} must have 9 values.");
+                    }
+
+                    for (int column = 0; column < 9; column++)
+                    {
+                        // Currently redundant as the line should be filtered.
+                        if (int.TryParse(line[column].ToString(), out int digit))
+                        {
+                            puzzle[row, column] = digit;
+                        }
+                        else
+                        {
+                            throw new InvalidDataException($"Row {row} does not only have digits.");
+                        }
+                    }
+                }
+            }
+
+            return puzzle;
         }
 
         private static void Handle(int[,] puzzle)
@@ -129,11 +133,11 @@ namespace Sudoku
                 // Cell has NO value.
                 else
                 {
-                    for (int figure = 1; figure <= 9; figure++)
+                    for (int digit = 1; digit <= 9; digit++)
                     {
-                        if (FigureAvailable(puzzle, cellRow, cellColumn, figure))
+                        if (DigitAvailable(puzzle, cellRow, cellColumn, digit))
                         {
-                            puzzle[cellRow, cellColumn] = figure;
+                            puzzle[cellRow, cellColumn] = digit;
 
                             if ((cellColumn + 1) < 9)
                             {
@@ -168,7 +172,7 @@ namespace Sudoku
             public int Column;
         }
 
-        private static bool FigureAvailable(int[,] puzzle, int cellRow, int cellColumn, int figure)
+        private static bool DigitAvailable(int[,] puzzle, int cellRow, int cellColumn, int figure)
         {
             // TODO Make this conditional.
             //Debug.WriteLine();
