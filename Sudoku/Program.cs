@@ -11,6 +11,14 @@ namespace Sudoku
         [STAThread]
         static void Main(string[] args)
         {
+            // TODO Output only works in debug mode.
+            // Either get working as Trace/Debug, to window or file (see WpfShop too), or create a GUI.
+            Debug.WriteLine("Test Debug");
+            Trace.WriteLine("Test Trace");
+
+            var taskLine = "===============================";
+            Trace.WriteLine(taskLine);
+
             var puzzle = ReadPuzzle();
 
             if (puzzle != null) 
@@ -32,6 +40,9 @@ namespace Sudoku
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
+                var filename = Path.GetFileName(fileDialog.FileName);
+                Trace.WriteLine($"File = '{filename}'.");
+
                 string[] fileLines = File.ReadAllLines(fileDialog.FileName);
 
                 if (fileLines.Length != 9)
@@ -73,9 +84,6 @@ namespace Sudoku
 
         private static void Handle(int[,] puzzle)
         {
-            var taskLine = "===============================";
-            Debug.WriteLine(taskLine);
-
             Show(puzzle);
 
             var timeStart = DateTime.Now;
@@ -84,12 +92,12 @@ namespace Sudoku
 
             if (solved)
             {
-                Debug.WriteLine($"Solved in {duration}.");
+                Trace.WriteLine($"Solved in {duration}.");
 
                 Show(puzzle);
             }
             else
-                Debug.WriteLine($"Failed in {duration}.");
+                Trace.WriteLine($"Failed in {duration}.");
         }
 
         public static void Show(int[,] puzzle)
@@ -98,17 +106,17 @@ namespace Sudoku
 
             for (int row = 0; row < 9; row++)
             {
-                if (row % 3 == 0) Debug.WriteLine(boxLine);
+                if (row % 3 == 0) Trace.WriteLine(boxLine);
 
                 for (int column = 0; column < 9; column++)
-                    Debug.Write($"{(column % 3 == 0 ? "| " : " ")}{puzzle[row, column]} ");
+                    Trace.Write($"{(column % 3 == 0 ? "| " : " ")}{puzzle[row, column]} ");
 
-                Debug.WriteLine("|");
+                Trace.WriteLine("|");
             }
 
-            Debug.WriteLine(boxLine);
+            Trace.WriteLine(boxLine);
 
-            Debug.WriteLine(null);
+            Trace.WriteLine(null);
         }
 
         public static bool SolveCell(int[,] puzzle, int cellRow, int cellColumn)
