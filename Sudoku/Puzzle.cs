@@ -8,7 +8,7 @@ namespace Sudoku
 {
     class Puzzle
     {
-        static int[,] puzzle = new int[9, 9];
+        static int[,] grid = new int[9, 9];
 
         public static bool Read()
         {
@@ -52,7 +52,7 @@ namespace Sudoku
                         // Currently redundant as the line should be filtered.
                         if (int.TryParse(line[column].ToString(), out int digit))
                         {
-                            puzzle[row, column] = digit;
+                            grid[row, column] = digit;
                         }
                         else
                         {
@@ -93,7 +93,7 @@ namespace Sudoku
                 if (row % 3 == 0) Trace.WriteLine(boxLine);
 
                 for (int column = 0; column < 9; column++)
-                    Trace.Write($"{(column % 3 == 0 ? "| " : " ")}{puzzle[row, column]} ");
+                    Trace.Write($"{(column % 3 == 0 ? "| " : " ")}{grid[row, column]} ");
 
                 Trace.WriteLine("|");
             }
@@ -103,21 +103,21 @@ namespace Sudoku
             Trace.WriteLine(null);
         }
 
-        public static bool SolveCell(int cellRow, int cellColumn)
+        public static bool SolveCell(int row, int column)
         {
             // Puzzle not completed.
-            if (cellRow < 9 && cellColumn < 9)
+            if (row < 9 && column < 9)
             {
                 // Cell HAS value.
-                if (puzzle[cellRow, cellColumn] != 0)
+                if (grid[row, column] != 0)
                 {
-                    if ((cellColumn + 1) < 9)
+                    if ((column + 1) < 9)
                         // Next column.
-                        return SolveCell(cellRow, cellColumn + 1);
+                        return SolveCell(row, column + 1);
 
-                    else if ((cellRow + 1) < 9)
+                    else if ((row + 1) < 9)
                         // Next row.
-                        return SolveCell(cellRow + 1, 0);
+                        return SolveCell(row + 1, 0);
 
                     else
                         return true;
@@ -127,25 +127,25 @@ namespace Sudoku
                 {
                     for (int digit = 1; digit <= 9; digit++)
                     {
-                        if (DigitAvailable(cellRow, cellColumn, digit))
+                        if (DigitAvailable(row, column, digit))
                         {
-                            puzzle[cellRow, cellColumn] = digit;
+                            grid[row, column] = digit;
 
-                            if ((cellColumn + 1) < 9)
+                            if ((column + 1) < 9)
                             {
                                 // Next column.
-                                if (SolveCell(cellRow, cellColumn + 1))
+                                if (SolveCell(row, column + 1))
                                     return true;
                                 else
                                     // Next row.
-                                    puzzle[cellRow, cellColumn] = 0;
+                                    grid[row, column] = 0;
                             }
-                            else if ((cellRow + 1) < 9)
+                            else if ((row + 1) < 9)
                             {
-                                if (SolveCell(cellRow + 1, 0))
+                                if (SolveCell(row + 1, 0))
                                     return true;
                                 else
-                                    puzzle[cellRow, cellColumn] = 0;
+                                    grid[row, column] = 0;
                             }
                             else
                                 return true;
@@ -166,7 +166,7 @@ namespace Sudoku
             public int Column;
         }
 
-        private static bool DigitAvailable(int cellRow, int cellColumn, int digit)
+        private static bool DigitAvailable(int row, int column, int digit)
         {
             // TODO Make this conditional.
             //Debug.WriteLine();
@@ -175,16 +175,16 @@ namespace Sudoku
             for (int i = 0; i < 9; i++)
             {
                 // Check column at cellRow.
-                if (puzzle[cellRow, i] == digit)
+                if (grid[row, i] == digit)
                     return false;
 
                 // Check row at cellColumn.
-                if (puzzle[i, cellColumn] == digit)
+                if (grid[i, column] == digit)
                     return false;
             }
 
-            int boxStartRow = (cellRow / 3) * 3;
-            int boxStartColumn = (cellColumn / 3) * 3;
+            int boxStartRow = (row / 3) * 3;
+            int boxStartColumn = (column / 3) * 3;
 
             // Check box.
             // Note this also covers and its own cell and those that are already tested for the row and column.
@@ -195,7 +195,7 @@ namespace Sudoku
                 {
                     //Debug.WriteLine($"boxCell({boxCellRow},{boxcellColumn}) = {puzzle[boxCellRow, boxcellColumn]}");
 
-                    if (puzzle[boxCellRow, boxcellColumn] == digit)
+                    if (grid[boxCellRow, boxcellColumn] == digit)
                         return false;
                 }
             }
