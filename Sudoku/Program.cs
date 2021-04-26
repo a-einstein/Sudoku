@@ -21,11 +21,11 @@ namespace Sudoku
 
             if (ReadPuzzle())
             {
-                Handle();
+                HandlePuzzle();
             }
         }
 
-        static int[,] puzzle = new int[9, 9];
+        static int[,] puzzle = new int[9,9];
 
         private static bool ReadPuzzle()
         {
@@ -83,9 +83,9 @@ namespace Sudoku
             return true;
         }
 
-        private static void Handle()
+        private static void HandlePuzzle()
         {
-            Show(puzzle);
+            ShowPuzzle();
 
             var timeStart = DateTime.Now;
             var solved = SolveCell(0, 0);
@@ -95,13 +95,13 @@ namespace Sudoku
             {
                 Trace.WriteLine($"Solved in {duration}.");
 
-                Show(puzzle);
+                ShowPuzzle();
             }
             else
                 Trace.WriteLine($"Failed in {duration}.");
         }
 
-        public static void Show(int[,] puzzle)
+        public static void ShowPuzzle()
         {
             var boxLine = "+---------+---------+---------+";
 
@@ -172,8 +172,8 @@ namespace Sudoku
 
                 return false;
             }
-            else
-                return true;
+
+            return true;
         }
 
         // TODO remove if not needed.
