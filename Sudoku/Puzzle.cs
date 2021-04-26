@@ -6,9 +6,9 @@ using System.Windows.Forms;
 
 namespace Sudoku
 {
-    class Puzzle
+    internal class Puzzle
     {
-        static int[,] grid = new int[9, 9];
+        private static int[,] grid = new int[9, 9];
 
         public static bool Read()
         {
