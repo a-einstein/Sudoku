@@ -19,15 +19,15 @@ namespace Sudoku
             var taskLine = "===============================";
             Trace.WriteLine(taskLine);
 
-            ReadPuzzle();
-
-            if (puzzle != null) 
+            if (ReadPuzzle())
+            {
                 Handle();
+            }
         }
 
-        static int[,] puzzle = null;
+        static int[,] puzzle = new int[9, 9];
 
-        private static void ReadPuzzle()
+        private static bool ReadPuzzle()
         {
             var initialDirectory = Path.GetFullPath(Directory.GetCurrentDirectory() + "\\..\\..\\..\\..\\..\\puzzles");
 
@@ -47,10 +47,9 @@ namespace Sudoku
 
                 if (fileLines.Length != 9)
                 {
-                    throw new InvalidDataException("Puzzle must have 9 rows.");
+                    Trace.WriteLine($"Error: Puzzle does not have 9 rows.");
+                    return false;
                 }
-
-                puzzle = new int[9, 9];
 
                 for (int row = 0; row < 9; row++)
                 {
@@ -61,7 +60,8 @@ namespace Sudoku
 
                     if (line.Length != 9)
                     {
-                        throw new InvalidDataException($"Row {row} must have 9 values.");
+                        Trace.WriteLine($"Error: Row {row + 1} does not have 9 digits.");
+                        return false;
                     }
 
                     for (int column = 0; column < 9; column++)
@@ -73,11 +73,14 @@ namespace Sudoku
                         }
                         else
                         {
-                            throw new InvalidDataException($"Row {row} does not only have digits.");
+                            Trace.WriteLine($"Error: Row {row + 1} does not have digits only.");
+                            return false;
                         }
                     }
                 }
             }
+
+            return true;
         }
 
         private static void Handle()
