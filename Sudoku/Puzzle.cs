@@ -123,6 +123,7 @@ namespace Sudoku
                         // Next row.
                         return CompleteFrom(row + 1, 0);
                     }
+                    // All completed from start.
                     else
                     {
                         return true;
@@ -131,10 +132,12 @@ namespace Sudoku
                 // Cell has NO value.
                 else
                 {
+                    // Find an acceptable digit.
                     for (int digit = 1; digit <= 9; digit++)
                     {
                         if (DigitAvailable(digit, row, column))
                         {
+                            // Try digit in cell.
                             grid[row, column] = digit;
 
                             // Row not completed.
@@ -142,9 +145,10 @@ namespace Sudoku
                             {
                                 // Next cell in row.
                                 if (CompleteFrom(row, column + 1))
+                                    // No conflicts encountered for digit in remainder of grid.
                                     return true;
                                 else
-                                    // TODO Backtrack(?)
+                                    // Backtrack. Next digit.
                                     grid[row, column] = 0;
                             }
                             // Rows not completed.
@@ -152,11 +156,13 @@ namespace Sudoku
                             {
                                 // Next row.
                                 if (CompleteFrom(row + 1, 0))
+                                    // No conflicts encountered for digit in remainder of grid.
                                     return true;
                                 else
-                                    // TODO Backtrack(?)
+                                    // Backtrack. Next digit.
                                     grid[row, column] = 0;
                             }
+                            // No conflicts encountered for digit in remainder of grid.
                             else
                             {
                                 return true;
@@ -165,9 +171,11 @@ namespace Sudoku
                     }
                 }
 
+                // No completion for cell.
                 return false;
             }
 
+            // Puzzle completed.
             return true;
         }
 
@@ -186,11 +194,11 @@ namespace Sudoku
 
             for (int i = 0; i < 9; i++)
             {
-                // Check column at cellRow.
+                // Check along column at cell.
                 if (grid[row, i] == digit)
                     return false;
 
-                // Check row at cellColumn.
+                // Check along row at cell.
                 if (grid[i, column] == digit)
                     return false;
             }
