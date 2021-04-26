@@ -19,13 +19,15 @@ namespace Sudoku
             var taskLine = "===============================";
             Trace.WriteLine(taskLine);
 
-            var puzzle = ReadPuzzle();
+            ReadPuzzle();
 
             if (puzzle != null) 
-                Handle(puzzle);
+                Handle();
         }
 
-        private static int[,] ReadPuzzle()
+        static int[,] puzzle = null;
+
+        private static void ReadPuzzle()
         {
             var initialDirectory = Path.GetFullPath(Directory.GetCurrentDirectory() + "\\..\\..\\..\\..\\..\\puzzles");
 
@@ -35,8 +37,6 @@ namespace Sudoku
                 Filter = "TXT files|*.txt",
                 InitialDirectory = initialDirectory
             };
-
-            int[,] puzzle = null;
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -78,16 +78,14 @@ namespace Sudoku
                     }
                 }
             }
-
-            return puzzle;
         }
 
-        private static void Handle(int[,] puzzle)
+        private static void Handle()
         {
             Show(puzzle);
 
             var timeStart = DateTime.Now;
-            var solved = SolveCell(puzzle, 0, 0);
+            var solved = SolveCell(0, 0);
             var duration = DateTime.Now - timeStart;
 
             if (solved)
@@ -119,21 +117,21 @@ namespace Sudoku
             Trace.WriteLine(null);
         }
 
-        public static bool SolveCell(int[,] puzzle, int cellRow, int cellColumn)
+        public static bool SolveCell(int cellRow, int cellColumn)
         {
-            // Not completed.
+            // Puzzle not completed.
             if (cellRow < 9 && cellColumn < 9)
             {
                 // Cell HAS value.
                 if (puzzle[cellRow, cellColumn] != 0)
                 {
-                    // Next column.
                     if ((cellColumn + 1) < 9)
-                        return SolveCell(puzzle, cellRow, cellColumn + 1);
+                        // Next column.
+                        return SolveCell(cellRow, cellColumn + 1);
 
-                    // Next row.
                     else if ((cellRow + 1) < 9)
-                        return SolveCell(puzzle, cellRow + 1, 0);
+                        // Next row.
+                        return SolveCell(cellRow + 1, 0);
 
                     else
                         return true;
@@ -143,20 +141,22 @@ namespace Sudoku
                 {
                     for (int digit = 1; digit <= 9; digit++)
                     {
-                        if (DigitAvailable(puzzle, cellRow, cellColumn, digit))
+                        if (DigitAvailable(cellRow, cellColumn, digit))
                         {
                             puzzle[cellRow, cellColumn] = digit;
 
                             if ((cellColumn + 1) < 9)
                             {
-                                if (SolveCell(puzzle, cellRow, cellColumn + 1))
+                                // Next column.
+                                if (SolveCell(cellRow, cellColumn + 1))
                                     return true;
                                 else
+                                    // Next row.
                                     puzzle[cellRow, cellColumn] = 0;
                             }
                             else if ((cellRow + 1) < 9)
                             {
-                                if (SolveCell(puzzle, cellRow + 1, 0))
+                                if (SolveCell(cellRow + 1, 0))
                                     return true;
                                 else
                                     puzzle[cellRow, cellColumn] = 0;
@@ -180,20 +180,20 @@ namespace Sudoku
             public int Column;
         }
 
-        private static bool DigitAvailable(int[,] puzzle, int cellRow, int cellColumn, int figure)
+        private static bool DigitAvailable(int cellRow, int cellColumn, int digit)
         {
             // TODO Make this conditional.
             //Debug.WriteLine();
-            //Debug.WriteLine($"Cell({cellRow},{cellColumn}), {nameof(figure)} = {figure}");
+            //Debug.WriteLine($"Cell({cellRow},{cellColumn}), {nameof(digit)} = {digit}");
 
             for (int i = 0; i < 9; i++)
             {
                 // Check column at cellRow.
-                if (puzzle[cellRow, i] == figure)
+                if (puzzle[cellRow, i] == digit)
                     return false;
 
                 // Check row at cellColumn.
-                if (puzzle[i, cellColumn] == figure)
+                if (puzzle[i, cellColumn] == digit)
                     return false;
             }
 
@@ -209,7 +209,7 @@ namespace Sudoku
                 {
                     //Debug.WriteLine($"boxCell({boxCellRow},{boxcellColumn}) = {puzzle[boxCellRow, boxcellColumn]}");
 
-                    if (puzzle[boxCellRow, boxcellColumn] == figure)
+                    if (puzzle[boxCellRow, boxcellColumn] == digit)
                         return false;
                 }
             }
