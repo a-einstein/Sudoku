@@ -71,10 +71,10 @@ namespace Sudoku
             Show();
 
             var timeStart = DateTime.Now;
-            var solved = SolveCell(0, 0);
+            var complete = CompleteFrom(0, 0);
             var duration = DateTime.Now - timeStart;
 
-            if (solved)
+            if (complete)
             {
                 Trace.WriteLine($"Solved in {duration}.");
 
@@ -103,52 +103,64 @@ namespace Sudoku
             Trace.WriteLine(null);
         }
 
-        public static bool SolveCell(int row, int column)
+        public static bool CompleteFrom(int row, int column)
         {
             // Puzzle not completed.
             if (row < 9 && column < 9)
             {
-                // Cell HAS value.
+                // Cell HAS a value.
                 if (grid[row, column] != 0)
                 {
+                    // Row not completed.
                     if ((column + 1) < 9)
-                        // Next column.
-                        return SolveCell(row, column + 1);
-
+                    {
+                        // Next cell in row.
+                        return CompleteFrom(row, column + 1);
+                    }
+                    // Rows not completed.
                     else if ((row + 1) < 9)
+                    {
                         // Next row.
-                        return SolveCell(row + 1, 0);
-
+                        return CompleteFrom(row + 1, 0);
+                    }
                     else
+                    {
                         return true;
+                    }
                 }
                 // Cell has NO value.
                 else
                 {
                     for (int digit = 1; digit <= 9; digit++)
                     {
-                        if (DigitAvailable(row, column, digit))
+                        if (DigitAvailable(digit, row, column))
                         {
                             grid[row, column] = digit;
 
+                            // Row not completed.
                             if ((column + 1) < 9)
                             {
-                                // Next column.
-                                if (SolveCell(row, column + 1))
+                                // Next cell in row.
+                                if (CompleteFrom(row, column + 1))
                                     return true;
                                 else
-                                    // Next row.
+                                    // TODO Backtrack(?)
                                     grid[row, column] = 0;
                             }
+                            // Rows not completed.
                             else if ((row + 1) < 9)
                             {
-                                if (SolveCell(row + 1, 0))
+                                // Next row.
+                                if (CompleteFrom(row + 1, 0))
                                     return true;
                                 else
+                                    // TODO Backtrack(?)
                                     grid[row, column] = 0;
                             }
                             else
+                            {
                                 return true;
+                            }
                         }
                     }
                 }
@@ -166,7 +178,7 @@ namespace Sudoku
             public int Column;
         }
 
-        private static bool DigitAvailable(int row, int column, int digit)
+        private static bool DigitAvailable(int digit, int row, int column)
         {
             // TODO Make this conditional.
             //Debug.WriteLine();
@@ -187,7 +199,7 @@ namespace Sudoku
             int boxStartColumn = (column / 3) * 3;
 
             // Check box.
-            // Note this also covers and its own cell and those that are already tested for the row and column.
+            // Note this also covers its own cell and those that are already tested for the row and column.
             // TODO Should be optimized.
             for (int boxCellRow = boxStartRow; boxCellRow < boxStartRow + 3; boxCellRow++)
             {
