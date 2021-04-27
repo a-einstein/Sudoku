@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -9,6 +11,8 @@ namespace Sudoku
     internal class Puzzle
     {
         private static int[,] grid = new int[9, 9];
+        private static Dictionary<int, int> frequentedDigits = new Dictionary<int, int>();
+        private static int[] sortedDigits;
 
         public static bool Read()
         {
@@ -34,6 +38,11 @@ namespace Sudoku
                     return false;
                 }
 
+                for (int digit = 1; digit <= 9; digit++)
+                {
+                    frequentedDigits.Add(digit, 0);
+                }
+
                 for (int row = 0; row < 9; row++)
                 {
                     var fileLine = fileLines[row];
@@ -53,6 +62,9 @@ namespace Sudoku
                         if (int.TryParse(line[column].ToString(), out int digit))
                         {
                             grid[row, column] = digit;
+
+                            if (digit != 0)
+                                frequentedDigits[digit]++;
                         }
                         else
                         {
@@ -62,6 +74,8 @@ namespace Sudoku
                     }
                 }
             }
+
+            sortedDigits = frequentedDigits.OrderByDescending(digitFrequency => digitFrequency.Value).ToDictionary(digitFrequency => digitFrequency.Key, x => x.Value).Keys.ToArray();
 
             return true;
         }
@@ -130,12 +144,18 @@ namespace Sudoku
             else
             {
                 // Find an acceptable digit.
-                for (int digit = 1; digit <= 9; digit++)
+
+                //for (int digit = 1; digit <= 9; digit++)
+
+                // Using  initially sortedDigits gave a significant optimization.
+                // TODO Find a way to reevaluate, if possible
+                foreach (var digit in sortedDigits)
                 {
                     if (DigitAvailableForCell(digit, new Cell(row, column)))
                     {
                         // Try digit in cell.
                         grid[row, column] = digit;
+                        frequentedDigits[digit]++;
 
                         // Row not completed.
                         if ((column + 1) < 9)
@@ -145,8 +165,12 @@ namespace Sudoku
                                 // No conflicts encountered for digit in remainder of grid.
                                 return true;
                             else
+                            {
                                 // Backtrack. Next digit.
                                 grid[row, column] = 0;
+                                frequentedDigits[digit]--;
+                            }
+
                         }
                         // Rows not completed.
                         else if ((row + 1) < 9)
@@ -156,8 +180,11 @@ namespace Sudoku
                                 // No conflicts encountered for digit in remainder of grid.
                                 return true;
                             else
+                            {
                                 // Backtrack. Next digit.
                                 grid[row, column] = 0;
+                                frequentedDigits[digit]--;
+                            }
                         }
                         // No conflicts encountered for digit in remainder of grid.
                         else
