@@ -109,16 +109,16 @@ namespace Sudoku
             if (grid[row, column] != 0)
             {
                 // Row not completed.
-                if ((column + 1) < 9)
+                if (++column < 9)
                 {
                     // Next cell in row.
-                    return CompleteFrom(row, column + 1);
+                    return CompleteFrom(row, column);
                 }
                 // Rows not completed.
-                else if ((row + 1) < 9)
+                else if (++row < 9)
                 {
                     // Start on next row.
-                    return CompleteFrom(row + 1, 0);
+                    return CompleteFrom(row, 0);
                 }
                 // All completed from start.
                 else
@@ -211,6 +211,7 @@ namespace Sudoku
                 }
             }
 
+            // No conflicts for digit.
             return true;
         }
     }
