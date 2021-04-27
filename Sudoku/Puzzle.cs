@@ -120,7 +120,7 @@ namespace Sudoku
                     // Rows not completed.
                     else if ((row + 1) < 9)
                     {
-                        // Next row.
+                        // Start on next row.
                         return CompleteFrom(row + 1, 0);
                     }
                     // All completed from start.
@@ -135,7 +135,7 @@ namespace Sudoku
                     // Find an acceptable digit.
                     for (int digit = 1; digit <= 9; digit++)
                     {
-                        if (DigitAvailable(digit, row, column))
+                        if (DigitAvailableForCell(digit, new Cell(row, column)))
                         {
                             // Try digit in cell.
                             grid[row, column] = digit;
@@ -179,14 +179,7 @@ namespace Sudoku
             return true;
         }
 
-        // TODO remove if not needed.
-        struct Cell
-        {
-            public int Row;
-            public int Column;
-        }
-
-        private static bool DigitAvailable(int digit, int row, int column)
+        private static bool DigitAvailableForCell(int digit, Cell testCell)
         {
             // TODO Make this conditional.
             //Debug.WriteLine();
@@ -195,28 +188,27 @@ namespace Sudoku
             for (int i = 0; i < 9; i++)
             {
                 // Check along column at cell.
-                if (grid[row, i] == digit)
+                if (grid[testCell.Row, i] == digit)
                     return false;
 
                 // Check along row at cell.
-                if (grid[i, column] == digit)
+                if (grid[i, testCell.Column] == digit)
                     return false;
             }
 
-            int boxStartRow = (row / 3) * 3;
-            int boxStartColumn = (column / 3) * 3;
+            var boxStart = new Cell(testCell.Row - (testCell.Row % 3), testCell.Column - (testCell.Column % 3));
 
             // Check remainder of box.
-            for (int boxCellRow = boxStartRow; boxCellRow < boxStartRow + 3; boxCellRow++)
+            for (int boxCellRow = boxStart.Row; boxCellRow < boxStart.Row + 3; boxCellRow++)
             {
                 // Skip row already tested (hardly gaining).
-                if (boxCellRow == row)
+                if (boxCellRow == testCell.Row)
                     continue;
 
-                for (int boxcellColumn = boxStartColumn; boxcellColumn < boxStartColumn + 3; boxcellColumn++)
+                for (int boxcellColumn = boxStart.Column; boxcellColumn < boxStart.Column + 3; boxcellColumn++)
                 {
                     // Skip column already tested (hardly gaining).
-                    if (boxcellColumn == column)
+                    if (boxcellColumn == testCell.Column)
                         continue;
 
                     //Debug.WriteLine($"boxCell({boxCellRow},{boxcellColumn}) = {puzzle[boxCellRow, boxcellColumn]}");
