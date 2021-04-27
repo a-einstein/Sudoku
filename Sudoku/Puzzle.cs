@@ -206,13 +206,19 @@ namespace Sudoku
             int boxStartRow = (row / 3) * 3;
             int boxStartColumn = (column / 3) * 3;
 
-            // Check box.
-            // Note this also covers its own cell and those that are already tested for the row and column.
-            // TODO Should be optimized.
+            // Check remainder of box.
             for (int boxCellRow = boxStartRow; boxCellRow < boxStartRow + 3; boxCellRow++)
             {
+                // Skip row already tested (hardly gaining).
+                if (boxCellRow == row)
+                    continue;
+
                 for (int boxcellColumn = boxStartColumn; boxcellColumn < boxStartColumn + 3; boxcellColumn++)
                 {
+                    // Skip column already tested (hardly gaining).
+                    if (boxcellColumn == column)
+                        continue;
+
                     //Debug.WriteLine($"boxCell({boxCellRow},{boxcellColumn}) = {puzzle[boxCellRow, boxcellColumn]}");
 
                     if (grid[boxCellRow, boxcellColumn] == digit)
