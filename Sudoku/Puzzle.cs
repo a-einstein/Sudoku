@@ -71,12 +71,12 @@ namespace Sudoku
             Show();
 
             var timeStart = DateTime.Now;
-            var complete = CompleteFrom(0, 0);
+            var completed = CompleteFrom(0, 0);
             var duration = DateTime.Now - timeStart;
 
-            if (complete)
+            if (completed)
             {
-                Trace.WriteLine($"Solved in {duration}.");
+                Trace.WriteLine($"Completed in {duration}.");
 
                 Show();
             }
@@ -105,78 +105,71 @@ namespace Sudoku
 
         public static bool CompleteFrom(int row, int column)
         {
-            // Puzzle not completed.
-            if (row < 9 && column < 9)
+            // Cell HAS a value.
+            if (grid[row, column] != 0)
             {
-                // Cell HAS a value.
-                if (grid[row, column] != 0)
+                // Row not completed.
+                if ((column + 1) < 9)
                 {
-                    // Row not completed.
-                    if ((column + 1) < 9)
-                    {
-                        // Next cell in row.
-                        return CompleteFrom(row, column + 1);
-                    }
-                    // Rows not completed.
-                    else if ((row + 1) < 9)
-                    {
-                        // Start on next row.
-                        return CompleteFrom(row + 1, 0);
-                    }
-                    // All completed from start.
-                    else
-                    {
-                        return true;
-                    }
+                    // Next cell in row.
+                    return CompleteFrom(row, column + 1);
                 }
-                // Cell has NO value.
+                // Rows not completed.
+                else if ((row + 1) < 9)
+                {
+                    // Start on next row.
+                    return CompleteFrom(row + 1, 0);
+                }
+                // All completed from start.
                 else
                 {
-                    // Find an acceptable digit.
-                    for (int digit = 1; digit <= 9; digit++)
+                    return true;
+                }
+            }
+            // Cell has NO value.
+            else
+            {
+                // Find an acceptable digit.
+                for (int digit = 1; digit <= 9; digit++)
+                {
+                    if (DigitAvailableForCell(digit, new Cell(row, column)))
                     {
-                        if (DigitAvailableForCell(digit, new Cell(row, column)))
-                        {
-                            // Try digit in cell.
-                            grid[row, column] = digit;
+                        // Try digit in cell.
+                        grid[row, column] = digit;
 
-                            // Row not completed.
-                            if ((column + 1) < 9)
-                            {
-                                // Next cell in row.
-                                if (CompleteFrom(row, column + 1))
-                                    // No conflicts encountered for digit in remainder of grid.
-                                    return true;
-                                else
-                                    // Backtrack. Next digit.
-                                    grid[row, column] = 0;
-                            }
-                            // Rows not completed.
-                            else if ((row + 1) < 9)
-                            {
-                                // Next row.
-                                if (CompleteFrom(row + 1, 0))
-                                    // No conflicts encountered for digit in remainder of grid.
-                                    return true;
-                                else
-                                    // Backtrack. Next digit.
-                                    grid[row, column] = 0;
-                            }
-                            // No conflicts encountered for digit in remainder of grid.
-                            else
-                            {
+                        // Row not completed.
+                        if ((column + 1) < 9)
+                        {
+                            // Next cell in row.
+                            if (CompleteFrom(row, column + 1))
+                                // No conflicts encountered for digit in remainder of grid.
                                 return true;
-                            }
+                            else
+                                // Backtrack. Next digit.
+                                grid[row, column] = 0;
+                        }
+                        // Rows not completed.
+                        else if ((row + 1) < 9)
+                        {
+                            // Next row.
+                            if (CompleteFrom(row + 1, 0))
+                                // No conflicts encountered for digit in remainder of grid.
+                                return true;
+                            else
+                                // Backtrack. Next digit.
+                                grid[row, column] = 0;
+                        }
+                        // No conflicts encountered for digit in remainder of grid.
+                        else
+                        {
+                            return true;
                         }
                     }
                 }
-
-                // No completion for cell.
-                return false;
             }
 
-            // Puzzle completed.
-            return true;
+            // No completion for cell.
+            return false;
         }
 
         private static bool DigitAvailableForCell(int digit, Cell testCell)
