@@ -64,7 +64,8 @@ namespace App2.Services
                 _navigationService.Initialize(_shellWindow.GetNavigationFrame());
                 _rightPaneService.Initialize(_shellWindow.GetRightPaneFrame(), _shellWindow.GetSplitView());
                 _shellWindow.ShowWindow();
-                _navigationService.NavigateTo(typeof(MainViewModel).FullName);
+                //_navigationService.NavigateTo(typeof(MainViewModel).FullName);
+                _navigationService.NavigateTo(typeof(DataGridViewModel).FullName);
                 await Task.CompletedTask;
             }
         }

@@ -14,24 +14,28 @@
             <RowDefinition Height="48" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+
         <TextBlock
             Style="{StaticResource PageTitleStyle}"
             Margin="{StaticResource MediumLeftMargin}"
             Text="{x:Static properties:Resources.DataGridPageTitle}" />
+
         <Grid Grid.Row="1">
             <DataGrid
-                AutoGenerateColumns="False"
-                GridLinesVisibility="Horizontal"
+                AutoGenerateColumns="True"
+                GridLinesVisibility="All"
                 CanUserAddRows="False"
                 ItemsSource="{Binding Source}"
                 Margin="{StaticResource SmallLeftRightMargin}"
-                KeyboardNavigation.TabNavigation="Once">
-                <DataGrid.Columns>
-                    <!--
+                KeyboardNavigation.TabNavigation="Once" HorizontalAlignment="Left" VerticalAlignment="Top" BorderThickness="1,1,1,1">
+                <!--<DataGrid.Columns>
+                    -->
+                <!--
                         TODO WTS:
                         Remove this column definitions and define columns for your data.
                         Consider adding header properties to Resources.resw
                     -->
+                <!--
                     <DataGridTextColumn Binding="{Binding OrderID}" Header="OrderID" />
                     <DataGridTextColumn Binding="{Binding OrderDate}" Header="OrderDate" />
                     <DataGridTextColumn Binding="{Binding Company}" Header="Company" />
@@ -49,7 +53,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                </DataGrid.Columns>
+                </DataGrid.Columns>-->
             </DataGrid>
         </Grid>
     </Grid>
