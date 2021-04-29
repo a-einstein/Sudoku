@@ -6,9 +6,17 @@ using System.Windows.Forms;
 
 namespace Sudoku
 {
-    internal class Puzzle
+    public class Puzzle
     {
-        private static int[,] grid = new int[9, 9];
+        // Use jagged array for (supposed) speed and transferability.
+        private static int[][] grid = new int[9][];
+
+        public static int[][] Grid
+        {
+            get { return grid; }
+            set { grid = value; }
+        }
+
         private static DigitFrequencies digitFrequencies = new DigitFrequencies();
         private static int[] sortedDigits;
 
@@ -49,12 +57,14 @@ namespace Sudoku
                         return false;
                     }
 
+                    grid[row] = new int[9];
+
                     for (int column = 0; column < 9; column++)
                     {
                         // Currently redundant as the line should be filtered.
                         if (int.TryParse(line[column].ToString(), out int digit))
                         {
-                            grid[row, column] = digit;
+                            grid[row][column] = digit;
 
                             if (digit != 0)
                                 digitFrequencies[digit]++;
@@ -100,7 +110,7 @@ namespace Sudoku
                 if (row % 3 == 0) Trace.WriteLine(boxLine);
 
                 for (int column = 0; column < 9; column++)
-                    Trace.Write($"{(column % 3 == 0 ? "| " : " ")}{grid[row, column]} ");
+                    Trace.Write($"{(column % 3 == 0 ? "| " : " ")}{grid[row][column]} ");
 
                 Trace.WriteLine("|");
             }
@@ -113,7 +123,7 @@ namespace Sudoku
         public static bool CompleteFrom(int row, int column)
         {
             // Cell HAS a value.
-            if (grid[row, column] != 0)
+            if (grid[row][column] != 0)
             {
                 // Row not completed.
                 if (++column < 9)
@@ -148,7 +158,7 @@ namespace Sudoku
                     if (DigitAvailableForCell(digit, new Cell(row, column)))
                     {
                         // Try digit in cell.
-                        grid[row, column] = digit;
+                        grid[row][column] = digit;
 
                         // Row not completed.
                         if ((column + 1) < 9)
@@ -160,7 +170,7 @@ namespace Sudoku
                             else
                             {
                                 // Backtrack. Next digit.
-                                grid[row, column] = 0;
+                                grid[row][column] = 0;
                             }
 
                         }
@@ -174,7 +184,7 @@ namespace Sudoku
                             else
                             {
                                 // Backtrack. Next digit.
-                                grid[row, column] = 0;
+                                grid[row][column] = 0;
                             }
                         }
                         // No conflicts encountered for digit in remainder of grid.
@@ -199,11 +209,11 @@ namespace Sudoku
             for (int i = 0; i < 9; i++)
             {
                 // Check along column at cell.
-                if (grid[testCell.Row, i] == digit)
+                if (grid[testCell.Row][i] == digit)
                     return false;
 
                 // Check along row at cell.
-                if (grid[i, testCell.Column] == digit)
+                if (grid[i][testCell.Column] == digit)
                     return false;
             }
 
@@ -224,7 +234,7 @@ namespace Sudoku
 
                     //Debug.WriteLine($"boxCell({boxCellRow},{boxcellColumn}) = {puzzle[boxCellRow, boxcellColumn]}");
 
-                    if (grid[boxCellRow, boxcellColumn] == digit)
+                    if (grid[boxCellRow][boxcellColumn] == digit)
                         return false;
                 }
             }
