@@ -1,14 +1,9 @@
-﻿using System;
+﻿using App2.Contracts.Services;
+using App2.Contracts.ViewModels;
+using App2.Core.Models;
+using GalaSoft.MvvmLight;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-
-using App2.Contracts.Services;
-using App2.Contracts.ViewModels;
-using App2.Core.Contracts.Services;
-using App2.Core.Models;
-
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
 
 namespace App2.ViewModels
 {
