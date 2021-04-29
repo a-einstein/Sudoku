@@ -8,14 +8,14 @@
     d1p1:Ignorable="d"
     Startup="OnStartup"
     Exit="OnExit"
-    DispatcherUnhandledException="OnDispatcherUnhandledException">
+    DispatcherUnhandledException="OnDispatcherUnhandledException"
+    >
 
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/_FontSizes.xaml" />
                 <ResourceDictionary Source="/Styles/_Thickness.xaml" />
-                <ResourceDictionary Source="/Styles/ListView.xaml" />
                 <ResourceDictionary Source="/Styles/MetroWindow.xaml" />
                 <ResourceDictionary Source="/Styles/TextBlock.xaml" />
                  <!--

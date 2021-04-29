@@ -20,9 +20,6 @@ namespace App2.ViewModels
         public ShellViewModel ShellViewModel
             => SimpleIoc.Default.GetInstance<ShellViewModel>();
 
-        public ContentGridViewModel ContentGridViewModel
-            => SimpleIoc.Default.GetInstance<ContentGridViewModel>();
-
         public DataGridViewModel DataGridViewModel
             => SimpleIoc.Default.GetInstance<DataGridViewModel>();
 
@@ -52,7 +49,6 @@ namespace App2.ViewModels
             SimpleIoc.Default.Register<ShellViewModel>();
 
             // Pages
-            Register<ContentGridViewModel, ContentGridPage>();
             Register<DataGridViewModel, DataGridPage>();
             Register<SettingsViewModel, SettingsPage>();
         }
