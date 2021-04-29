@@ -1,18 +1,14 @@
-﻿using System;
-using System.Windows.Controls;
-
-using App2.Contracts.Services;
+﻿using App2.Contracts.Services;
 using App2.Contracts.Views;
 using App2.Core.Contracts.Services;
 using App2.Core.Services;
 using App2.Models;
 using App2.Services;
 using App2.Views;
-
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
-
 using Microsoft.Extensions.Configuration;
+using System.Windows.Controls;
 
 namespace App2.ViewModels
 {
@@ -24,14 +20,8 @@ namespace App2.ViewModels
         public ShellViewModel ShellViewModel
             => SimpleIoc.Default.GetInstance<ShellViewModel>();
 
-        public MainViewModel MainViewModel
-            => SimpleIoc.Default.GetInstance<MainViewModel>();
-
         public ContentGridViewModel ContentGridViewModel
             => SimpleIoc.Default.GetInstance<ContentGridViewModel>();
-
-        public ContentGridDetailViewModel ContentGridDetailViewModel
-            => SimpleIoc.Default.GetInstance<ContentGridDetailViewModel>();
 
         public DataGridViewModel DataGridViewModel
             => SimpleIoc.Default.GetInstance<DataGridViewModel>();
@@ -48,7 +38,6 @@ namespace App2.ViewModels
             SimpleIoc.Default.Register<IApplicationInfoService, ApplicationInfoService>();
             SimpleIoc.Default.Register<ISystemService, SystemService>();
             SimpleIoc.Default.Register<IFileService, FileService>();
-            SimpleIoc.Default.Register<ISampleDataService, SampleDataService>();
 
             // Services
             SimpleIoc.Default.Register<IWindowManagerService, WindowManagerService>();
@@ -63,9 +52,7 @@ namespace App2.ViewModels
             SimpleIoc.Default.Register<ShellViewModel>();
 
             // Pages
-            Register<MainViewModel, MainPage>();
             Register<ContentGridViewModel, ContentGridPage>();
-            Register<ContentGridDetailViewModel, ContentGridDetailPage>();
             Register<DataGridViewModel, DataGridPage>();
             Register<SettingsViewModel, SettingsPage>();
         }

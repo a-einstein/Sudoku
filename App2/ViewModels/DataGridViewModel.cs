@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Data;
-using App2.Contracts.ViewModels;
-using App2.Core.Contracts.Services;
-using App2.Core.Models;
-
+﻿using App2.Contracts.ViewModels;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
+using System.Data;
 
 namespace App2.ViewModels
 {
@@ -18,15 +13,7 @@ namespace App2.ViewModels
             Init();
         }
 
-        //private readonly ISampleDataService _sampleDataService;
-
-        //public ObservableCollection<SampleOrder> Source { get; } = new ObservableCollection<SampleOrder>();
         public DataView Source { get; set; }
-
-        //public DataGridViewModel(ISampleDataService sampleDataService)
-        //{
-        //    _sampleDataService = sampleDataService;
-        //}
 
         static DataTable table;
         static DataView view;
@@ -36,7 +23,7 @@ namespace App2.ViewModels
             table = new DataTable();
 
             // Impovised numbering of rows. Needs name.
-            // Note this changes indexing.
+            // Note this changes indexing!
             table.Columns.Add(new DataColumn("rij", typeof(char)));
 
             table.Columns.Add(new DataColumn("a", typeof(int)));
@@ -66,9 +53,6 @@ namespace App2.ViewModels
         {
             //Source.Clear();
 
-            //// TODO WTS: Replace this with your actual data
-            //var data = await _sampleDataService.GetGridDataAsync();
-
             //foreach (var item in data)
             //{
             //    Source.Add(item);
@@ -78,6 +62,7 @@ namespace App2.ViewModels
             //table.Rows[1].Field<int>(1) = 0;
             //table.Field<int>(1,1) = 0;
 
+            // Expriments on binding.
             view[1].Row[8] = 0;
             table.Rows[2][8] = 0;
         }

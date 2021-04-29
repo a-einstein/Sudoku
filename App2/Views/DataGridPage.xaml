@@ -8,7 +8,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:properties="clr-namespace:App2.Properties"
     mc:Ignorable="d"
-    d:DesignHeight="450" d:DesignWidth="800">
+    d:DesignHeight="450" d:DesignWidth="800"
+    >
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="48" />
@@ -28,33 +30,7 @@
                 ItemsSource="{Binding Source}"
                 Margin="{StaticResource SmallLeftRightMargin}"
                 KeyboardNavigation.TabNavigation="Once" HorizontalAlignment="Left" VerticalAlignment="Top" BorderThickness="1,1,1,1">
-                <!--<DataGrid.Columns>
-                    -->
-                <!--
-                        TODO WTS:
-                        Remove this column definitions and define columns for your data.
-                        Consider adding header properties to Resources.resw
-                    -->
-                <!--
-                    <DataGridTextColumn Binding="{Binding OrderID}" Header="OrderID" />
-                    <DataGridTextColumn Binding="{Binding OrderDate}" Header="OrderDate" />
-                    <DataGridTextColumn Binding="{Binding Company}" Header="Company" />
-                    <DataGridTextColumn Binding="{Binding ShipTo}" Header="ShipTo" />
-                    <DataGridTextColumn Binding="{Binding OrderTotal}" Header="OrderTotal" />
-                    <DataGridTextColumn Binding="{Binding Status}" Header="Status" />
-                    <DataGridTemplateColumn Header="Symbol">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock
-                                    Margin="{StaticResource SmallLeftRightMargin}"
-                                    HorizontalAlignment="Left"
-                                    Style="{StaticResource SmallIconStyle}"
-                                    Text="{Binding Symbol}" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>-->
-            </DataGrid>
+             </DataGrid>
         </Grid>
     </Grid>
 </Page>

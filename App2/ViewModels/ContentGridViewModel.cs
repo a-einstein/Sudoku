@@ -15,16 +15,12 @@ namespace App2.ViewModels
     public class ContentGridViewModel : ViewModelBase, INavigationAware
     {
         private readonly INavigationService _navigationService;
-        private readonly ISampleDataService _sampleDataService;
         private ICommand _navigateToDetailCommand;
-
-        public ICommand NavigateToDetailCommand => _navigateToDetailCommand ?? (_navigateToDetailCommand = new RelayCommand<SampleOrder>(NavigateToDetail));
 
         public ObservableCollection<SampleOrder> Source { get; } = new ObservableCollection<SampleOrder>();
 
-        public ContentGridViewModel(ISampleDataService sampleDataService, INavigationService navigationService)
+        public ContentGridViewModel(INavigationService navigationService)
         {
-            _sampleDataService = sampleDataService;
             _navigationService = navigationService;
         }
 
@@ -33,20 +29,10 @@ namespace App2.ViewModels
             Source.Clear();
 
             // TODO WTS: Replace this with your actual data
-            var data = await _sampleDataService.GetContentGridDataAsync();
-            foreach (var item in data)
-            {
-                Source.Add(item);
-            }
-        }
+         }
 
         public void OnNavigatedFrom()
         {
-        }
-
-        private void NavigateToDetail(SampleOrder order)
-        {
-            _navigationService.NavigateTo(typeof(ContentGridDetailViewModel).FullName, order.OrderID);
         }
     }
 }
