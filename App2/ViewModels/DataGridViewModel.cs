@@ -58,6 +58,10 @@ namespace App2.ViewModels
             {
                 ConvertToTable(Puzzle.Grid);
 
+                // TODO >>>
+                // Generalize Puzzle to work on both DataView[][] and int[][]?
+                // If at all possible.
+
                 //Puzzle.Handle();
             }
         }

@@ -155,7 +155,7 @@ namespace Sudoku
                 // (Get a local sort, update the fequencies in local assignments, pass a copy to the next recursion.)
                 foreach (var digit in sortedDigits)
                 {
-                    if (DigitAvailableForCell(digit, new Cell(row, column)))
+                    if (DigitAvailableForCell(digit, new CellLocation(row, column)))
                     {
                         // Try digit in cell.
                         grid[row][column] = digit;
@@ -200,7 +200,7 @@ namespace Sudoku
             return false;
         }
 
-        private static bool DigitAvailableForCell(int digit, Cell testCell)
+        private static bool DigitAvailableForCell(int digit, CellLocation testCell)
         {
             // TODO Make this conditional.
             //Debug.WriteLine();
@@ -217,7 +217,7 @@ namespace Sudoku
                     return false;
             }
 
-            var boxStart = new Cell(testCell.Row - (testCell.Row % 3), testCell.Column - (testCell.Column % 3));
+            var boxStart = new CellLocation(testCell.Row - (testCell.Row % 3), testCell.Column - (testCell.Column % 3));
 
             // Check remainder of box.
             for (int boxCellRow = boxStart.Row; boxCellRow < boxStart.Row + 3; boxCellRow++)

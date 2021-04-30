@@ -1,11 +1,11 @@
 ﻿namespace Sudoku
 {
-    struct Cell
+    struct CellLocation
     {
         public int Row;
         public int Column;
 
-        public Cell(int row, int column)
+        public CellLocation(int row, int column)
         {
             Row = row;
             Column = column;
