@@ -27,15 +27,15 @@ namespace App2.ViewModels
             // Note this changes indexing!
             //table.Columns.Add(new DataColumn("rij", typeof(char)));
 
-            table.Columns.Add(new DataColumn("a", typeof(int)));
-            table.Columns.Add(new DataColumn("b", typeof(int)));
-            table.Columns.Add(new DataColumn("c", typeof(int)));
-            table.Columns.Add(new DataColumn("d", typeof(int)));
-            table.Columns.Add(new DataColumn("e", typeof(int)));
-            table.Columns.Add(new DataColumn("f", typeof(int)));
-            table.Columns.Add(new DataColumn("g", typeof(int)));
-            table.Columns.Add(new DataColumn("h", typeof(int)));
-            table.Columns.Add(new DataColumn("i", typeof(int)));
+            table.Columns.Add(new DataColumn("a", typeof(CellContent)));
+            table.Columns.Add(new DataColumn("b", typeof(CellContent)));
+            table.Columns.Add(new DataColumn("c", typeof(CellContent)));
+            table.Columns.Add(new DataColumn("d", typeof(CellContent)));
+            table.Columns.Add(new DataColumn("e", typeof(CellContent)));
+            table.Columns.Add(new DataColumn("f", typeof(CellContent)));
+            table.Columns.Add(new DataColumn("g", typeof(CellContent)));
+            table.Columns.Add(new DataColumn("h", typeof(CellContent)));
+            table.Columns.Add(new DataColumn("i", typeof(CellContent)));
 
             //table.Rows.Add('a', 1, 2, 3, 4, 5, 6, 7, 8, 9);
             //table.Rows.Add('b', 2, 3, 4, 5, 6, 7, 8, 9, 1);
@@ -66,7 +66,7 @@ namespace App2.ViewModels
             }
         }
 
-        private static void ConvertToTable(int [][] grid)
+        private static void ConvertToTable(CellContent[][] grid)
         {
             for (int row = 0; row < 9; row++)
             {
