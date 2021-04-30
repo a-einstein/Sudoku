@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -87,7 +88,8 @@ namespace Sudoku
             Show();
 
             var timeStart = DateTime.Now;
-            var completed = CompleteFrom(0, 0, Grid);
+            // HACK See comment at CompleteFrom.
+            var completed = true /*CompleteFrom(0, 0, Grid)*/;
             var duration = DateTime.Now - timeStart;
 
             if (completed)
@@ -119,10 +121,15 @@ namespace Sudoku
             Trace.WriteLine(null);
         }
 
-        public static bool CompleteFrom(int row, int column, CellContent[][] grid)
-        {
+        // Currently gave up on the idea to make this generic for both a direct grid and a DataTable/DataView on CellContent.
+        // Problem is that DataTable and DataView don't implement IList on both the rows and columns.
+        // HACK Chose for this option to enable easy binding to the view.
+        public static bool CompleteFrom(int row, int column, DataRowCollection grid)
+        {    
+            var cellContent = (CellContent)grid[row][column];
+
             // Cell HAS a value.
-            if (grid[row][column].Digit != 0)
+            if (cellContent.Digit != 0)
             {
                 // Row not completed.
                 if (++column < 9)
@@ -157,7 +164,7 @@ namespace Sudoku
                     if (DigitAvailableForCell(digit, new CellLocation(row, column)))
                     {
                         // Try digit in cell.
-                        grid[row][column].Digit = digit;
+                        cellContent.Digit = digit;
 
                         // Row not completed.
                         if ((column + 1) < 9)
@@ -169,7 +176,7 @@ namespace Sudoku
                             else
                             {
                                 // Backtrack. Next digit.
-                                grid[row][column].Digit = 0;
+                                cellContent.Digit = 0;
                             }
 
                         }
@@ -183,7 +190,7 @@ namespace Sudoku
                             else
                             {
                                 // Backtrack. Next digit.
-                                grid[row][column].Digit = 0;
+                                cellContent.Digit = 0;
                             }
                         }
                         // No conflicts encountered for digit in remainder of grid.

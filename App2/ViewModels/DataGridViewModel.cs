@@ -37,16 +37,6 @@ namespace App2.ViewModels
             table.Columns.Add(new DataColumn("h", typeof(CellContent)));
             table.Columns.Add(new DataColumn("i", typeof(CellContent)));
 
-            //table.Rows.Add('a', 1, 2, 3, 4, 5, 6, 7, 8, 9);
-            //table.Rows.Add('b', 2, 3, 4, 5, 6, 7, 8, 9, 1);
-            //table.Rows.Add('c', 3, 4, 5, 6, 7, 8, 9, 1, 2);
-            //table.Rows.Add('d', 4, 5, 6, 7, 8, 9, 1, 2, 3);
-            //table.Rows.Add('e', 5, 6, 7, 8, 9, 1, 2, 3, 4);
-            //table.Rows.Add('f', 6, 7, 8, 9, 1, 2, 3, 4, 5);
-            //table.Rows.Add('g', 7, 8, 9, 1, 2, 3, 4, 5, 6);
-            //table.Rows.Add('h', 8, 9, 1, 2, 3, 4, 5, 6, 7);
-            //table.Rows.Add('i', 9, 1, 2, 3, 4, 5, 6, 7, 8);
-
             Source = view = table.DefaultView;
         }
 
@@ -58,11 +48,7 @@ namespace App2.ViewModels
             {
                 ConvertToTable(Puzzle.Grid);
 
-                // TODO >>>
-                // Generalize Puzzle to work on both DataView[][] and int[][]?
-                // If at all possible.
-
-                //Puzzle.Handle();
+                Puzzle.CompleteFrom(0, 0, table.Rows);
             }
         }
 
