@@ -14,7 +14,6 @@ namespace Sudoku
         public static CellContent[][] Grid
         {
             get { return grid; }
-            set { grid = value; }
         }
 
         private static DigitFrequencies digitFrequencies = new DigitFrequencies();
@@ -88,7 +87,7 @@ namespace Sudoku
             Show();
 
             var timeStart = DateTime.Now;
-            var completed = CompleteFrom(0, 0);
+            var completed = CompleteFrom(0, 0, Grid);
             var duration = DateTime.Now - timeStart;
 
             if (completed)
@@ -120,7 +119,7 @@ namespace Sudoku
             Trace.WriteLine(null);
         }
 
-        public static bool CompleteFrom(int row, int column)
+        public static bool CompleteFrom(int row, int column, CellContent[][] grid)
         {
             // Cell HAS a value.
             if (grid[row][column].Digit != 0)
@@ -129,13 +128,13 @@ namespace Sudoku
                 if (++column < 9)
                 {
                     // Next cell in row.
-                    return CompleteFrom(row, column);
+                    return CompleteFrom(row, column, grid);
                 }
                 // Rows not completed.
                 else if (++row < 9)
                 {
                     // Start on next row.
-                    return CompleteFrom(row, 0);
+                    return CompleteFrom(row, 0, grid);
                 }
                 // All completed from start.
                 else
@@ -164,7 +163,7 @@ namespace Sudoku
                         if ((column + 1) < 9)
                         {
                             // Next cell in row.
-                            if (CompleteFrom(row, column + 1))
+                            if (CompleteFrom(row, column + 1, grid))
                                 // No conflicts encountered for digit in remainder of grid.
                                 return true;
                             else
@@ -178,7 +177,7 @@ namespace Sudoku
                         else if ((row + 1) < 9)
                         {
                             // Next row.
-                            if (CompleteFrom(row + 1, 0))
+                            if (CompleteFrom(row + 1, 0, grid))
                                 // No conflicts encountered for digit in remainder of grid.
                                 return true;
                             else
