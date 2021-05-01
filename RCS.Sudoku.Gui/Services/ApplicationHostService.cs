@@ -63,7 +63,7 @@ namespace RCS.Sudoku.Gui.Services
                 _rightPaneService.Initialize(_shellWindow.GetRightPaneFrame(), _shellWindow.GetSplitView());
                 _shellWindow.ShowWindow();
 
-                _navigationService.NavigateTo(typeof(DataGridViewModel).FullName);
+                _navigationService.NavigateTo(typeof(SudokuViewModel).FullName);
 
                 await Task.CompletedTask;
             }

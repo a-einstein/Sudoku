@@ -2,9 +2,9 @@
 
 namespace RCS.Sudoku.Gui.Views
 {
-    public partial class DataGridPage : Page
+    public partial class SudokuPage : Page
     {
-        public DataGridPage()
+        public SudokuPage()
         {
             InitializeComponent();
         }

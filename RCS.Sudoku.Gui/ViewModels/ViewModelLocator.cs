@@ -20,8 +20,8 @@ namespace RCS.Sudoku.Gui.ViewModels
         public ShellViewModel ShellViewModel
             => SimpleIoc.Default.GetInstance<ShellViewModel>();
 
-        public DataGridViewModel DataGridViewModel
-            => SimpleIoc.Default.GetInstance<DataGridViewModel>();
+        public SudokuViewModel SudokuViewModel
+            => SimpleIoc.Default.GetInstance<SudokuViewModel>();
 
         public SettingsViewModel SettingsViewModel
             => SimpleIoc.Default.GetInstance<SettingsViewModel>();
@@ -49,7 +49,7 @@ namespace RCS.Sudoku.Gui.ViewModels
             SimpleIoc.Default.Register<ShellViewModel>();
 
             // Pages
-            Register<DataGridViewModel, DataGridPage>();
+            Register<SudokuViewModel, SudokuPage>();
             Register<SettingsViewModel, SettingsPage>();
         }
 

@@ -7,10 +7,10 @@ using System.Data;
 
 namespace RCS.Sudoku.Gui.ViewModels
 {
-    public class DataGridViewModel : ViewModelBase, INavigationAware
+    public class SudokuViewModel : ViewModelBase, INavigationAware
     {
         [PreferredConstructor]
-        public DataGridViewModel()
+        public SudokuViewModel()
         {
             InitTable();
         }
