@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -9,12 +10,11 @@ namespace Sudoku
     public class Puzzle
     {
         // Use jagged array for (supposed) speed and transferability.
-        private static int[][] grid = new int[9][];
+        private static CellContent[][] grid = new CellContent[9][];
 
-        public static int[][] Grid
+        public static CellContent[][] Grid
         {
             get { return grid; }
-            set { grid = value; }
         }
 
         private static DigitFrequencies digitFrequencies = new DigitFrequencies();
@@ -57,14 +57,14 @@ namespace Sudoku
                         return false;
                     }
 
-                    grid[row] = new int[9];
+                    grid[row] = new CellContent[9];
 
                     for (int column = 0; column < 9; column++)
                     {
                         // Currently redundant as the line should be filtered.
                         if (int.TryParse(line[column].ToString(), out int digit))
                         {
-                            grid[row][column] = digit;
+                            grid[row][column] = new CellContent(digit);
 
                             if (digit != 0)
                                 digitFrequencies[digit]++;
@@ -88,7 +88,8 @@ namespace Sudoku
             Show();
 
             var timeStart = DateTime.Now;
-            var completed = CompleteFrom(0, 0);
+            // HACK See comment at CompleteFrom.
+            var completed = true /*CompleteFrom(0, 0, Grid)*/;
             var duration = DateTime.Now - timeStart;
 
             if (completed)
@@ -120,22 +121,27 @@ namespace Sudoku
             Trace.WriteLine(null);
         }
 
-        public static bool CompleteFrom(int row, int column)
-        {
+        // Currently gave up on the idea to make this generic for both a direct grid and a DataTable/DataView on CellContent.
+        // Problem is that DataTable and DataView don't implement IList on both the rows and columns.
+        // HACK Chose for this option to enable easy binding to the view.
+        public static bool CompleteFrom(int row, int column, DataRowCollection grid)
+        {    
+            var cellContent = (CellContent)grid[row][column];
+
             // Cell HAS a value.
-            if (grid[row][column] != 0)
+            if (cellContent.Digit != 0)
             {
                 // Row not completed.
                 if (++column < 9)
                 {
                     // Next cell in row.
-                    return CompleteFrom(row, column);
+                    return CompleteFrom(row, column, grid);
                 }
                 // Rows not completed.
                 else if (++row < 9)
                 {
                     // Start on next row.
-                    return CompleteFrom(row, 0);
+                    return CompleteFrom(row, 0, grid);
                 }
                 // All completed from start.
                 else
@@ -155,22 +161,22 @@ namespace Sudoku
                 // (Get a local sort, update the fequencies in local assignments, pass a copy to the next recursion.)
                 foreach (var digit in sortedDigits)
                 {
-                    if (DigitAvailableForCell(digit, new Cell(row, column)))
+                    if (DigitAvailableForCell(digit, new CellLocation(row, column)))
                     {
                         // Try digit in cell.
-                        grid[row][column] = digit;
+                        cellContent.Digit = digit;
 
                         // Row not completed.
                         if ((column + 1) < 9)
                         {
                             // Next cell in row.
-                            if (CompleteFrom(row, column + 1))
+                            if (CompleteFrom(row, column + 1, grid))
                                 // No conflicts encountered for digit in remainder of grid.
                                 return true;
                             else
                             {
                                 // Backtrack. Next digit.
-                                grid[row][column] = 0;
+                                cellContent.Digit = 0;
                             }
 
                         }
@@ -178,13 +184,13 @@ namespace Sudoku
                         else if ((row + 1) < 9)
                         {
                             // Next row.
-                            if (CompleteFrom(row + 1, 0))
+                            if (CompleteFrom(row + 1, 0, grid))
                                 // No conflicts encountered for digit in remainder of grid.
                                 return true;
                             else
                             {
                                 // Backtrack. Next digit.
-                                grid[row][column] = 0;
+                                cellContent.Digit = 0;
                             }
                         }
                         // No conflicts encountered for digit in remainder of grid.
@@ -200,7 +206,7 @@ namespace Sudoku
             return false;
         }
 
-        private static bool DigitAvailableForCell(int digit, Cell testCell)
+        private static bool DigitAvailableForCell(int digit, CellLocation testCell)
         {
             // TODO Make this conditional.
             //Debug.WriteLine();
@@ -209,15 +215,15 @@ namespace Sudoku
             for (int i = 0; i < 9; i++)
             {
                 // Check along column at cell.
-                if (grid[testCell.Row][i] == digit)
+                if (grid[testCell.Row][i].Digit == digit)
                     return false;
 
                 // Check along row at cell.
-                if (grid[i][testCell.Column] == digit)
+                if (grid[i][testCell.Column].Digit == digit)
                     return false;
             }
 
-            var boxStart = new Cell(testCell.Row - (testCell.Row % 3), testCell.Column - (testCell.Column % 3));
+            var boxStart = new CellLocation(testCell.Row - (testCell.Row % 3), testCell.Column - (testCell.Column % 3));
 
             // Check remainder of box.
             for (int boxCellRow = boxStart.Row; boxCellRow < boxStart.Row + 3; boxCellRow++)
@@ -234,7 +240,7 @@ namespace Sudoku
 
                     //Debug.WriteLine($"boxCell({boxCellRow},{boxcellColumn}) = {puzzle[boxCellRow, boxcellColumn]}");
 
-                    if (grid[boxCellRow][boxcellColumn] == digit)
+                    if (grid[boxCellRow][boxcellColumn].Digit == digit)
                         return false;
                 }
             }

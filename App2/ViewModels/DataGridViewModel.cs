@@ -14,10 +14,8 @@ namespace App2.ViewModels
             InitTable();
         }
 
-        public DataView Source { get; set; }
-
+        public DataTable Source { get; set; }
         static DataTable table;
-        static DataView view;
 
         private void InitTable()
         {
@@ -27,42 +25,30 @@ namespace App2.ViewModels
             // Note this changes indexing!
             //table.Columns.Add(new DataColumn("rij", typeof(char)));
 
-            table.Columns.Add(new DataColumn("a", typeof(int)));
-            table.Columns.Add(new DataColumn("b", typeof(int)));
-            table.Columns.Add(new DataColumn("c", typeof(int)));
-            table.Columns.Add(new DataColumn("d", typeof(int)));
-            table.Columns.Add(new DataColumn("e", typeof(int)));
-            table.Columns.Add(new DataColumn("f", typeof(int)));
-            table.Columns.Add(new DataColumn("g", typeof(int)));
-            table.Columns.Add(new DataColumn("h", typeof(int)));
-            table.Columns.Add(new DataColumn("i", typeof(int)));
+            table.Columns.Add(new DataColumn("a", typeof(CellContent)));
+            table.Columns.Add(new DataColumn("b", typeof(CellContent)));
+            table.Columns.Add(new DataColumn("c", typeof(CellContent)));
+            table.Columns.Add(new DataColumn("d", typeof(CellContent)));
+            table.Columns.Add(new DataColumn("e", typeof(CellContent)));
+            table.Columns.Add(new DataColumn("f", typeof(CellContent)));
+            table.Columns.Add(new DataColumn("g", typeof(CellContent)));
+            table.Columns.Add(new DataColumn("h", typeof(CellContent)));
+            table.Columns.Add(new DataColumn("i", typeof(CellContent)));
 
-            //table.Rows.Add('a', 1, 2, 3, 4, 5, 6, 7, 8, 9);
-            //table.Rows.Add('b', 2, 3, 4, 5, 6, 7, 8, 9, 1);
-            //table.Rows.Add('c', 3, 4, 5, 6, 7, 8, 9, 1, 2);
-            //table.Rows.Add('d', 4, 5, 6, 7, 8, 9, 1, 2, 3);
-            //table.Rows.Add('e', 5, 6, 7, 8, 9, 1, 2, 3, 4);
-            //table.Rows.Add('f', 6, 7, 8, 9, 1, 2, 3, 4, 5);
-            //table.Rows.Add('g', 7, 8, 9, 1, 2, 3, 4, 5, 6);
-            //table.Rows.Add('h', 8, 9, 1, 2, 3, 4, 5, 6, 7);
-            //table.Rows.Add('i', 9, 1, 2, 3, 4, 5, 6, 7, 8);
-
-            Source = view = table.DefaultView;
+            Source = table;
         }
 
         public async void OnNavigatedTo(object parameter)
         {
-            //Source.Clear();
-
             if (Puzzle.Read())
             {
                 ConvertToTable(Puzzle.Grid);
 
-                //Puzzle.Handle();
+                Puzzle.CompleteFrom(0, 0, table.Rows);
             }
         }
 
-        private static void ConvertToTable(int [][] grid)
+        private static void ConvertToTable(CellContent[][] grid)
         {
             for (int row = 0; row < 9; row++)
             {
