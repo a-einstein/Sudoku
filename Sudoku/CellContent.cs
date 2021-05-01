@@ -2,14 +2,14 @@
 {
     public class CellContent
     {
-        public int Digit;
-        public bool Original;
+        public int Digit { get; set; }
+        public bool Original { get; }
 
         public CellContent(int digit)
         {
             // Change to int?.
             Digit = digit;
-            Original = (digit != 0) ? true : false;
+            Original = digit != 0;
         }
 
         public override string ToString()

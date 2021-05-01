@@ -14,10 +14,8 @@ namespace App2.ViewModels
             InitTable();
         }
 
-        public DataView Source { get; set; }
-
+        public DataTable Source { get; set; }
         static DataTable table;
-        static DataView view;
 
         private void InitTable()
         {
@@ -37,13 +35,11 @@ namespace App2.ViewModels
             table.Columns.Add(new DataColumn("h", typeof(CellContent)));
             table.Columns.Add(new DataColumn("i", typeof(CellContent)));
 
-            Source = view = table.DefaultView;
+            Source = table;
         }
 
         public async void OnNavigatedTo(object parameter)
         {
-            //Source.Clear();
-
             if (Puzzle.Read())
             {
                 ConvertToTable(Puzzle.Grid);
