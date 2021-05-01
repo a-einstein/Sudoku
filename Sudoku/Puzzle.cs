@@ -111,7 +111,7 @@ namespace Sudoku
                 if (row % 3 == 0) Trace.WriteLine(boxLine);
 
                 for (int column = 0; column < 9; column++)
-                    Trace.Write($"{(column % 3 == 0 ? "| " : " ")}{grid[row][column]} ");
+                    Trace.Write($"{(column % 3 == 0 ? "| " : " ")}{grid[row][column].ToString(true)} ");
 
                 Trace.WriteLine("|");
             }
@@ -129,7 +129,7 @@ namespace Sudoku
             var cellContent = (CellContent)grid[row][column];
 
             // Cell HAS a value.
-            if (cellContent.Digit != 0)
+            if (cellContent.Digit.HasValue)
             {
                 // Row not completed.
                 if (++column < 9)
@@ -176,7 +176,7 @@ namespace Sudoku
                             else
                             {
                                 // Backtrack. Next digit.
-                                cellContent.Digit = 0;
+                                cellContent.Digit = null;
                             }
 
                         }
@@ -190,7 +190,7 @@ namespace Sudoku
                             else
                             {
                                 // Backtrack. Next digit.
-                                cellContent.Digit = 0;
+                                cellContent.Digit = null;
                             }
                         }
                         // No conflicts encountered for digit in remainder of grid.
