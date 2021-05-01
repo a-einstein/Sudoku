@@ -1,14 +1,12 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Ioc;
+using RCS.Sudoku.Gui.Contracts.Services;
+using RCS.Sudoku.Gui.Contracts.Views;
+using RCS.Sudoku.Gui.ViewModels;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-using App2.Contracts.Services;
-using App2.Contracts.Views;
-using App2.ViewModels;
-
-using GalaSoft.MvvmLight.Ioc;
-
-namespace App2.Services
+namespace RCS.Sudoku.Gui.Services
 {
     public class ApplicationHostService : IApplicationHostService
     {

@@ -1,13 +1,13 @@
 ﻿<controls:MetroWindow
-    x:Class="App2.Views.ShellWindow"
+    x:Class="RCS.Sudoku.Gui.Views.ShellWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-    xmlns:properties="clr-namespace:App2.Properties"
-    xmlns:behaviors="clr-namespace:App2.Behaviors"
+    xmlns:properties="clr-namespace:RCS.Sudoku.Gui.Properties"
+    xmlns:behaviors="clr-namespace:RCS.Sudoku.Gui.Behaviors"
     xmlns:Fluent="urn:fluent-ribbon"
     ShowSystemMenuOnRightClick="False"
     Loaded="OnLoaded"
@@ -55,7 +55,7 @@
                                 <behaviors:BackstageTabNavigationBehavior x:Name="navigationBehavior" />
                             </i:Interaction.Behaviors>
                             <Fluent:BackstageTabItem
-                                Tag="App2.ViewModels.SettingsViewModel"
+                                Tag="RCS.Sudoku.Gui.ViewModels.SettingsViewModel"
                                 Header="{x:Static properties:Resources.ShellPageRibbonBackstageTabSettingsHeader}" />
                         </Fluent:BackstageTabControl>
                     </Fluent:Backstage>

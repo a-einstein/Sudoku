@@ -1,16 +1,16 @@
-﻿using App2.Contracts.Services;
-using App2.Contracts.Views;
-using App2.Core.Contracts.Services;
-using App2.Core.Services;
-using App2.Models;
-using App2.Services;
-using App2.Views;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Extensions.Configuration;
+using RCS.Sudoku.Common.Contracts.Services;
+using RCS.Sudoku.Common.Services;
+using RCS.Sudoku.Gui.Contracts.Services;
+using RCS.Sudoku.Gui.Contracts.Views;
+using RCS.Sudoku.Gui.Models;
+using RCS.Sudoku.Gui.Services;
+using RCS.Sudoku.Gui.Views;
 using System.Windows.Controls;
 
-namespace App2.ViewModels
+namespace RCS.Sudoku.Gui.ViewModels
 {
     public class ViewModelLocator
     {

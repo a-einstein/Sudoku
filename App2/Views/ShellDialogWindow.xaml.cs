@@ -1,11 +1,9 @@
-﻿using System.Windows.Controls;
+﻿using MahApps.Metro.Controls;
+using RCS.Sudoku.Gui.Contracts.Views;
+using RCS.Sudoku.Gui.ViewModels;
+using System.Windows.Controls;
 
-using App2.Contracts.Views;
-using App2.ViewModels;
-
-using MahApps.Metro.Controls;
-
-namespace App2.Views
+namespace RCS.Sudoku.Gui.Views
 {
     public partial class ShellDialogWindow : MetroWindow, IShellDialogWindow
     {

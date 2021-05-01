@@ -1,12 +1,11 @@
-﻿using System;
+﻿using RCS.Sudoku.Gui.Contracts.Services;
+using RCS.Sudoku.Gui.Contracts.ViewModels;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 
-using App2.Contracts.Services;
-using App2.Contracts.ViewModels;
-
-namespace App2.Services
+namespace RCS.Sudoku.Gui.Services
 {
     public class NavigationService : INavigationService
     {

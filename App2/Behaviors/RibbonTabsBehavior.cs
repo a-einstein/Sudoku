@@ -1,16 +1,12 @@
-﻿using System.Collections.ObjectModel;
+﻿using Fluent;
+using Microsoft.Xaml.Behaviors;
+using RCS.Sudoku.Gui.Contracts.Services;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
-using App2.Contracts.Services;
-using App2.Models;
-
-using Fluent;
-
-using Microsoft.Xaml.Behaviors;
-
-namespace App2.Behaviors
+namespace RCS.Sudoku.Gui.Behaviors
 {
     // See how to add new Tabs and new groups in Home Tab from your pages https://github.com/microsoft/WindowsTemplateStudio/blob/release/docs/WPF/projectTypes/ribbon.md
     public class RibbonTabsBehavior : Behavior<Ribbon>

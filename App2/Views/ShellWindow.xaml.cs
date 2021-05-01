@@ -1,17 +1,12 @@
-﻿using System;
+﻿using Fluent;
+using MahApps.Metro.Controls;
+using RCS.Sudoku.Gui.Behaviors;
+using RCS.Sudoku.Gui.Contracts.Services;
+using RCS.Sudoku.Gui.Contracts.Views;
 using System.Windows;
 using System.Windows.Controls;
 
-using App2.Behaviors;
-using App2.Contracts.Services;
-using App2.Contracts.Views;
-using App2.ViewModels;
-
-using Fluent;
-
-using MahApps.Metro.Controls;
-
-namespace App2.Views
+namespace RCS.Sudoku.Gui.Views
 {
     public partial class ShellWindow : MetroWindow, IShellWindow, IRibbonWindow
     {

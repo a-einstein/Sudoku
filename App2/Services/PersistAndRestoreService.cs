@@ -1,12 +1,11 @@
-﻿using System;
+﻿using RCS.Sudoku.Common.Contracts.Services;
+using RCS.Sudoku.Gui.Contracts.Services;
+using RCS.Sudoku.Gui.Models;
+using System;
 using System.Collections;
 using System.IO;
 
-using App2.Contracts.Services;
-using App2.Core.Contracts.Services;
-using App2.Models;
-
-namespace App2.Services
+namespace RCS.Sudoku.Gui.Services
 {
     public class PersistAndRestoreService : IPersistAndRestoreService
     {

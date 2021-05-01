@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Controls;
 
-namespace App2.Contracts.Services
+namespace RCS.Sudoku.Gui.Contracts.Services
 {
     public interface INavigationService : GalaSoft.MvvmLight.Views.INavigationService
     {

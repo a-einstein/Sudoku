@@ -1,4 +1,4 @@
-﻿namespace Sudoku
+﻿namespace RCS.Sudoku.Common
 {
     public class CellContent
     {

@@ -1,16 +1,13 @@
-﻿using System.IO;
+﻿using GalaSoft.MvvmLight.Ioc;
+using Microsoft.Extensions.Configuration;
+using RCS.Sudoku.Gui.Contracts.Services;
+using RCS.Sudoku.Gui.ViewModels;
+using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Threading;
 
-using App2.Contracts.Services;
-using App2.ViewModels;
-
-using GalaSoft.MvvmLight.Ioc;
-
-using Microsoft.Extensions.Configuration;
-
-namespace App2
+namespace RCS.Sudoku.Gui
 {
     // For more inforation about application lifecyle events see https://docs.microsoft.com/dotnet/framework/wpf/app-development/application-management-overview
 

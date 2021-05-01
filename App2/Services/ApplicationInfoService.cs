@@ -1,10 +1,9 @@
-﻿using System;
+﻿using RCS.Sudoku.Gui.Contracts.Services;
+using System;
 using System.Diagnostics;
 using System.Reflection;
 
-using App2.Contracts.Services;
-
-namespace App2.Services
+namespace RCS.Sudoku.Gui.Services
 {
     public class ApplicationInfoService : IApplicationInfoService
     {

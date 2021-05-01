@@ -1,4 +1,4 @@
-﻿namespace App2.Models
+﻿namespace RCS.Sudoku.Gui.Models
 {
     public enum AppTheme
     {

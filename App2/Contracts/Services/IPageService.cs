@@ -1,9 +1,8 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight;
+using System;
 using System.Windows.Controls;
 
-using GalaSoft.MvvmLight;
-
-namespace App2.Contracts.Services
+namespace RCS.Sudoku.Gui.Contracts.Services
 {
     public interface IPageService
     {

@@ -1,10 +1,8 @@
-﻿using System.Windows.Controls;
+﻿using MahApps.Metro.Controls;
+using RCS.Sudoku.Gui.Behaviors;
+using System.Windows.Controls;
 
-using App2.Behaviors;
-
-using MahApps.Metro.Controls;
-
-namespace App2.Contracts.Views
+namespace RCS.Sudoku.Gui.Contracts.Views
 {
     public interface IShellWindow
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace App2.Contracts.Services
+namespace RCS.Sudoku.Gui.Contracts.Services
 {
     public interface IApplicationInfoService
     {

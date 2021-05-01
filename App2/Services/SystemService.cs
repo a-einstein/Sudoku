@@ -1,8 +1,7 @@
-﻿using System.Diagnostics;
+﻿using RCS.Sudoku.Gui.Contracts.Services;
+using System.Diagnostics;
 
-using App2.Contracts.Services;
-
-namespace App2.Services
+namespace RCS.Sudoku.Gui.Services
 {
     public class SystemService : ISystemService
     {

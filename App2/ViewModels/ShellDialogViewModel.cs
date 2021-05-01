@@ -1,10 +1,9 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using System;
 using System.Windows.Input;
 
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-
-namespace App2.ViewModels
+namespace RCS.Sudoku.Gui.ViewModels
 {
     public class ShellDialogViewModel : ViewModelBase
     {

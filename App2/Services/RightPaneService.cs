@@ -1,13 +1,11 @@
-﻿using System;
+﻿using MahApps.Metro.Controls;
+using RCS.Sudoku.Gui.Contracts.Services;
+using RCS.Sudoku.Gui.Contracts.ViewModels;
+using System;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 
-using App2.Contracts.Services;
-using App2.Contracts.ViewModels;
-
-using MahApps.Metro.Controls;
-
-namespace App2.Services
+namespace RCS.Sudoku.Gui.Services
 {
     public class RightPaneService : IRightPaneService
     {

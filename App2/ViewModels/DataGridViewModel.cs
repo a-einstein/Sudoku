@@ -1,10 +1,11 @@
-﻿using App2.Contracts.ViewModels;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
-using Sudoku;
+using RCS.Sudoku.Common;
+using RCS.Sudoku.Console;
+using RCS.Sudoku.Gui.Contracts.ViewModels;
 using System.Data;
 
-namespace App2.ViewModels
+namespace RCS.Sudoku.Gui.ViewModels
 {
     public class DataGridViewModel : ViewModelBase, INavigationAware
     {

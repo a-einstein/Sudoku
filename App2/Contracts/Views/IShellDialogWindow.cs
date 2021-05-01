@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace App2.Contracts.Views
+namespace RCS.Sudoku.Gui.Contracts.Views
 {
     public interface IShellDialogWindow
     {

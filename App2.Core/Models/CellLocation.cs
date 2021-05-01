@@ -1,6 +1,6 @@
-﻿namespace Sudoku
+﻿namespace RCS.Sudoku.Common
 {
-    struct CellLocation
+    public struct CellLocation
     {
         public int Row;
         public int Column;

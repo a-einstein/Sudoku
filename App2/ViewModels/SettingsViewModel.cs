@@ -1,14 +1,12 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using RCS.Sudoku.Gui.Contracts.Services;
+using RCS.Sudoku.Gui.Contracts.ViewModels;
+using RCS.Sudoku.Gui.Models;
+using System;
 using System.Windows.Input;
 
-using App2.Contracts.Services;
-using App2.Contracts.ViewModels;
-using App2.Models;
-
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-
-namespace App2.ViewModels
+namespace RCS.Sudoku.Gui.ViewModels
 {
     // TODO WTS: Change the URL for your privacy policy in the appsettings.json file, currently set to https://YourPrivacyUrlGoesHere
     public class SettingsViewModel : ViewModelBase, INavigationAware

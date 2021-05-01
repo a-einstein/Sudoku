@@ -1,12 +1,10 @@
-﻿using System.Collections.ObjectModel;
+﻿using Fluent;
+using GalaSoft.MvvmLight;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Data;
 
-using Fluent;
-
-using GalaSoft.MvvmLight;
-
-namespace App2.Behaviors
+namespace RCS.Sudoku.Gui.Behaviors
 {
     public class RibbonPageConfiguration
     {

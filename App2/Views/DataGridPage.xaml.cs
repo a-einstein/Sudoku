@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace App2.Views
+namespace RCS.Sudoku.Gui.Views
 {
     public partial class DataGridPage : Page
     {

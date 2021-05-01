@@ -1,11 +1,9 @@
-﻿using System.IO;
+﻿using Newtonsoft.Json;
+using RCS.Sudoku.Common.Contracts.Services;
+using System.IO;
 using System.Text;
 
-using App2.Core.Contracts.Services;
-
-using Newtonsoft.Json;
-
-namespace App2.Core.Services
+namespace RCS.Sudoku.Common.Services
 {
     public class FileService : IFileService
     {

@@ -1,4 +1,4 @@
-﻿namespace App2.Contracts.ViewModels
+﻿namespace RCS.Sudoku.Gui.Contracts.ViewModels
 {
     public interface INavigationAware
     {

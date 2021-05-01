@@ -1,14 +1,11 @@
-﻿using System;
+﻿using ControlzEx.Theming;
+using MahApps.Metro.Theming;
+using RCS.Sudoku.Gui.Contracts.Services;
+using RCS.Sudoku.Gui.Models;
+using System;
 using System.Windows;
 
-using App2.Contracts.Services;
-using App2.Models;
-
-using ControlzEx.Theming;
-
-using MahApps.Metro.Theming;
-
-namespace App2.Services
+namespace RCS.Sudoku.Gui.Services
 {
     public class ThemeSelectorService : IThemeSelectorService
     {

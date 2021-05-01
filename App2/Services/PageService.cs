@@ -1,16 +1,12 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Ioc;
+using RCS.Sudoku.Gui.Contracts.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
 
-using App2.Contracts.Services;
-using App2.ViewModels;
-using App2.Views;
-
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Ioc;
-
-namespace App2.Services
+namespace RCS.Sudoku.Gui.Services
 {
     public class PageService : IPageService
     {

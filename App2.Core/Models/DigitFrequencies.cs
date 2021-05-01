@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Sudoku
+namespace RCS.Sudoku.Common
 {
-    internal class DigitFrequencies : Dictionary<int, int>
+    public class DigitFrequencies : Dictionary<int, int>
     {
         public DigitFrequencies()
         {

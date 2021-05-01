@@ -1,9 +1,8 @@
-﻿using System;
+﻿using MahApps.Metro.Controls;
+using System;
 using System.Windows.Controls;
 
-using MahApps.Metro.Controls;
-
-namespace App2.Contracts.Services
+namespace RCS.Sudoku.Gui.Contracts.Services
 {
     public interface IRightPaneService
     {

@@ -1,4 +1,4 @@
-﻿namespace App2.Core.Contracts.Services
+﻿namespace RCS.Sudoku.Common.Contracts.Services
 {
     public interface IFileService
     {
