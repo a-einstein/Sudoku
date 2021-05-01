@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sudoku", "Sudoku\Sudoku.csproj", "{4182E336-4CDB-46A3-99E9-952C33048E21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RCS.Sudoku.Console", "Sudoku\RCS.Sudoku.Console.csproj", "{4182E336-4CDB-46A3-99E9-952C33048E21}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App2", "App2\App2.csproj", "{50DBD97D-FF7D-4055-B37F-0192E9514E0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RCS.Sudoku.Gui", "App2\RCS.Sudoku.Gui.csproj", "{50DBD97D-FF7D-4055-B37F-0192E9514E0D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App2.Core", "App2.Core\App2.Core.csproj", "{5623D69D-B5B4-4E89-A6DF-32914484B374}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RCS.Sudoku.Common", "App2.Core\RCS.Sudoku.Common.csproj", "{5623D69D-B5B4-4E89-A6DF-32914484B374}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

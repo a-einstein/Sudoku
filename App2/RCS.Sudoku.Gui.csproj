@@ -13,8 +13,8 @@
     <PackageReference Include="MvvmLightLibsStd10" Version="5.4.1.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\App2.Core\App2.Core.csproj" />
-    <ProjectReference Include="..\Sudoku\Sudoku.csproj" />
+    <ProjectReference Include="..\App2.Core\RCS.Sudoku.Common.csproj" />
+    <ProjectReference Include="..\Sudoku\RCS.Sudoku.Console.csproj" />
   </ItemGroup>
 
   <ItemGroup>
