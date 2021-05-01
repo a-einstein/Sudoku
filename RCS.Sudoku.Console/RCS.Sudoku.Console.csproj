@@ -7,7 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\App2.Core\RCS.Sudoku.Common.csproj" />
+	  <ProjectReference Include="..\RCS.Sudoku.Common\RCS.Sudoku.Common.csproj" />
 	</ItemGroup>
 
 </Project>
