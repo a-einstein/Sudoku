@@ -147,15 +147,6 @@
   <data name="SettingsPageRadioButtonWindowsDefaultTheme" xml:space="preserve">
     <value>Default</value>
   </data>
-  <data name="DataGridPageTitle" xml:space="preserve">
-    <value>Sudoku</value>
-  </data>
-  <data name="ContentGridPageTitle" xml:space="preserve">
-    <value>ContentGrid</value>
-  </data>
-  <data name="MainPageTitle" xml:space="preserve">
-    <value>Main</value>
-  </data>
   <data name="ShellPageRibbonHomeGroupCommon1Header" xml:space="preserve">
     <value>Common Group 1</value>
   </data>
@@ -167,5 +158,17 @@
   </data>
   <data name="AppDisplayName" xml:space="preserve">
     <value>Robert's Sudoku Solver</value>
+  </data>
+  <data name="FileResultLabel" xml:space="preserve">
+    <value>File:</value>
+  </data>
+  <data name="FileReadText" xml:space="preserve">
+    <value>Read</value>
+  </data>
+  <data name="SolveText" xml:space="preserve">
+    <value>Solve</value>
+  </data>
+  <data name="SolveResultLabel" xml:space="preserve">
+    <value>Result:</value>
   </data>
 </root>

@@ -20,7 +20,7 @@ namespace RCS.Sudoku.Common
         private static DigitFrequencies digitFrequencies = new DigitFrequencies();
         private static int[] sortedDigits;
 
-        public static bool Read()
+        public static bool Read(out string result)
         {
             var initialDirectory = Path.GetFullPath(Directory.GetCurrentDirectory() + "\\..\\..\\..\\..\\..\\puzzles");
 
@@ -40,7 +40,8 @@ namespace RCS.Sudoku.Common
 
                 if (fileLines.Length != 9)
                 {
-                    Trace.WriteLine($"Error: Puzzle does not have 9 rows.");
+                    result = $"Error: Puzzle does not have 9 rows.";
+                    Trace.WriteLine(result);
                     return false;
                 }
 
@@ -53,7 +54,8 @@ namespace RCS.Sudoku.Common
 
                     if (line.Length != 9)
                     {
-                        Trace.WriteLine($"Error: Row {row + 1} does not have 9 digits.");
+                        result = $"Error: Row {row + 1} does not have 9 digits.";
+                        Trace.WriteLine(result);
                         return false;
                     }
 
@@ -71,18 +73,26 @@ namespace RCS.Sudoku.Common
                         }
                         else
                         {
-                            Trace.WriteLine($"Error: Row {row + 1} does not have digits only.");
+                            result = $"Error: Row {row + 1} does not have digits only.";
+                            Trace.WriteLine(result);
                             return false;
                         }
                     }
                 }
+
+                sortedDigits = digitFrequencies.SortedDigits();
+
+                result = filename;
+                return true;
             }
-
-            sortedDigits = digitFrequencies.SortedDigits();
-
-            return true;
+            else
+            {
+                result = "No file read.";
+                return false;
+            }
         }
 
+        // TODO Move to caller.
         public static void Handle()
         {
             Show();

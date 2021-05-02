@@ -70,29 +70,20 @@ namespace RCS.Sudoku.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ContentGrid.
+        ///   Looks up a localized string similar to Read.
         /// </summary>
-        public static string ContentGridPageTitle {
+        public static string FileReadText {
             get {
-                return ResourceManager.GetString("ContentGridPageTitle", resourceCulture);
+                return ResourceManager.GetString("FileReadText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sudoku.
+        ///   Looks up a localized string similar to File:.
         /// </summary>
-        public static string DataGridPageTitle {
+        public static string FileResultLabel {
             get {
-                return ResourceManager.GetString("DataGridPageTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Main.
-        /// </summary>
-        public static string MainPageTitle {
-            get {
-                return ResourceManager.GetString("MainPageTitle", resourceCulture);
+                return ResourceManager.GetString("FileResultLabel", resourceCulture);
             }
         }
         
@@ -210,6 +201,24 @@ namespace RCS.Sudoku.Gui.Properties {
         public static string ShellPageRibbonTabHomeHeader {
             get {
                 return ResourceManager.GetString("ShellPageRibbonTabHomeHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Result:.
+        /// </summary>
+        public static string SolveResultLabel {
+            get {
+                return ResourceManager.GetString("SolveResultLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Solve.
+        /// </summary>
+        public static string SolveText {
+            get {
+                return ResourceManager.GetString("SolveText", resourceCulture);
             }
         }
     }
