@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sudoku", "Sudoku\Sudoku.csproj", "{4182E336-4CDB-46A3-99E9-952C33048E21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RCS.Sudoku.Common", "RCS.Sudoku.Common\RCS.Sudoku.Common.csproj", "{E5C31C10-2ACF-482B-ADFD-DCDB9E53A2D4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App2", "App2\App2.csproj", "{50DBD97D-FF7D-4055-B37F-0192E9514E0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RCS.Sudoku.Console", "RCS.Sudoku.Console\RCS.Sudoku.Console.csproj", "{1A10CE54-4171-4A59-8A61-EC91C9A129E2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App2.Core", "App2.Core\App2.Core.csproj", "{5623D69D-B5B4-4E89-A6DF-32914484B374}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RCS.Sudoku.Gui", "RCS.Sudoku.Gui\RCS.Sudoku.Gui.csproj", "{24B63086-A43B-4943-9119-2CD29EAC2EBC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4182E336-4CDB-46A3-99E9-952C33048E21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4182E336-4CDB-46A3-99E9-952C33048E21}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4182E336-4CDB-46A3-99E9-952C33048E21}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4182E336-4CDB-46A3-99E9-952C33048E21}.Release|Any CPU.Build.0 = Release|Any CPU
-		{50DBD97D-FF7D-4055-B37F-0192E9514E0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{50DBD97D-FF7D-4055-B37F-0192E9514E0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{50DBD97D-FF7D-4055-B37F-0192E9514E0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{50DBD97D-FF7D-4055-B37F-0192E9514E0D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5623D69D-B5B4-4E89-A6DF-32914484B374}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5623D69D-B5B4-4E89-A6DF-32914484B374}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5623D69D-B5B4-4E89-A6DF-32914484B374}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5623D69D-B5B4-4E89-A6DF-32914484B374}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5C31C10-2ACF-482B-ADFD-DCDB9E53A2D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5C31C10-2ACF-482B-ADFD-DCDB9E53A2D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5C31C10-2ACF-482B-ADFD-DCDB9E53A2D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5C31C10-2ACF-482B-ADFD-DCDB9E53A2D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A10CE54-4171-4A59-8A61-EC91C9A129E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A10CE54-4171-4A59-8A61-EC91C9A129E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A10CE54-4171-4A59-8A61-EC91C9A129E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A10CE54-4171-4A59-8A61-EC91C9A129E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24B63086-A43B-4943-9119-2CD29EAC2EBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24B63086-A43B-4943-9119-2CD29EAC2EBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24B63086-A43B-4943-9119-2CD29EAC2EBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24B63086-A43B-4943-9119-2CD29EAC2EBC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
