@@ -1,12 +1,11 @@
-﻿using RCS.Sudoku.Common;
-using System;
+﻿using System;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
-namespace RCS.Sudoku.Console
+namespace RCS.Sudoku.Common
 {
     public class Puzzle
     {

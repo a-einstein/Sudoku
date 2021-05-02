@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RCS.Sudoku.Common;
+using System;
 using System.Diagnostics;
 
 namespace RCS.Sudoku.Console
