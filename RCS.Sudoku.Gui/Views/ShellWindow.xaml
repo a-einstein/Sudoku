@@ -10,9 +10,11 @@
     Style="{StaticResource CustomMetroWindow}"
     DataContext="{Binding ShellViewModel, Source={StaticResource Locator}}"
     mc:Ignorable="d"
-    MinWidth="500"
-    MinHeight="350"
-    Title="{x:Static properties:Resources.AppDisplayName}">
+    MinWidth="400" 
+    MinHeight="400"
+    Title="{x:Static properties:Resources.AppDisplayName}"
+    >
+    
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
@@ -21,6 +23,7 @@
             <i:InvokeCommandAction Command="{Binding UnloadedCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
+    
     <controls:MetroWindow.LeftWindowCommands>
         <controls:WindowCommands>
             <Button
@@ -35,6 +38,7 @@
             </Button>
         </controls:WindowCommands>
     </controls:MetroWindow.LeftWindowCommands>
+    
     <controls:MetroWindow.Content>
         <Frame
             x:Name="shellFrame"
