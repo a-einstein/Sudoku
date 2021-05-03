@@ -19,9 +19,9 @@ namespace RCS.Sudoku.Console
 
             string result;
 
-            if (Puzzle.Read(out result))
+            if (Common.Sudoku.Read(out result))
             {
-                Puzzle.Handle();
+                Common.Sudoku.Handle();
             }
         }
     }

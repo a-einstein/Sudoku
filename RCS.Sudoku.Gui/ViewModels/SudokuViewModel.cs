@@ -87,12 +87,12 @@ namespace RCS.Sudoku.Gui.ViewModels
 
         private void ReadFile()
         {
-            FileRead = Puzzle.Read(out fileResult);
+            FileRead = Common.Sudoku.Read(out fileResult);
             FileResult = fileResult;
 
             if (FileRead)
             {
-                FillTable(Puzzle.Grid);
+                FillTable(Common.Sudoku.Grid);
             }
         }
 
@@ -117,7 +117,7 @@ namespace RCS.Sudoku.Gui.ViewModels
 
             var timeStart = DateTime.Now;
 
-            var completed = Puzzle.CompleteFrom(0, 0, table);
+            var completed = Common.Sudoku.CompleteFrom(0, 0, table);
 
             var duration = (DateTime.Now - timeStart).TotalSeconds;
 

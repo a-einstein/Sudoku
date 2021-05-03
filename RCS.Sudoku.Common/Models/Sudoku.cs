@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace RCS.Sudoku.Common
 {
-    public class Puzzle
+    public class Sudoku
     {
         // Use jagged array for (supposed) speed and transferability.
         private static CellContent[][] grid = new CellContent[9][];
