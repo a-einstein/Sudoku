@@ -23,9 +23,6 @@ namespace RCS.Sudoku.Gui.ViewModels
         public SudokuViewModel SudokuViewModel
             => SimpleIoc.Default.GetInstance<SudokuViewModel>();
 
-        public SettingsViewModel SettingsViewModel
-            => SimpleIoc.Default.GetInstance<SettingsViewModel>();
-
         public ViewModelLocator()
         {
             // App Host
@@ -37,7 +34,6 @@ namespace RCS.Sudoku.Gui.ViewModels
             SimpleIoc.Default.Register<IFileService, FileService>();
 
             // Services
-            SimpleIoc.Default.Register<IWindowManagerService, WindowManagerService>();
             SimpleIoc.Default.Register<IPersistAndRestoreService, PersistAndRestoreService>();
             SimpleIoc.Default.Register<IThemeSelectorService, ThemeSelectorService>();
             SimpleIoc.Default.Register<IRightPaneService, RightPaneService>();
@@ -50,7 +46,6 @@ namespace RCS.Sudoku.Gui.ViewModels
 
             // Pages
             Register<SudokuViewModel, SudokuPage>();
-            Register<SettingsViewModel, SettingsPage>();
         }
 
         private void Register<VM, V>()

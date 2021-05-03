@@ -8,7 +8,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:properties="clr-namespace:RCS.Sudoku.Gui.Properties"
     mc:Ignorable="d"
-    d:DesignHeight="450" d:DesignWidth="800"
+    d:DesignHeight="400" d:DesignWidth="400"
     >
 
     <Page.Resources>
@@ -17,188 +17,206 @@
             <Style TargetType="{x:Type DataGridCell}">
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="Margin" Value="4,0,4,0"/>
+                <Setter Property="FontSize" Value="{StaticResource MediumFontSize}" />
             </Style>
         </ResourceDictionary>
     </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="48" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBlock
-            Style="{StaticResource PageTitleStyle}"
-            Margin="{StaticResource MediumLeftMargin}"
-            Text="{x:Static properties:Resources.DataGridPageTitle}" />
+        <Grid Grid.Row="0" Name="Controls" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-        <Grid Grid.Row="1">
-            <DataGrid
-                ItemsSource="{Binding Source}"
-                AutoGenerateColumns="False"
-                CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False"
-                Margin="{StaticResource SmallLeftRightMargin}"
-                HorizontalAlignment="Left" VerticalAlignment="Top" 
-                BorderThickness="1,1,1,1" 
-                GridLinesVisibility="All"
-                >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
 
-                <!--Manually defined columns to enable colouring.-->
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="A" Binding="{Binding a}">
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
-                                <Style.Triggers>
-                                    <!--Note DataContext is on row level.-->
-                                    <DataTrigger Binding="{Binding Path=a.Original}" Value="true">
-                                        <Setter Property="Background">
-                                            <Setter.Value>
-                                                <SolidColorBrush Color="LightGreen"/>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
+            <Button Grid.Row="0" Grid.Column="0" Content="{x:Static properties:Resources.FileReadText}" Command="{Binding ReadFileCommand}" Style="{StaticResource SudokuButtonStyle}" />
+            <Label Grid.Row="0" Grid.Column="1" Content="{x:Static properties:Resources.FileResultLabel}" Style="{StaticResource SudokuLabelStyle}"/>
+            <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding FileResult}" Style="{StaticResource SudokuTextValueStyle}" />
 
-                    <DataGridTextColumn Header="B" Binding="{Binding b}">
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
-                                <Style.Triggers>
-                                    <!--Note DataContext is on row level.-->
-                                    <DataTrigger Binding="{Binding Path=b.Original}" Value="true">
-                                        <Setter Property="Background">
-                                            <Setter.Value>
-                                                <SolidColorBrush Color="LightGreen"/>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
-
-                    <DataGridTextColumn Header="C" Binding="{Binding c}">
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
-                                <Style.Triggers>
-                                    <!--Note DataContext is on row level.-->
-                                    <DataTrigger Binding="{Binding Path=c.Original}" Value="true">
-                                        <Setter Property="Background">
-                                            <Setter.Value>
-                                                <SolidColorBrush Color="LightGreen"/>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
-
-                    <DataGridTextColumn Header="D" Binding="{Binding d}">
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
-                                <Style.Triggers>
-                                    <!--Note DataContext is on row level.-->
-                                    <DataTrigger Binding="{Binding Path=d.Original}" Value="true">
-                                        <Setter Property="Background">
-                                            <Setter.Value>
-                                                <SolidColorBrush Color="LightGreen"/>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
-
-                    <DataGridTextColumn Header="E" Binding="{Binding e}">
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
-                                <Style.Triggers>
-                                    <!--Note DataContext is on row level.-->
-                                    <DataTrigger Binding="{Binding Path=e.Original}" Value="true">
-                                        <Setter Property="Background">
-                                            <Setter.Value>
-                                                <SolidColorBrush Color="LightGreen"/>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
-
-                    <DataGridTextColumn Header="F" Binding="{Binding f}">
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
-                                <Style.Triggers>
-                                    <!--Note DataContext is on row level.-->
-                                    <DataTrigger Binding="{Binding Path=f.Original}" Value="true">
-                                        <Setter Property="Background">
-                                            <Setter.Value>
-                                                <SolidColorBrush Color="LightGreen"/>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
-
-                    <DataGridTextColumn Header="G" Binding="{Binding g}">
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
-                                <Style.Triggers>
-                                    <!--Note DataContext is on row level.-->
-                                    <DataTrigger Binding="{Binding Path=g.Original}" Value="true">
-                                        <Setter Property="Background">
-                                            <Setter.Value>
-                                                <SolidColorBrush Color="LightGreen"/>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="H" Binding="{Binding h}">
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
-                                <Style.Triggers>
-                                    <!--Note DataContext is on row level.-->
-                                    <DataTrigger Binding="{Binding Path=h.Original}" Value="true">
-                                        <Setter Property="Background">
-                                            <Setter.Value>
-                                                <SolidColorBrush Color="LightGreen"/>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
-
-                    <DataGridTextColumn Header="I" Binding="{Binding i}">
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
-                                <Style.Triggers>
-                                    <!--Note DataContext is on row level.-->
-                                    <DataTrigger Binding="{Binding Path=i.Original}" Value="true">
-                                        <Setter Property="Background">
-                                            <Setter.Value>
-                                                <SolidColorBrush Color="LightGreen"/>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
+            <Button Grid.Row="1" Grid.Column="0" Content="{x:Static properties:Resources.SolveText}" Command="{Binding SolveCommand}" Style="{StaticResource SudokuButtonStyle}" />
+            <Label Grid.Row="1" Grid.Column="1" Content="{x:Static properties:Resources.SolveResultLabel}" Style="{StaticResource SudokuLabelStyle}"/>
+            <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding SolveResult}" Style="{StaticResource SudokuTextValueStyle}" />
         </Grid>
+
+        <DataGrid
+            Grid.Row="1"
+            Name="SudokuGrid"
+            ItemsSource="{Binding Source}"
+            AutoGenerateColumns="False"
+            CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False"
+            Margin="10"
+            HorizontalAlignment="Center" VerticalAlignment="Top" 
+            BorderThickness="1,1,1,1" 
+            GridLinesVisibility="All"
+            >
+
+            <!--Manually defined columns to enable colouring.-->
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="A" Binding="{Binding a}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                            <Style.Triggers>
+                                <!--Note DataContext is on row level.-->
+                                <DataTrigger Binding="{Binding Path=a.Original}" Value="true">
+                                    <Setter Property="Background">
+                                        <Setter.Value>
+                                            <SolidColorBrush Color="LightGreen"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Header="B" Binding="{Binding b}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                            <Style.Triggers>
+                                <!--Note DataContext is on row level.-->
+                                <DataTrigger Binding="{Binding Path=b.Original}" Value="true">
+                                    <Setter Property="Background">
+                                        <Setter.Value>
+                                            <SolidColorBrush Color="LightGreen"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Header="C" Binding="{Binding c}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                            <Style.Triggers>
+                                <!--Note DataContext is on row level.-->
+                                <DataTrigger Binding="{Binding Path=c.Original}" Value="true">
+                                    <Setter Property="Background">
+                                        <Setter.Value>
+                                            <SolidColorBrush Color="LightGreen"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Header="D" Binding="{Binding d}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                            <Style.Triggers>
+                                <!--Note DataContext is on row level.-->
+                                <DataTrigger Binding="{Binding Path=d.Original}" Value="true">
+                                    <Setter Property="Background">
+                                        <Setter.Value>
+                                            <SolidColorBrush Color="LightGreen"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Header="E" Binding="{Binding e}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                            <Style.Triggers>
+                                <!--Note DataContext is on row level.-->
+                                <DataTrigger Binding="{Binding Path=e.Original}" Value="true">
+                                    <Setter Property="Background">
+                                        <Setter.Value>
+                                            <SolidColorBrush Color="LightGreen"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Header="F" Binding="{Binding f}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                            <Style.Triggers>
+                                <!--Note DataContext is on row level.-->
+                                <DataTrigger Binding="{Binding Path=f.Original}" Value="true">
+                                    <Setter Property="Background">
+                                        <Setter.Value>
+                                            <SolidColorBrush Color="LightGreen"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Header="G" Binding="{Binding g}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                            <Style.Triggers>
+                                <!--Note DataContext is on row level.-->
+                                <DataTrigger Binding="{Binding Path=g.Original}" Value="true">
+                                    <Setter Property="Background">
+                                        <Setter.Value>
+                                            <SolidColorBrush Color="LightGreen"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="H" Binding="{Binding h}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                            <Style.Triggers>
+                                <!--Note DataContext is on row level.-->
+                                <DataTrigger Binding="{Binding Path=h.Original}" Value="true">
+                                    <Setter Property="Background">
+                                        <Setter.Value>
+                                            <SolidColorBrush Color="LightGreen"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Header="I" Binding="{Binding i}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                            <Style.Triggers>
+                                <!--Note DataContext is on row level.-->
+                                <DataTrigger Binding="{Binding Path=i.Original}" Value="true">
+                                    <Setter Property="Background">
+                                        <Setter.Value>
+                                            <SolidColorBrush Color="LightGreen"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Page>

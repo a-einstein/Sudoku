@@ -17,7 +17,9 @@ namespace RCS.Sudoku.Console
             var taskLine = "===============================";
             Trace.WriteLine(taskLine);
 
-            if (Puzzle.Read())
+            string result;
+
+            if (Puzzle.Read(out result))
             {
                 Puzzle.Handle();
             }

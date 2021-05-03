@@ -20,7 +20,7 @@ namespace RCS.Sudoku.Common
         private static DigitFrequencies digitFrequencies = new DigitFrequencies();
         private static int[] sortedDigits;
 
-        public static bool Read()
+        public static bool Read(out string result)
         {
             var initialDirectory = Path.GetFullPath(Directory.GetCurrentDirectory() + "\\..\\..\\..\\..\\..\\puzzles");
 
@@ -40,7 +40,8 @@ namespace RCS.Sudoku.Common
 
                 if (fileLines.Length != 9)
                 {
-                    Trace.WriteLine($"Error: Puzzle does not have 9 rows.");
+                    result = $"Error: Puzzle does not have 9 rows.";
+                    Trace.WriteLine(result);
                     return false;
                 }
 
@@ -53,7 +54,8 @@ namespace RCS.Sudoku.Common
 
                     if (line.Length != 9)
                     {
-                        Trace.WriteLine($"Error: Row {row + 1} does not have 9 digits.");
+                        result = $"Error: Row {row + 1} does not have 9 digits.";
+                        Trace.WriteLine(result);
                         return false;
                     }
 
@@ -71,18 +73,26 @@ namespace RCS.Sudoku.Common
                         }
                         else
                         {
-                            Trace.WriteLine($"Error: Row {row + 1} does not have digits only.");
+                            result = $"Error: Row {row + 1} does not have digits only.";
+                            Trace.WriteLine(result);
                             return false;
                         }
                     }
                 }
+
+                sortedDigits = digitFrequencies.SortedDigits();
+
+                result = filename;
+                return true;
             }
-
-            sortedDigits = digitFrequencies.SortedDigits();
-
-            return true;
+            else
+            {
+                result = "No file read.";
+                return false;
+            }
         }
 
+        // TODO Move to caller.
         public static void Handle()
         {
             Show();
@@ -124,9 +134,10 @@ namespace RCS.Sudoku.Common
         // Currently gave up on the idea to make this generic for both a direct grid and a DataTable/DataView on CellContent.
         // Problem is that DataTable and DataView don't implement IList on both the rows and columns.
         // HACK Chose for this option to enable easy binding to the view.
-        public static bool CompleteFrom(int row, int column, DataRowCollection grid)
-        {    
-            var cellContent = (CellContent)grid[row][column];
+        // TODO Either remove or handle the simple functionality.
+        public static bool CompleteFrom(int row, int column, DataTable table)
+        {
+            var cellContent = (CellContent)table.Rows[row][column];
 
             // Cell HAS a value.
             if (cellContent.Digit.HasValue)
@@ -135,13 +146,13 @@ namespace RCS.Sudoku.Common
                 if (++column < 9)
                 {
                     // Next cell in row.
-                    return CompleteFrom(row, column, grid);
+                    return CompleteFrom(row, column, table);
                 }
                 // Rows not completed.
                 else if (++row < 9)
                 {
                     // Start on next row.
-                    return CompleteFrom(row, 0, grid);
+                    return CompleteFrom(row, 0, table);
                 }
                 // All completed from start.
                 else
@@ -152,10 +163,6 @@ namespace RCS.Sudoku.Common
             // Cell has NO value.
             else
             {
-                // Find an acceptable digit.
-
-                //for (int digit = 1; digit <= 9; digit++)
-
                 // Using initially sortedDigits instead of the normal sequence gave a significant optimization.
                 // An experiment by bookkeeping the sorted fequencies only slowed down.
                 // (Get a local sort, update the fequencies in local assignments, pass a copy to the next recursion.)
@@ -164,19 +171,19 @@ namespace RCS.Sudoku.Common
                     if (DigitAvailableForCell(digit, new CellLocation(row, column)))
                     {
                         // Try digit in cell.
-                        cellContent.Digit = digit;
+                        Assign(cellContent, digit, table);
 
                         // Row not completed.
                         if ((column + 1) < 9)
                         {
                             // Next cell in row.
-                            if (CompleteFrom(row, column + 1, grid))
+                            if (CompleteFrom(row, column + 1, table))
                                 // No conflicts encountered for digit in remainder of grid.
                                 return true;
                             else
                             {
                                 // Backtrack. Next digit.
-                                cellContent.Digit = null;
+                                Assign(cellContent, null, table);
                             }
 
                         }
@@ -184,13 +191,13 @@ namespace RCS.Sudoku.Common
                         else if ((row + 1) < 9)
                         {
                             // Next row.
-                            if (CompleteFrom(row + 1, 0, grid))
+                            if (CompleteFrom(row + 1, 0, table))
                                 // No conflicts encountered for digit in remainder of grid.
                                 return true;
                             else
                             {
                                 // Backtrack. Next digit.
-                                cellContent.Digit = null;
+                                Assign(cellContent, null, table);
                             }
                         }
                         // No conflicts encountered for digit in remainder of grid.
@@ -204,6 +211,16 @@ namespace RCS.Sudoku.Common
 
             // No completion for cell.
             return false;
+        }
+
+        // This could be part of CellContent, but I kept DataTable out of there.
+        private static void Assign(CellContent cellContent, int? digit, DataTable table)
+        {
+            cellContent.Digit = digit;
+
+            // Reflect changes.
+            // TODO Looking for a working way to delay, while updating view.
+            table.AcceptChanges();
         }
 
         private static bool DigitAvailableForCell(int digit, CellLocation testCell)

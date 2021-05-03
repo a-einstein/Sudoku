@@ -1,6 +1,4 @@
-﻿using MahApps.Metro.Controls;
-using RCS.Sudoku.Gui.Behaviors;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 namespace RCS.Sudoku.Gui.Contracts.Views
 {
@@ -11,11 +9,5 @@ namespace RCS.Sudoku.Gui.Contracts.Views
         void ShowWindow();
 
         void CloseWindow();
-
-        Frame GetRightPaneFrame();
-
-        SplitView GetSplitView();
-
-        RibbonTabsBehavior GetRibbonTabsBehavior();
     }
 }

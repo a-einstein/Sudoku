@@ -13,13 +13,11 @@ namespace RCS.Sudoku.Gui.Services
         private readonly INavigationService _navigationService;
         private readonly IPersistAndRestoreService _persistAndRestoreService;
         private readonly IThemeSelectorService _themeSelectorService;
-        private readonly IRightPaneService _rightPaneService;
         private IShellWindow _shellWindow;
 
-        public ApplicationHostService(INavigationService navigationService, IRightPaneService rightPaneService, IThemeSelectorService themeSelectorService, IPersistAndRestoreService persistAndRestoreService)
+        public ApplicationHostService(INavigationService navigationService, IThemeSelectorService themeSelectorService, IPersistAndRestoreService persistAndRestoreService)
         {
             _navigationService = navigationService;
-            _rightPaneService = rightPaneService;
             _themeSelectorService = themeSelectorService;
             _persistAndRestoreService = persistAndRestoreService;
         }
@@ -60,7 +58,6 @@ namespace RCS.Sudoku.Gui.Services
                 // Default activation that navigates to the apps default page
                 _shellWindow = SimpleIoc.Default.GetInstance<IShellWindow>(Guid.NewGuid().ToString());
                 _navigationService.Initialize(_shellWindow.GetNavigationFrame());
-                _rightPaneService.Initialize(_shellWindow.GetRightPaneFrame(), _shellWindow.GetSplitView());
                 _shellWindow.ShowWindow();
 
                 _navigationService.NavigateTo(typeof(SudokuViewModel).FullName);
