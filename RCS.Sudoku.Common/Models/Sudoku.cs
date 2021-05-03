@@ -9,19 +9,14 @@ namespace RCS.Sudoku.Common
 {
     public class Sudoku
     {
-        // Use jagged array for (supposed) speed and transferability.
-        private static CellContent[][] grid = new CellContent[9][];
-
-        public static CellContent[][] Grid
-        {
-            get { return grid; }
-        }
-
         private static DigitFrequencies digitFrequencies = new DigitFrequencies();
         private static int[] sortedDigits;
 
-        public static bool Read(out string result)
+        public static bool Read(out string result, out CellContent[][] grid)
         {
+            // Use jagged array for (supposed) speed and transferability.
+            grid = new CellContent[9][];
+
             var initialDirectory = Path.GetFullPath(Directory.GetCurrentDirectory() + "\\..\\..\\..\\..\\..\\puzzles");
 
             var fileDialog = new OpenFileDialog
@@ -92,9 +87,9 @@ namespace RCS.Sudoku.Common
             }
         }
 
-        public static void Handle()
+        public static void Handle(CellContent[][] grid)
         {
-            Show();
+            Show(grid);
 
             var timeStart = DateTime.Now;
             // HACK See comment at CompleteFrom.
@@ -105,13 +100,13 @@ namespace RCS.Sudoku.Common
             {
                 Trace.WriteLine($"Completed in {duration}.");
 
-                Show();
+                Show(grid);
             }
             else
                 Trace.WriteLine($"Failed in {duration}.");
         }
 
-        public static void Show()
+        public static void Show(CellContent[][] grid)
         {
             var boxLine = "+---------+---------+---------+";
 
@@ -129,7 +124,7 @@ namespace RCS.Sudoku.Common
 
             Trace.WriteLine(null);
         }
-      
+
         // Currently gave up on the idea to make this generic for both a direct grid and a DataTable/DataView on CellContent.
         // Problem is that DataTable and DataView don't implement IList on both the rows and columns.
         // HACK Chose for this option to enable easy binding to the view.

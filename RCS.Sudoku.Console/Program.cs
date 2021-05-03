@@ -6,6 +6,8 @@ namespace RCS.Sudoku.Console
 {
     class Program
     {
+        private static CellContent[][] grid;
+
         [STAThread]
         static void Main(string[] args)
         {
@@ -19,9 +21,9 @@ namespace RCS.Sudoku.Console
 
             string result;
 
-            if (Common.Sudoku.Read(out result))
+            if (Common.Sudoku.Read(out result, out grid))
             {
-                Common.Sudoku.Handle();
+                Common.Sudoku.Handle(grid);
             }
         }
     }

@@ -87,12 +87,14 @@ namespace RCS.Sudoku.Gui.ViewModels
 
         private void ReadFile()
         {
-            FileRead = Common.Sudoku.Read(out fileResult);
+            CellContent[][] grid;
+
+            FileRead = Common.Sudoku.Read(out fileResult, out grid);
             FileResult = fileResult;
 
             if (FileRead)
             {
-                FillTable(Common.Sudoku.Grid);
+                FillTable(grid);
             }
         }
 
