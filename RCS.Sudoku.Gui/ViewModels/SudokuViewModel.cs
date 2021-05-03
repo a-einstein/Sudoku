@@ -20,20 +20,30 @@ namespace RCS.Sudoku.Gui.ViewModels
 
         private void InitTable()
         {
-            Source.Columns.Add(new DataColumn("a", typeof(CellContent)));
-            Source.Columns.Add(new DataColumn("b", typeof(CellContent)));
-            Source.Columns.Add(new DataColumn("c", typeof(CellContent)));
-            Source.Columns.Add(new DataColumn("d", typeof(CellContent)));
-            Source.Columns.Add(new DataColumn("e", typeof(CellContent)));
-            Source.Columns.Add(new DataColumn("f", typeof(CellContent)));
-            Source.Columns.Add(new DataColumn("g", typeof(CellContent)));
-            Source.Columns.Add(new DataColumn("h", typeof(CellContent)));
-            Source.Columns.Add(new DataColumn("i", typeof(CellContent)));
+            // Define table.
+            table.Columns.Add(new DataColumn("a", typeof(CellContent)));
+            table.Columns.Add(new DataColumn("b", typeof(CellContent)));
+            table.Columns.Add(new DataColumn("c", typeof(CellContent)));
+            table.Columns.Add(new DataColumn("d", typeof(CellContent)));
+            table.Columns.Add(new DataColumn("e", typeof(CellContent)));
+            table.Columns.Add(new DataColumn("f", typeof(CellContent)));
+            table.Columns.Add(new DataColumn("g", typeof(CellContent)));
+            table.Columns.Add(new DataColumn("h", typeof(CellContent)));
+            table.Columns.Add(new DataColumn("i", typeof(CellContent)));
+
+            // Create empty rows for visual appeal.
+            for (int row = 0; row < 9; row++)
+            {
+                table.Rows.Add(table.NewRow());
+            }
         }
         #endregion
 
         #region Data
-        public DataTable Source { get; } = new DataTable();
+        static private DataTable table = new DataTable();
+
+        public DataView Source { get; } = table.DefaultView;
+
 
         private bool fileRead;
         private bool FileRead
@@ -82,23 +92,19 @@ namespace RCS.Sudoku.Gui.ViewModels
 
             if (FileRead)
             {
-                ConvertToTable(Puzzle.Grid);
+                FillTable(Puzzle.Grid);
             }
         }
 
-        void ConvertToTable(CellContent[][] grid)
+        void FillTable(CellContent[][] grid)
         {
             for (int row = 0; row < 9; row++)
             {
-                var newRow = Source.NewRow();
-
                 // Unfortunately assigning to ItemArray does not work for int[].
                 for (int column = 0; column < 9; column++)
                 {
-                    newRow[column] = grid[row][column];
+                    table.Rows[row][column] = grid[row][column];
                 }
-
-                Source.Rows.Add(newRow);
             }
         }
 
@@ -110,7 +116,7 @@ namespace RCS.Sudoku.Gui.ViewModels
             var timeStart = DateTime.Now;
 
             // TODO Update not working anymore.
-            var completed = Puzzle.CompleteFrom(0, 0, Source.Rows);
+            var completed = Puzzle.CompleteFrom(0, 0, table.Rows);
             RaisePropertyChanged(nameof(Source));
 
             var duration = (DateTime.Now - timeStart).TotalSeconds;
