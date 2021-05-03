@@ -52,6 +52,8 @@ namespace RCS.Sudoku.Gui.ViewModels
             set
             {
                 fileRead = value;
+
+                SolveResult = solveResultDefault;
                 solveCommand.RaiseCanExecuteChanged();
             }
         }
@@ -68,7 +70,8 @@ namespace RCS.Sudoku.Gui.ViewModels
             }
         }
 
-        private string solveResult = "Not tried yet";
+        private const string solveResultDefault = "Not tried yet";
+        private string solveResult = solveResultDefault;
         public string SolveResult
         {
             get { return solveResult; }
@@ -108,6 +111,9 @@ namespace RCS.Sudoku.Gui.ViewModels
                     table.Rows[row][column] = grid[row][column];
                 }
             }
+
+            // Note this generally is needed to update the view.
+            table.AcceptChanges();
         }
 
         private RelayCommand solveCommand;
