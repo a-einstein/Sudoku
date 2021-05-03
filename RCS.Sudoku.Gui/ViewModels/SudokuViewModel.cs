@@ -113,11 +113,11 @@ namespace RCS.Sudoku.Gui.ViewModels
 
         void Solve()
         {
+            SolveResult = "Working on it...";
+
             var timeStart = DateTime.Now;
 
-            // TODO Update not working anymore.
-            var completed = Puzzle.CompleteFrom(0, 0, table.Rows);
-            RaisePropertyChanged(nameof(Source));
+            var completed = Puzzle.CompleteFrom(0, 0, table);
 
             var duration = (DateTime.Now - timeStart).TotalSeconds;
 
