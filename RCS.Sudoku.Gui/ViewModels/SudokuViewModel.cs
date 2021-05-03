@@ -52,6 +52,8 @@ namespace RCS.Sudoku.Gui.ViewModels
             set
             {
                 fileRead = value;
+
+                SolveResult = solveResultDefault;
                 solveCommand.RaiseCanExecuteChanged();
             }
         }
@@ -68,7 +70,8 @@ namespace RCS.Sudoku.Gui.ViewModels
             }
         }
 
-        private string solveResult = "Not tried yet";
+        private const string solveResultDefault = "Not tried yet";
+        private string solveResult = solveResultDefault;
         public string SolveResult
         {
             get { return solveResult; }
@@ -87,12 +90,14 @@ namespace RCS.Sudoku.Gui.ViewModels
 
         private void ReadFile()
         {
-            FileRead = Puzzle.Read(out fileResult);
+            CellContent[][] grid;
+
+            FileRead = Common.Sudoku.Read(out fileResult, out grid);
             FileResult = fileResult;
 
             if (FileRead)
             {
-                FillTable(Puzzle.Grid);
+                FillTable(grid);
             }
         }
 
@@ -106,6 +111,9 @@ namespace RCS.Sudoku.Gui.ViewModels
                     table.Rows[row][column] = grid[row][column];
                 }
             }
+
+            // Note this generally is needed to update the view.
+            table.AcceptChanges();
         }
 
         private RelayCommand solveCommand;
@@ -117,7 +125,7 @@ namespace RCS.Sudoku.Gui.ViewModels
 
             var timeStart = DateTime.Now;
 
-            var completed = Puzzle.CompleteFrom(0, 0, table);
+            var completed = Common.Sudoku.CompleteFrom(0, 0, table);
 
             var duration = (DateTime.Now - timeStart).TotalSeconds;
 

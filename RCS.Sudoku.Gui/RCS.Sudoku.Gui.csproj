@@ -14,7 +14,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RCS.Sudoku.Common\RCS.Sudoku.Common.csproj" />
-    <ProjectReference Include="..\RCS.Sudoku.Console\RCS.Sudoku.Console.csproj" />
+    <ProjectReference Include="..\RCS.Sudoku.Console\RCS.Sudoku.ConsoleApplication.csproj" />
   </ItemGroup>
 
   <ItemGroup>

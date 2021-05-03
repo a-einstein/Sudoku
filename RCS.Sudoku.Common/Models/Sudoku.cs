@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -7,21 +6,16 @@ using System.Windows.Forms;
 
 namespace RCS.Sudoku.Common
 {
-    public class Puzzle
+    public class Sudoku
     {
-        // Use jagged array for (supposed) speed and transferability.
-        private static CellContent[][] grid = new CellContent[9][];
-
-        public static CellContent[][] Grid
-        {
-            get { return grid; }
-        }
-
         private static DigitFrequencies digitFrequencies = new DigitFrequencies();
         private static int[] sortedDigits;
 
-        public static bool Read(out string result)
+        public static bool Read(out string result, out CellContent[][] grid)
         {
+            // Use jagged array for (supposed) speed and transferability.
+            grid = new CellContent[9][];
+
             var initialDirectory = Path.GetFullPath(Directory.GetCurrentDirectory() + "\\..\\..\\..\\..\\..\\puzzles");
 
             var fileDialog = new OpenFileDialog
@@ -82,7 +76,7 @@ namespace RCS.Sudoku.Common
 
                 sortedDigits = digitFrequencies.SortedDigits();
 
-                result = filename;
+                result = $"'{filename}'";
                 return true;
             }
             else
@@ -92,49 +86,9 @@ namespace RCS.Sudoku.Common
             }
         }
 
-        // TODO Move to caller.
-        public static void Handle()
-        {
-            Show();
-
-            var timeStart = DateTime.Now;
-            // HACK See comment at CompleteFrom.
-            var completed = true /*CompleteFrom(0, 0, Grid)*/;
-            var duration = DateTime.Now - timeStart;
-
-            if (completed)
-            {
-                Trace.WriteLine($"Completed in {duration}.");
-
-                Show();
-            }
-            else
-                Trace.WriteLine($"Failed in {duration}.");
-        }
-
-        public static void Show()
-        {
-            var boxLine = "+---------+---------+---------+";
-
-            for (int row = 0; row < 9; row++)
-            {
-                if (row % 3 == 0) Trace.WriteLine(boxLine);
-
-                for (int column = 0; column < 9; column++)
-                    Trace.Write($"{(column % 3 == 0 ? "| " : " ")}{grid[row][column].ToString(true)} ");
-
-                Trace.WriteLine("|");
-            }
-
-            Trace.WriteLine(boxLine);
-
-            Trace.WriteLine(null);
-        }
-
         // Currently gave up on the idea to make this generic for both a direct grid and a DataTable/DataView on CellContent.
         // Problem is that DataTable and DataView don't implement IList on both the rows and columns.
-        // HACK Chose for this option to enable easy binding to the view.
-        // TODO Either remove or handle the simple functionality.
+        // Chose for this option with a table to enable easy binding to the view.
         public static bool CompleteFrom(int row, int column, DataTable table)
         {
             var cellContent = (CellContent)table.Rows[row][column];
@@ -168,7 +122,7 @@ namespace RCS.Sudoku.Common
                 // (Get a local sort, update the fequencies in local assignments, pass a copy to the next recursion.)
                 foreach (var digit in sortedDigits)
                 {
-                    if (DigitAvailableForCell(digit, new CellLocation(row, column)))
+                    if (DigitAvailableForCell(digit, new CellLocation(row, column), table))
                     {
                         // Try digit in cell.
                         Assign(cellContent, digit, table);
@@ -178,7 +132,7 @@ namespace RCS.Sudoku.Common
                         {
                             // Next cell in row.
                             if (CompleteFrom(row, column + 1, table))
-                                // No conflicts encountered for digit in remainder of grid.
+                                // No conflicts encountered for digit in remainder of table.
                                 return true;
                             else
                             {
@@ -192,7 +146,7 @@ namespace RCS.Sudoku.Common
                         {
                             // Next row.
                             if (CompleteFrom(row + 1, 0, table))
-                                // No conflicts encountered for digit in remainder of grid.
+                                // No conflicts encountered for digit in remainder of table.
                                 return true;
                             else
                             {
@@ -200,7 +154,7 @@ namespace RCS.Sudoku.Common
                                 Assign(cellContent, null, table);
                             }
                         }
-                        // No conflicts encountered for digit in remainder of grid.
+                        // No conflicts encountered for digit in remainder of table.
                         else
                         {
                             return true;
@@ -223,7 +177,7 @@ namespace RCS.Sudoku.Common
             table.AcceptChanges();
         }
 
-        private static bool DigitAvailableForCell(int digit, CellLocation testCell)
+        private static bool DigitAvailableForCell(int digit, CellLocation testCell, DataTable table)
         {
             // TODO Make this conditional.
             //Debug.WriteLine();
@@ -232,11 +186,11 @@ namespace RCS.Sudoku.Common
             for (int i = 0; i < 9; i++)
             {
                 // Check along column at cell.
-                if (grid[testCell.Row][i].Digit == digit)
+                if (((table.Rows[testCell.Row][i]) as CellContent).Digit == digit)
                     return false;
 
                 // Check along row at cell.
-                if (grid[i][testCell.Column].Digit == digit)
+                if (((table.Rows[i][testCell.Column]) as CellContent).Digit == digit)
                     return false;
             }
 
@@ -257,7 +211,7 @@ namespace RCS.Sudoku.Common
 
                     //Debug.WriteLine($"boxCell({boxCellRow},{boxcellColumn}) = {puzzle[boxCellRow, boxcellColumn]}");
 
-                    if (grid[boxCellRow][boxcellColumn].Digit == digit)
+                    if (((table.Rows[boxCellRow][boxcellColumn]) as CellContent).Digit == digit)
                         return false;
                 }
             }
