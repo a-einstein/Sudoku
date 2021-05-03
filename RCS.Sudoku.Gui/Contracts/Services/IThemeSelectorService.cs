@@ -1,6 +1,6 @@
-﻿using RCS.Sudoku.Gui.Models;
+﻿using RCS.Sudoku.WpfApplication.Models;
 
-namespace RCS.Sudoku.Gui.Contracts.Services
+namespace RCS.Sudoku.WpfApplication.Contracts.Services
 {
     public interface IThemeSelectorService
     {

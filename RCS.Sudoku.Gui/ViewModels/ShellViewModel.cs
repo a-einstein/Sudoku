@@ -1,9 +1,9 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using RCS.Sudoku.Gui.Contracts.Services;
+using RCS.Sudoku.WpfApplication.Contracts.Services;
 using System.Windows.Input;
 
-namespace RCS.Sudoku.Gui.ViewModels
+namespace RCS.Sudoku.WpfApplication.ViewModels
 {
     public class ShellViewModel : ViewModelBase
     {

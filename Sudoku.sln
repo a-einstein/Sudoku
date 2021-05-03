@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RCS.Sudoku.Common", "RCS.Su
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RCS.Sudoku.ConsoleApplication", "RCS.Sudoku.Console\RCS.Sudoku.ConsoleApplication.csproj", "{1A10CE54-4171-4A59-8A61-EC91C9A129E2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RCS.Sudoku.Gui", "RCS.Sudoku.Gui\RCS.Sudoku.Gui.csproj", "{24B63086-A43B-4943-9119-2CD29EAC2EBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RCS.Sudoku.WpfApplication", "RCS.Sudoku.Gui\RCS.Sudoku.WpfApplication.csproj", "{24B63086-A43B-4943-9119-2CD29EAC2EBC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

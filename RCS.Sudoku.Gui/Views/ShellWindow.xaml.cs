@@ -1,8 +1,8 @@
 ﻿using MahApps.Metro.Controls;
-using RCS.Sudoku.Gui.Contracts.Views;
+using RCS.Sudoku.WpfApplication.Contracts.Views;
 using System.Windows.Controls;
 
-namespace RCS.Sudoku.Gui.Views
+namespace RCS.Sudoku.WpfApplication.Views
 {
     public partial class ShellWindow : MetroWindow, IShellWindow
     {

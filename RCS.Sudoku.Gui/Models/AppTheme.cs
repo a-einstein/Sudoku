@@ -1,4 +1,4 @@
-﻿namespace RCS.Sudoku.Gui.Models
+﻿namespace RCS.Sudoku.WpfApplication.Models
 {
     public enum AppTheme
     {

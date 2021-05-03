@@ -2,12 +2,12 @@
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using RCS.Sudoku.Common;
-using RCS.Sudoku.Gui.Contracts.ViewModels;
+using RCS.Sudoku.WpfApplication.Contracts.ViewModels;
 using System;
 using System.Data;
 using System.Windows.Input;
 
-namespace RCS.Sudoku.Gui.ViewModels
+namespace RCS.Sudoku.WpfApplication.ViewModels
 {
     public class SudokuViewModel : ViewModelBase, INavigationAware
     {

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace RCS.Sudoku.Gui.Views
+namespace RCS.Sudoku.WpfApplication.Views
 {
     public partial class SudokuPage : Page
     {

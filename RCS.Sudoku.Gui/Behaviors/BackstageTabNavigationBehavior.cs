@@ -1,12 +1,12 @@
 ﻿using Fluent;
 using Microsoft.Xaml.Behaviors;
-using RCS.Sudoku.Gui.Contracts.Services;
-using RCS.Sudoku.Gui.Contracts.ViewModels;
+using RCS.Sudoku.WpfApplication.Contracts.Services;
+using RCS.Sudoku.WpfApplication.Contracts.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 
-namespace RCS.Sudoku.Gui.Behaviors
+namespace RCS.Sudoku.WpfApplication.Behaviors
 {
     public class BackstageTabNavigationBehavior : Behavior<BackstageTabControl>
     {

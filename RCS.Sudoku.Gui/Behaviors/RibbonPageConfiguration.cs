@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Data;
 
-namespace RCS.Sudoku.Gui.Behaviors
+namespace RCS.Sudoku.WpfApplication.Behaviors
 {
     public class RibbonPageConfiguration
     {

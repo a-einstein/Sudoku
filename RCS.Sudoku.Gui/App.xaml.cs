@@ -1,13 +1,13 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Extensions.Configuration;
-using RCS.Sudoku.Gui.Contracts.Services;
-using RCS.Sudoku.Gui.ViewModels;
+using RCS.Sudoku.WpfApplication.Contracts.Services;
+using RCS.Sudoku.WpfApplication.ViewModels;
 using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Threading;
 
-namespace RCS.Sudoku.Gui
+namespace RCS.Sudoku.WpfApplication
 {
     // For more inforation about application lifecyle events see https://docs.microsoft.com/dotnet/framework/wpf/app-development/application-management-overview
 
