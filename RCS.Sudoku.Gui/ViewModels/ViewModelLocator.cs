@@ -23,9 +23,6 @@ namespace RCS.Sudoku.Gui.ViewModels
         public SudokuViewModel SudokuViewModel
             => SimpleIoc.Default.GetInstance<SudokuViewModel>();
 
-        public SettingsViewModel SettingsViewModel
-            => SimpleIoc.Default.GetInstance<SettingsViewModel>();
-
         public ViewModelLocator()
         {
             // App Host
@@ -49,7 +46,6 @@ namespace RCS.Sudoku.Gui.ViewModels
 
             // Pages
             Register<SudokuViewModel, SudokuPage>();
-            Register<SettingsViewModel, SettingsPage>();
         }
 
         private void Register<VM, V>()
