@@ -102,15 +102,15 @@ namespace RCS.Sudoku.Gui.ViewModels
             var completed = Puzzle.CompleteFrom(0, 0, Source.Rows);
             RaisePropertyChanged(nameof(Source));
 
-            var duration = DateTime.Now - timeStart;
+            var duration = (DateTime.Now - timeStart).TotalSeconds;
 
             if (completed)
             {
-                SolveResult = ($"Completed in {duration}.");
+                SolveResult = ($"Completed in {duration} seconds.");
             }
             else
             {
-                SolveResult = ($"Failed in {duration}.");
+                SolveResult = ($"Failed in {duration} seconds.");
             }
         }
         #endregion
