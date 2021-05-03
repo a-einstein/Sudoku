@@ -32,8 +32,19 @@ namespace RCS.Sudoku.Gui.ViewModels
         }
         #endregion
 
-        #region Data bindings
+        #region Data
         public DataTable Source { get; } = new DataTable();
+
+        private bool fileRead;
+        private bool FileRead
+        {
+            get { return fileRead; }
+            set
+            {
+                fileRead = value;
+                solveCommand.RaiseCanExecuteChanged();
+            }
+        }
 
         private string fileResult = "No file yet";
         public string FileResult
@@ -66,10 +77,10 @@ namespace RCS.Sudoku.Gui.ViewModels
 
         private void ReadFile()
         {
-            var read = Puzzle.Read(out fileResult);
+            FileRead = Puzzle.Read(out fileResult);
             FileResult = fileResult;
 
-            if (read)
+            if (FileRead)
             {
                 ConvertToTable(Puzzle.Grid);
             }
@@ -91,8 +102,8 @@ namespace RCS.Sudoku.Gui.ViewModels
             }
         }
 
-        private ICommand solveCommand;
-        public ICommand SolveCommand => solveCommand ?? (solveCommand = new RelayCommand(Solve));
+        private RelayCommand solveCommand;
+        public ICommand SolveCommand => solveCommand ?? (solveCommand = new RelayCommand(Solve, (() => FileRead)));
 
         void Solve()
         {
