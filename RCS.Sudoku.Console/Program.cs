@@ -1,26 +1,24 @@
 ﻿using RCS.Sudoku.Common;
 using System;
-using System.Diagnostics;
 
-namespace RCS.Sudoku.Console
+namespace RCS.Sudoku.ConsoleApplication
 {
     class Program
     {
         [STAThread]
         static void Main(string[] args)
         {
-            // Output currently only works in debug mode.
-            // TODO Transform to Console again.
-            Debug.WriteLine("Test Debug");
-            Trace.WriteLine("Test Trace");
-
             var taskLine = "===============================";
-            Trace.WriteLine(taskLine);
+            Console.WriteLine(taskLine);
 
-            string result;
+            string readResult;
             CellContent[][] grid;
 
-            if (Common.Sudoku.Read(out result, out grid))
+            bool fileRead = Common.Sudoku.Read(out readResult, out grid);
+
+            Console.WriteLine(readResult);
+
+            if (fileRead)
             {
                 Handle(grid);
             }
@@ -31,37 +29,40 @@ namespace RCS.Sudoku.Console
             Show(grid);
 
             var timeStart = DateTime.Now;
-            // HACK See comment at CompleteFrom.
+
+            // HACK Disabled, see comment at CompleteFrom.
             var completed = false /*CompleteFrom(0, 0, Grid)*/;
             var duration = DateTime.Now - timeStart;
 
             if (completed)
             {
-                Trace.WriteLine($"Completed in {duration}.");
+                Console.WriteLine($"Completed in {duration}.");
 
                 Show(grid);
             }
             else
-                Trace.WriteLine($"Failed in {duration}.");
+                Console.WriteLine($"Failed in {duration}.");
         }
 
         public static void Show(CellContent[][] grid)
         {
+            Console.WriteLine();
+
             var boxLine = "+---------+---------+---------+";
 
             for (int row = 0; row < 9; row++)
             {
-                if (row % 3 == 0) Trace.WriteLine(boxLine);
+                if (row % 3 == 0) Console.WriteLine(boxLine);
 
                 for (int column = 0; column < 9; column++)
-                    Trace.Write($"{(column % 3 == 0 ? "| " : " ")}{grid[row][column].ToString(true)} ");
+                    Console.Write($"{(column % 3 == 0 ? "| " : " ")}{grid[row][column].ToString(true)} ");
 
-                Trace.WriteLine("|");
+                Console.WriteLine("|");
             }
 
-            Trace.WriteLine(boxLine);
+            Console.WriteLine(boxLine);
 
-            Trace.WriteLine(null);
+            Console.WriteLine();
         }
     }
 }

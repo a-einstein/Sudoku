@@ -76,7 +76,7 @@ namespace RCS.Sudoku.Common
 
                 sortedDigits = digitFrequencies.SortedDigits();
 
-                result = filename;
+                result = $"'{filename}'";
                 return true;
             }
             else
