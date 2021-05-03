@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -87,48 +86,9 @@ namespace RCS.Sudoku.Common
             }
         }
 
-        public static void Handle(CellContent[][] grid)
-        {
-            Show(grid);
-
-            var timeStart = DateTime.Now;
-            // HACK See comment at CompleteFrom.
-            var completed = true /*CompleteFrom(0, 0, Grid)*/;
-            var duration = DateTime.Now - timeStart;
-
-            if (completed)
-            {
-                Trace.WriteLine($"Completed in {duration}.");
-
-                Show(grid);
-            }
-            else
-                Trace.WriteLine($"Failed in {duration}.");
-        }
-
-        public static void Show(CellContent[][] grid)
-        {
-            var boxLine = "+---------+---------+---------+";
-
-            for (int row = 0; row < 9; row++)
-            {
-                if (row % 3 == 0) Trace.WriteLine(boxLine);
-
-                for (int column = 0; column < 9; column++)
-                    Trace.Write($"{(column % 3 == 0 ? "| " : " ")}{grid[row][column].ToString(true)} ");
-
-                Trace.WriteLine("|");
-            }
-
-            Trace.WriteLine(boxLine);
-
-            Trace.WriteLine(null);
-        }
-
         // Currently gave up on the idea to make this generic for both a direct grid and a DataTable/DataView on CellContent.
         // Problem is that DataTable and DataView don't implement IList on both the rows and columns.
-        // HACK Chose for this option to enable easy binding to the view.
-        // TODO Either remove or handle the simple functionality.
+        // Chose for this option with a table to enable easy binding to the view.
         public static bool CompleteFrom(int row, int column, DataTable table)
         {
             var cellContent = (CellContent)table.Rows[row][column];
