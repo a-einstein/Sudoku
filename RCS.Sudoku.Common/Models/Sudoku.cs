@@ -92,7 +92,6 @@ namespace RCS.Sudoku.Common
             }
         }
 
-        // TODO Move to caller.
         public static void Handle()
         {
             Show();
@@ -130,7 +129,7 @@ namespace RCS.Sudoku.Common
 
             Trace.WriteLine(null);
         }
-
+      
         // Currently gave up on the idea to make this generic for both a direct grid and a DataTable/DataView on CellContent.
         // Problem is that DataTable and DataView don't implement IList on both the rows and columns.
         // HACK Chose for this option to enable easy binding to the view.
@@ -168,7 +167,7 @@ namespace RCS.Sudoku.Common
                 // (Get a local sort, update the fequencies in local assignments, pass a copy to the next recursion.)
                 foreach (var digit in sortedDigits)
                 {
-                    if (DigitAvailableForCell(digit, new CellLocation(row, column)))
+                    if (DigitAvailableForCell(digit, new CellLocation(row, column), table))
                     {
                         // Try digit in cell.
                         Assign(cellContent, digit, table);
@@ -178,7 +177,7 @@ namespace RCS.Sudoku.Common
                         {
                             // Next cell in row.
                             if (CompleteFrom(row, column + 1, table))
-                                // No conflicts encountered for digit in remainder of grid.
+                                // No conflicts encountered for digit in remainder of table.
                                 return true;
                             else
                             {
@@ -192,7 +191,7 @@ namespace RCS.Sudoku.Common
                         {
                             // Next row.
                             if (CompleteFrom(row + 1, 0, table))
-                                // No conflicts encountered for digit in remainder of grid.
+                                // No conflicts encountered for digit in remainder of table.
                                 return true;
                             else
                             {
@@ -200,7 +199,7 @@ namespace RCS.Sudoku.Common
                                 Assign(cellContent, null, table);
                             }
                         }
-                        // No conflicts encountered for digit in remainder of grid.
+                        // No conflicts encountered for digit in remainder of table.
                         else
                         {
                             return true;
@@ -223,7 +222,7 @@ namespace RCS.Sudoku.Common
             table.AcceptChanges();
         }
 
-        private static bool DigitAvailableForCell(int digit, CellLocation testCell)
+        private static bool DigitAvailableForCell(int digit, CellLocation testCell, DataTable table)
         {
             // TODO Make this conditional.
             //Debug.WriteLine();
@@ -232,11 +231,11 @@ namespace RCS.Sudoku.Common
             for (int i = 0; i < 9; i++)
             {
                 // Check along column at cell.
-                if (grid[testCell.Row][i].Digit == digit)
+                if (((table.Rows[testCell.Row][i]) as CellContent).Digit == digit)
                     return false;
 
                 // Check along row at cell.
-                if (grid[i][testCell.Column].Digit == digit)
+                if (((table.Rows[i][testCell.Column]) as CellContent).Digit == digit)
                     return false;
             }
 
@@ -257,7 +256,7 @@ namespace RCS.Sudoku.Common
 
                     //Debug.WriteLine($"boxCell({boxCellRow},{boxcellColumn}) = {puzzle[boxCellRow, boxcellColumn]}");
 
-                    if (grid[boxCellRow][boxcellColumn].Digit == digit)
+                    if (((table.Rows[boxCellRow][boxcellColumn]) as CellContent).Digit == digit)
                         return false;
                 }
             }
