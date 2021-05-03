@@ -31,10 +31,18 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
             table.Columns.Add(new DataColumn("h", typeof(CellContent)));
             table.Columns.Add(new DataColumn("i", typeof(CellContent)));
 
-            // Create empty rows for visual appeal.
+            // Add empty rows for visual appeal.
             for (int row = 0; row < 9; row++)
             {
-                table.Rows.Add(table.NewRow());
+                var emptyRow = table.NewRow();
+
+                for (int column = 0; column < 9; column++)
+                {
+                    // Initialize for proper binding.
+                    emptyRow[column] = new CellContent(0);
+                }
+
+                table.Rows.Add(emptyRow);
             }
         }
         #endregion
