@@ -169,38 +169,11 @@ namespace RCS.Sudoku.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Settings.
+        ///   Looks up a localized string similar to Go back.
         /// </summary>
-        public static string ShellPageRibbonBackstageTabSettingsHeader {
+        public static string ShellGoBackButton {
             get {
-                return ResourceManager.GetString("ShellPageRibbonBackstageTabSettingsHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Common Group 1.
-        /// </summary>
-        public static string ShellPageRibbonHomeGroupCommon1Header {
-            get {
-                return ResourceManager.GetString("ShellPageRibbonHomeGroupCommon1Header", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Common Group 2.
-        /// </summary>
-        public static string ShellPageRibbonHomeGroupCommon2Header {
-            get {
-                return ResourceManager.GetString("ShellPageRibbonHomeGroupCommon2Header", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Home.
-        /// </summary>
-        public static string ShellPageRibbonTabHomeHeader {
-            get {
-                return ResourceManager.GetString("ShellPageRibbonTabHomeHeader", resourceCulture);
+                return ResourceManager.GetString("ShellGoBackButton", resourceCulture);
             }
         }
         

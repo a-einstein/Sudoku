@@ -37,7 +37,6 @@ namespace RCS.Sudoku.Gui.ViewModels
             SimpleIoc.Default.Register<IFileService, FileService>();
 
             // Services
-            SimpleIoc.Default.Register<IWindowManagerService, WindowManagerService>();
             SimpleIoc.Default.Register<IPersistAndRestoreService, PersistAndRestoreService>();
             SimpleIoc.Default.Register<IThemeSelectorService, ThemeSelectorService>();
             SimpleIoc.Default.Register<IRightPaneService, RightPaneService>();
