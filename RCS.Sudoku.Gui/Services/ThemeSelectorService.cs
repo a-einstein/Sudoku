@@ -1,11 +1,11 @@
 ﻿using ControlzEx.Theming;
 using MahApps.Metro.Theming;
-using RCS.Sudoku.Gui.Contracts.Services;
-using RCS.Sudoku.Gui.Models;
+using RCS.Sudoku.WpfApplication.Contracts.Services;
+using RCS.Sudoku.WpfApplication.Models;
 using System;
 using System.Windows;
 
-namespace RCS.Sudoku.Gui.Services
+namespace RCS.Sudoku.WpfApplication.Services
 {
     public class ThemeSelectorService : IThemeSelectorService
     {

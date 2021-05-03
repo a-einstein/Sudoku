@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace RCS.Sudoku.Gui.Converters
+namespace RCS.Sudoku.WpfApplication.Converters
 {
     public class EnumToBooleanConverter : IValueConverter
     {

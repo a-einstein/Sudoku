@@ -3,14 +3,14 @@ using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Extensions.Configuration;
 using RCS.Sudoku.Common.Contracts.Services;
 using RCS.Sudoku.Common.Services;
-using RCS.Sudoku.Gui.Contracts.Services;
-using RCS.Sudoku.Gui.Contracts.Views;
-using RCS.Sudoku.Gui.Models;
-using RCS.Sudoku.Gui.Services;
-using RCS.Sudoku.Gui.Views;
+using RCS.Sudoku.WpfApplication.Contracts.Services;
+using RCS.Sudoku.WpfApplication.Contracts.Views;
+using RCS.Sudoku.WpfApplication.Models;
+using RCS.Sudoku.WpfApplication.Services;
+using RCS.Sudoku.WpfApplication.Views;
 using System.Windows.Controls;
 
-namespace RCS.Sudoku.Gui.ViewModels
+namespace RCS.Sudoku.WpfApplication.ViewModels
 {
     public class ViewModelLocator
     {

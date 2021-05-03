@@ -1,4 +1,4 @@
-﻿namespace RCS.Sudoku.Gui.Contracts.ViewModels
+﻿namespace RCS.Sudoku.WpfApplication.Contracts.ViewModels
 {
     public interface INavigationAware
     {

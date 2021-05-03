@@ -2,7 +2,7 @@
 using System;
 using System.Windows.Controls;
 
-namespace RCS.Sudoku.Gui.Contracts.Services
+namespace RCS.Sudoku.WpfApplication.Contracts.Services
 {
     public interface IPageService
     {
