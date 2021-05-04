@@ -147,7 +147,7 @@
   <data name="AppDisplayName" xml:space="preserve">
     <value>Robert's Sudoku Solver</value>
   </data>
-  <data name="FileResultLabel" xml:space="preserve">
+  <data name="FileMessageLabel" xml:space="preserve">
     <value>File:</value>
   </data>
   <data name="FileReadText" xml:space="preserve">
@@ -156,7 +156,7 @@
   <data name="SolveText" xml:space="preserve">
     <value>Solve</value>
   </data>
-  <data name="SolveResultLabel" xml:space="preserve">
+  <data name="SolveMessageLabel" xml:space="preserve">
     <value>Result:</value>
   </data>
   <data name="ShellGoBackButton" xml:space="preserve">

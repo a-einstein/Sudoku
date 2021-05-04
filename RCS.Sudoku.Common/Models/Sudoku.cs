@@ -56,6 +56,8 @@ namespace RCS.Sudoku.Common
                     return false;
                 }
 
+                digitFrequencies = new DigitFrequencies();
+
                 for (int row = 0; row < 9; row++)
                 {
                     var fileLine = fileLines[row];
@@ -114,7 +116,7 @@ namespace RCS.Sudoku.Common
         /// <param name="column">Startposition.</param>
         /// <param name="table">Data structure to work in.</param>
         /// <returns>Success or failure.</returns>
-        public static bool CompleteFrom(int row, int column, DataTable table)
+        public static ActionStatus CompleteFrom(int row, int column, DataTable table)
         {
             var cellContent = (CellContent)table.Rows[row][column];
 
@@ -136,7 +138,7 @@ namespace RCS.Sudoku.Common
                 // All completed from start.
                 else
                 {
-                    return true;
+                    return ActionStatus.Succeeded;
                 }
             }
             // Cell has NO value.
@@ -156,9 +158,9 @@ namespace RCS.Sudoku.Common
                         if ((column + 1) < 9)
                         {
                             // Next cell in row.
-                            if (CompleteFrom(row, column + 1, table))
+                            if (CompleteFrom(row, column + 1, table) == ActionStatus.Succeeded)
                                 // No conflicts encountered for digit in remainder of table.
-                                return true;
+                                return ActionStatus.Succeeded;
                             else
                             {
                                 // Backtrack. Next digit.
@@ -170,9 +172,9 @@ namespace RCS.Sudoku.Common
                         else if ((row + 1) < 9)
                         {
                             // Next row.
-                            if (CompleteFrom(row + 1, 0, table))
+                            if (CompleteFrom(row + 1, 0, table)== ActionStatus.Succeeded)
                                 // No conflicts encountered for digit in remainder of table.
-                                return true;
+                                return ActionStatus.Succeeded;
                             else
                             {
                                 // Backtrack. Next digit.
@@ -182,14 +184,14 @@ namespace RCS.Sudoku.Common
                         // No conflicts encountered for digit in remainder of table.
                         else
                         {
-                            return true;
+                            return ActionStatus.Succeeded;
                         }
                     }
                 }
             }
 
             // No completion for cell.
-            return false;
+            return ActionStatus.Failed;
         }
 
         // This could be part of CellContent, but I kept DataTable out of there.
@@ -261,4 +263,4 @@ namespace RCS.Sudoku.Common
             return true;
         }
     }
-}
+  }
