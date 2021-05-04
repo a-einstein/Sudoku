@@ -6,11 +6,28 @@ using System.Windows.Forms;
 
 namespace RCS.Sudoku.Common
 {
+    /// <summary>
+    /// Core class with essential action on the puzzle itself.
+    /// </summary>
     public class Sudoku
     {
+        /// <summary>
+        /// Frequency of digits present in the initial sudoku.
+        /// </summary>
         private static DigitFrequencies digitFrequencies = new DigitFrequencies();
+
+        /// <summary>
+        /// Sorted list of digits depending on their frequencies.
+        /// </summary>
         private static int[] sortedDigits;
 
+        /// <summary>
+        /// Read file and do some validity checks. Assumes a 9x9 textual grid with 0 in empty cells.
+        /// Also assemble additional information for solving.
+        /// </summary>
+        /// <param name="result">Verbal result with either the file name or error messages.</param>
+        /// <param name="grid">Resulting grid.</param>
+        /// <returns>Success or failure.</returns>
         public static bool Read(out string result, out CellContent[][] grid)
         {
             // Use jagged array for (supposed) speed and transferability.
@@ -89,6 +106,14 @@ namespace RCS.Sudoku.Common
         // Currently gave up on the idea to make this generic for both a direct grid and a DataTable/DataView on CellContent.
         // Problem is that DataTable and DataView don't implement IList on both the rows and columns.
         // Chose for this option with a table to enable easy binding to the view.
+
+        /// <summary>
+        /// Core recursive solution function.
+        /// </summary>
+        /// <param name="row">Startposition.</param>
+        /// <param name="column">Startposition.</param>
+        /// <param name="table">Data structure to work in.</param>
+        /// <returns>Success or failure.</returns>
         public static bool CompleteFrom(int row, int column, DataTable table)
         {
             var cellContent = (CellContent)table.Rows[row][column];
@@ -168,15 +193,31 @@ namespace RCS.Sudoku.Common
         }
 
         // This could be part of CellContent, but I kept DataTable out of there.
+
+        /// <summary>
+        /// Helper method.
+        /// </summary>
+        /// <param name="cellContent">Cell to assign to.</param>
+        /// <param name="digit">Digit to assign.</param>
+        /// <param name="table">Containing data structure.</param>
         private static void Assign(CellContent cellContent, int? digit, DataTable table)
         {
             cellContent.Digit = digit;
 
             // Reflect changes.
             // TODO Looking for a working way to delay, while updating view.
+            // Thought to be optional for user, skipping both updates and delays during process.
             table.AcceptChanges();
         }
 
+        /// <summary>
+        /// Core function to consider whether digit is avalaible for a location.
+        /// Consider row, column, and box of a location.
+        /// </summary>
+        /// <param name="digit">Considered digit.</param>
+        /// <param name="testCell">Considered location.</param>
+        /// <param name="table">Containing data structure.</param>
+        /// <returns></returns>
         private static bool DigitAvailableForCell(int digit, CellLocation testCell, DataTable table)
         {
             // TODO Make this conditional.
