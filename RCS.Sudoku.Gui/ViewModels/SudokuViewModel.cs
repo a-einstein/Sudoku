@@ -18,6 +18,9 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
             InitTable();
         }
 
+        /// <summary>
+        /// Prepare table for use and inmediate display.
+        /// </summary>
         private void InitTable()
         {
             // Define table.
@@ -48,12 +51,21 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         #endregion
 
         #region Data
+        /// <summary>
+        /// Main data structure.
+        /// </summary>
         static private DataTable table = new DataTable();
 
+        /// <summary>
+        /// Bindable view.
+        /// </summary>
         public DataView Source { get; } = table.DefaultView;
 
-
         private bool fileRead;
+        /// <summary>
+        /// Status of file been read. 
+        /// Implies enablement and status of solving.
+        /// </summary>
         private bool FileRead
         {
             get { return fileRead; }
@@ -67,6 +79,10 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         }
 
         private string fileResult = "No file yet";
+
+        /// <summary>
+        /// Verbal status of file been read.
+        /// </summary>
         public string FileResult
         {
             get { return fileResult; }
@@ -80,6 +96,10 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
 
         private const string solveResultDefault = "Not tried yet";
         private string solveResult = solveResultDefault;
+
+        /// <summary>
+        /// Verbal status of sudoku been solved.
+        /// </summary>
         public string SolveResult
         {
             get { return solveResult; }
@@ -96,6 +116,9 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         private ICommand readFileCommand;
         public ICommand ReadFileCommand => readFileCommand ?? (readFileCommand = new RelayCommand(ReadFile));
 
+        /// <summary>
+        /// Read and convert data.
+        /// </summary>
         private void ReadFile()
         {
             CellContent[][] grid;
@@ -109,6 +132,10 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
             }
         }
 
+        /// <summary>
+        /// Convert data.
+        /// </summary>
+        /// <param name="grid"></param>
         void FillTable(CellContent[][] grid)
         {
             for (int row = 0; row < 9; row++)
@@ -127,6 +154,9 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         private RelayCommand solveCommand;
         public ICommand SolveCommand => solveCommand ?? (solveCommand = new RelayCommand(Solve, (() => FileRead)));
 
+        /// <summary>
+        /// Solve sudoku and display results.
+        /// </summary>
         void Solve()
         {
             SolveResult = "Working on it...";

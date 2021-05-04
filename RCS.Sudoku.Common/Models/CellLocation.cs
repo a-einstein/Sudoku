@@ -1,5 +1,8 @@
 ﻿namespace RCS.Sudoku.Common
 {
+    /// <summary>
+    /// Helper structure to compactly store cell location.
+    /// </summary>
     public struct CellLocation
     {
         public int Row;
