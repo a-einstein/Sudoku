@@ -35,8 +35,6 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
 
             // Services
             SimpleIoc.Default.Register<IPersistAndRestoreService, PersistAndRestoreService>();
-            SimpleIoc.Default.Register<IThemeSelectorService, ThemeSelectorService>();
-            SimpleIoc.Default.Register<IRightPaneService, RightPaneService>();
             SimpleIoc.Default.Register<IPageService, PageService>();
             SimpleIoc.Default.Register<INavigationService, NavigationService>();
 

@@ -12,13 +12,11 @@ namespace RCS.Sudoku.WpfApplication.Services
     {
         private readonly INavigationService _navigationService;
         private readonly IPersistAndRestoreService _persistAndRestoreService;
-        private readonly IThemeSelectorService _themeSelectorService;
         private IShellWindow _shellWindow;
 
-        public ApplicationHostService(INavigationService navigationService, IThemeSelectorService themeSelectorService, IPersistAndRestoreService persistAndRestoreService)
+        public ApplicationHostService(INavigationService navigationService, IPersistAndRestoreService persistAndRestoreService)
         {
             _navigationService = navigationService;
-            _themeSelectorService = themeSelectorService;
             _persistAndRestoreService = persistAndRestoreService;
         }
 
@@ -42,7 +40,6 @@ namespace RCS.Sudoku.WpfApplication.Services
         private async Task InitializeAsync()
         {
             _persistAndRestoreService.RestoreData();
-            _themeSelectorService.InitializeTheme();
             await Task.CompletedTask;
         }
 
