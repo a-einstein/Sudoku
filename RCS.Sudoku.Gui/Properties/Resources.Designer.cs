@@ -70,20 +70,20 @@ namespace RCS.Sudoku.WpfApplication.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File:.
+        /// </summary>
+        public static string FileMessageLabel {
+            get {
+                return ResourceManager.GetString("FileMessageLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Read.
         /// </summary>
         public static string FileReadText {
             get {
                 return ResourceManager.GetString("FileReadText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to File:.
-        /// </summary>
-        public static string FileResultLabel {
-            get {
-                return ResourceManager.GetString("FileResultLabel", resourceCulture);
             }
         }
         
@@ -180,9 +180,9 @@ namespace RCS.Sudoku.WpfApplication.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Result:.
         /// </summary>
-        public static string SolveResultLabel {
+        public static string SolveMessageLabel {
             get {
-                return ResourceManager.GetString("SolveResultLabel", resourceCulture);
+                return ResourceManager.GetString("SolveMessageLabel", resourceCulture);
             }
         }
         

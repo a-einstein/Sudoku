@@ -62,6 +62,7 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         public DataView Source { get; } = table.DefaultView;
 
         private bool fileRead;
+
         /// <summary>
         /// Status of file been read. 
         /// Implies enablement and status of solving.
@@ -73,41 +74,58 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
             {
                 fileRead = value;
 
-                SolveResult = solveResultDefault;
+                SolveMessage = solveMessageDefault;
+                SolveStatus = ActionStatus.NotStarted;
                 solveCommand.RaiseCanExecuteChanged();
             }
         }
 
-        private string fileResult = "No file yet";
+        private string fileMessage = "No file yet";
 
         /// <summary>
         /// Verbal status of file been read.
         /// </summary>
-        public string FileResult
+        public string FileMessage
         {
-            get { return fileResult; }
+            get { return fileMessage; }
             set
             {
                 // Using this simple way instead of Set, which did not work.
-                fileResult = value;
-                RaisePropertyChanged(nameof(FileResult));
+                fileMessage = value;
+                RaisePropertyChanged(nameof(FileMessage));
             }
         }
 
-        private const string solveResultDefault = "Not tried yet";
-        private string solveResult = solveResultDefault;
+        private ActionStatus solveStatus = ActionStatus.NotStarted;
+
+        /// <summary>
+        /// Status of sudoku been solved.
+        /// </summary>
+        private ActionStatus SolveStatus
+        {
+            get { return solveStatus; }
+            set
+            {
+                solveStatus = value;
+                solveCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+
+        private const string solveMessageDefault = "Not tried yet";
+        private string solveMessage = solveMessageDefault;
 
         /// <summary>
         /// Verbal status of sudoku been solved.
         /// </summary>
-        public string SolveResult
+        public string SolveMessage
         {
-            get { return solveResult; }
+            get { return solveMessage; }
             set
             {
                 // Using this simple way instead of Set, which did not work.
-                solveResult = value;
-                RaisePropertyChanged(nameof(SolveResult));
+                solveMessage = value;
+                RaisePropertyChanged(nameof(SolveMessage));
             }
         }
         #endregion
@@ -123,8 +141,8 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         {
             CellContent[][] grid;
 
-            FileRead = Common.Sudoku.Read(out fileResult, out grid);
-            FileResult = fileResult;
+            FileRead = Common.Sudoku.Read(out fileMessage, out grid);
+            FileMessage = fileMessage;
 
             if (FileRead)
             {
@@ -152,28 +170,36 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         }
 
         private RelayCommand solveCommand;
-        public ICommand SolveCommand => solveCommand ?? (solveCommand = new RelayCommand(Solve, (() => FileRead)));
+
+        /// <summary>
+        /// Command for solving sudoku.
+        /// Enforce a file to be (re)read to ensure a clean slate.
+        /// </summary>
+        public ICommand SolveCommand => solveCommand ?? (solveCommand = new RelayCommand(Solve, (() => FileRead && SolveStatus == ActionStatus.NotStarted)));
 
         /// <summary>
         /// Solve sudoku and display results.
         /// </summary>
         void Solve()
         {
-            SolveResult = "Working on it...";
+            SolveMessage = "Working on it...";
 
             var timeStart = DateTime.Now;
 
-            var completed = Common.Sudoku.CompleteFrom(0, 0, table);
+            SolveStatus = Common.Sudoku.CompleteFrom(0, 0, table);
 
             var duration = (DateTime.Now - timeStart).TotalSeconds;
 
-            if (completed)
+            switch (SolveStatus)
             {
-                SolveResult = ($"Completed in {duration} seconds.");
-            }
-            else
-            {
-                SolveResult = ($"Failed in {duration} seconds.");
+                case ActionStatus.Succeeded:
+                    SolveMessage = ($"Completed in {duration} seconds.");
+                    break;
+                case ActionStatus.Failed:
+                    SolveMessage = ($"Failed in {duration} seconds.");
+                    break;
+                default:
+                    throw new Exception($"Unexpected value for {nameof(SolveStatus)}.");
             }
         }
         #endregion
