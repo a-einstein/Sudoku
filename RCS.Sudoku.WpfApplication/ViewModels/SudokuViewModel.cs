@@ -16,6 +16,8 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         public SudokuViewModel()
         {
             InitTable();
+
+            SolveReport(ActionStatus.Unprepared);
         }
 
         /// <summary>
@@ -74,9 +76,7 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
             {
                 fileRead = value;
 
-                SolveMessage = solveMessageDefault;
-                SolveStatus = ActionStatus.NotStarted;
-                solveCommand.RaiseCanExecuteChanged();
+                SolveReport(ActionStatus.Prepared);
             }
         }
 
@@ -92,11 +92,43 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
             {
                 // Using this simple way instead of Set, which did not work.
                 fileMessage = value;
-                RaisePropertyChanged(nameof(FileMessage));
+                RaisePropertyChanged();
             }
         }
 
-        private ActionStatus solveStatus = ActionStatus.NotStarted;
+        /// <summary>
+        /// Set SolveStatus and SolveMessage in conjunction, with a duration if applicable.
+        /// </summary>
+        /// <param name="solveStatus">New status.</param>
+        /// <param name="duration">Used time.</param>
+        private void SolveReport(ActionStatus solveStatus, double? duration = default)
+        {
+            SolveStatus = solveStatus;
+
+            // TODO Use resources.
+            switch (solveStatus)
+            {
+                case ActionStatus.Unprepared:
+                    SolveMessage = "Waiting for data.";
+                    break;
+                case ActionStatus.Prepared:
+                    SolveMessage = "Ready to start.";
+                    break;
+                case ActionStatus.Started:
+                    SolveMessage = "Working on it...";
+                    break;
+                case ActionStatus.Succeeded:
+                    SolveMessage = ($"Succeeded in {duration} seconds.");
+                    break;
+                case ActionStatus.Failed:
+                    SolveMessage = ($"Failed in {duration} seconds.");
+                    break;
+                default:
+                    throw new Exception($"Unexpected value for {nameof(solveStatus)}.");
+            }
+        }
+
+        private ActionStatus solveStatus = ActionStatus.Unprepared;
 
         /// <summary>
         /// Status of sudoku been solved.
@@ -107,13 +139,11 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
             set
             {
                 solveStatus = value;
-                solveCommand.RaiseCanExecuteChanged();
+                SolveCommand.RaiseCanExecuteChanged();
             }
         }
 
-
-        private const string solveMessageDefault = "Not tried yet";
-        private string solveMessage = solveMessageDefault;
+        private string solveMessage;
 
         /// <summary>
         /// Verbal status of sudoku been solved.
@@ -125,7 +155,7 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
             {
                 // Using this simple way instead of Set, which did not work.
                 solveMessage = value;
-                RaisePropertyChanged(nameof(SolveMessage));
+                RaisePropertyChanged();
             }
         }
         #endregion
@@ -175,32 +205,23 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         /// Command for solving sudoku.
         /// Enforce a file to be (re)read to ensure a clean slate.
         /// </summary>
-        public ICommand SolveCommand => solveCommand ?? (solveCommand = new RelayCommand(Solve, (() => FileRead && SolveStatus == ActionStatus.NotStarted)));
+        public RelayCommand SolveCommand => solveCommand ?? (solveCommand = new RelayCommand(Solve, () => SolveStatus == ActionStatus.Prepared));
+
 
         /// <summary>
         /// Solve sudoku and display results.
         /// </summary>
         void Solve()
         {
-            SolveMessage = "Working on it...";
+            SolveReport(ActionStatus.Started);
 
             var timeStart = DateTime.Now;
 
-            SolveStatus = Common.Sudoku.CompleteFrom(0, 0, table);
+            var status = Common.Sudoku.CompleteFrom(0, 0, table);
 
             var duration = (DateTime.Now - timeStart).TotalSeconds;
 
-            switch (SolveStatus)
-            {
-                case ActionStatus.Succeeded:
-                    SolveMessage = ($"Completed in {duration} seconds.");
-                    break;
-                case ActionStatus.Failed:
-                    SolveMessage = ($"Failed in {duration} seconds.");
-                    break;
-                default:
-                    throw new Exception($"Unexpected value for {nameof(SolveStatus)}.");
-            }
+            SolveReport(status, duration);
         }
         #endregion
 

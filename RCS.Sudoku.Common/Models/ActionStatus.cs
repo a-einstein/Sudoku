@@ -2,7 +2,9 @@
 {
     public enum ActionStatus
     {
-        NotStarted,
+        Unprepared,
+        Prepared,
+        Started,
         Succeeded,
         Failed
     }
