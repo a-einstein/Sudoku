@@ -18,7 +18,7 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         public SudokuViewModel()
         {
             uiDispatcher = Dispatcher.CurrentDispatcher;
-            sudoku = new Common.Sudoku(uiDispatcher);
+            sudokuHelper = new SudokuHelper(uiDispatcher);
 
             InitTable();
 
@@ -26,7 +26,7 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         }
 
         private Dispatcher uiDispatcher;
-        private Common.Sudoku sudoku;
+        private SudokuHelper sudokuHelper;
 
         /// <summary>
         /// Prepare table for use and inmediate display.
@@ -34,15 +34,15 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         private void InitTable()
         {
             // Define table.
-            table.Columns.Add(new DataColumn("a", typeof(CellContent)));
-            table.Columns.Add(new DataColumn("b", typeof(CellContent)));
-            table.Columns.Add(new DataColumn("c", typeof(CellContent)));
-            table.Columns.Add(new DataColumn("d", typeof(CellContent)));
-            table.Columns.Add(new DataColumn("e", typeof(CellContent)));
-            table.Columns.Add(new DataColumn("f", typeof(CellContent)));
-            table.Columns.Add(new DataColumn("g", typeof(CellContent)));
-            table.Columns.Add(new DataColumn("h", typeof(CellContent)));
-            table.Columns.Add(new DataColumn("i", typeof(CellContent)));
+            table.Columns.Add(new DataColumn("a", typeof(Cell)));
+            table.Columns.Add(new DataColumn("b", typeof(Cell)));
+            table.Columns.Add(new DataColumn("c", typeof(Cell)));
+            table.Columns.Add(new DataColumn("d", typeof(Cell)));
+            table.Columns.Add(new DataColumn("e", typeof(Cell)));
+            table.Columns.Add(new DataColumn("f", typeof(Cell)));
+            table.Columns.Add(new DataColumn("g", typeof(Cell)));
+            table.Columns.Add(new DataColumn("h", typeof(Cell)));
+            table.Columns.Add(new DataColumn("i", typeof(Cell)));
 
             // Add empty rows for visual appeal.
             for (int row = 0; row < 9; row++)
@@ -52,7 +52,7 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
                 for (int column = 0; column < 9; column++)
                 {
                     // Initialize for proper binding.
-                    emptyRow[column] = new CellContent(0);
+                    emptyRow[column] = new Cell(0);
                 }
 
                 table.Rows.Add(emptyRow);
@@ -177,9 +177,9 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         /// </summary>
         private void ReadFile()
         {
-            CellContent[][] grid;
+            Cell[][] grid;
 
-            FileRead = sudoku.Read(out fileMessage, out grid);
+            FileRead = sudokuHelper.Read(out fileMessage, out grid);
             FileMessage = fileMessage;
 
             if (FileRead)
@@ -192,7 +192,7 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         /// Convert data.
         /// </summary>
         /// <param name="grid"></param>
-        void FillTable(CellContent[][] grid)
+        void FillTable(Cell[][] grid)
         {
             for (int row = 0; row < 9; row++)
             {
@@ -227,7 +227,7 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
 
                 var timeStart = DateTime.Now;
 
-                var status = sudoku.CompleteFrom(0, 0, table);
+                var status = sudokuHelper.CompleteFrom(0, 0, table);
 
                 var duration = (DateTime.Now - timeStart).TotalSeconds;
 

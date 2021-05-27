@@ -10,15 +10,15 @@ namespace RCS.Sudoku.ConsoleApplication
         static void Main(string[] args)
         {
             uiDispatcher = Dispatcher.CurrentDispatcher;
-            sudoku = new Common.Sudoku(uiDispatcher);
+            sudokuHelper = new SudokuHelper(uiDispatcher);
 
             var taskLine = "===============================";
             Console.WriteLine(taskLine);
 
             string readResult;
-            CellContent[][] grid;
+            Cell[][] grid;
 
-            bool fileRead = sudoku.Read(out readResult, out grid);
+            bool fileRead = sudokuHelper.Read(out readResult, out grid);
 
             Console.WriteLine(readResult);
 
@@ -29,9 +29,9 @@ namespace RCS.Sudoku.ConsoleApplication
         }
 
         private static Dispatcher uiDispatcher;
-        private static Common.Sudoku sudoku;
+        private static SudokuHelper sudokuHelper;
 
-        public static void Handle(CellContent[][] grid)
+        public static void Handle(Cell[][] grid)
         {
             Show(grid);
 
@@ -51,7 +51,7 @@ namespace RCS.Sudoku.ConsoleApplication
                 Console.WriteLine($"Failed in {duration}.");
         }
 
-        public static void Show(CellContent[][] grid)
+        public static void Show(Cell[][] grid)
         {
             Console.WriteLine();
 
