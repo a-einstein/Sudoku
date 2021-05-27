@@ -162,4 +162,7 @@
   <data name="MessageFileName_name" xml:space="preserve">
     <value>'{0}'</value>
   </data>
+  <data name="FileReadTitle" xml:space="preserve">
+    <value>Read Sudoku</value>
+  </data>
 </root>

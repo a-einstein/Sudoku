@@ -115,6 +115,15 @@ namespace RCS.Sudoku.Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Read Sudoku.
+        /// </summary>
+        public static string FileReadTitle {
+            get {
+                return ResourceManager.GetString("FileReadTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &apos;{0}&apos;.
         /// </summary>
         public static string MessageFileName_name {

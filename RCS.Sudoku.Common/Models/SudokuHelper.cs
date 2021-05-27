@@ -43,7 +43,7 @@ namespace RCS.Sudoku.Common
 
             var fileDialog = new OpenFileDialog
             {
-                Title = "Read Sudoku",
+                Title = Resources.FileReadTitle,
                 Filter = "TXT files|*.txt",
                 InitialDirectory = initialDirectory
             };
