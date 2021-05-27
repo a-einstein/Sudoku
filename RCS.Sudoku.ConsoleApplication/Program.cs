@@ -1,5 +1,6 @@
 ﻿using RCS.Sudoku.Common;
 using System;
+using System.Windows.Threading;
 
 namespace RCS.Sudoku.ConsoleApplication
 {
@@ -8,13 +9,16 @@ namespace RCS.Sudoku.ConsoleApplication
         [STAThread]
         static void Main(string[] args)
         {
+            uiDispatcher = Dispatcher.CurrentDispatcher;
+            sudoku = new Common.Sudoku(uiDispatcher);
+
             var taskLine = "===============================";
             Console.WriteLine(taskLine);
 
             string readResult;
             CellContent[][] grid;
 
-            bool fileRead = Common.Sudoku.Read(out readResult, out grid);
+            bool fileRead = sudoku.Read(out readResult, out grid);
 
             Console.WriteLine(readResult);
 
@@ -24,6 +28,9 @@ namespace RCS.Sudoku.ConsoleApplication
             }
         }
 
+        private static Dispatcher uiDispatcher;
+        private static Common.Sudoku sudoku;
+
         public static void Handle(CellContent[][] grid)
         {
             Show(grid);
@@ -31,7 +38,7 @@ namespace RCS.Sudoku.ConsoleApplication
             var timeStart = DateTime.Now;
 
             // HACK Disabled, see comment at CompleteFrom.
-            var completed = false /*CompleteFrom(0, 0, Grid)*/;
+            var completed = false /*sudoku.CompleteFrom(0, 0, grid)*/;
             var duration = DateTime.Now - timeStart;
 
             if (completed)
