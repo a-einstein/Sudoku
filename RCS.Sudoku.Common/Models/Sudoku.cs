@@ -3,36 +3,42 @@ using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Windows.Threading;
 
 namespace RCS.Sudoku.Common
 {
     /// <summary>
     /// Core class with essential action on the puzzle itself.
     /// </summary>
+    // TODO Rename.
     public class Sudoku
     {
+        public Sudoku(Dispatcher uiDispatcher)
+        {
+            this.uiDispatcher = uiDispatcher;
+        }
+
+        private Dispatcher uiDispatcher { get; set; }
+
         /// <summary>
         /// Frequency of digits present in the initial sudoku.
         /// </summary>
-        private static DigitFrequencies digitFrequencies = new DigitFrequencies();
+        private DigitFrequencies digitFrequencies = new DigitFrequencies();
 
         /// <summary>
         /// Sorted list of digits depending on their frequencies.
         /// </summary>
-        private static int[] sortedDigits;
+        private int[] sortedDigits;
 
         /// <summary>
         /// Read file and do some validity checks. Assumes a 9x9 textual grid with 0 in empty cells.
         /// Also assemble additional information for solving.
         /// </summary>
-        /// <param name="result">Verbal result with either the file name or error messages.</param>
+        /// <param name="message">Resulting message with either the file name or error report.</param>
         /// <param name="grid">Resulting grid.</param>
         /// <returns>Success or failure.</returns>
-        public static bool Read(out string result, out CellContent[][] grid)
+        public bool Read(out string message, out CellContent[][] grid)
         {
-            // Use jagged array for (supposed) speed and transferability.
-            grid = new CellContent[9][];
-
             var initialDirectory = Path.GetFullPath(Directory.GetCurrentDirectory() + "\\..\\..\\..\\..\\..\\puzzles");
 
             var fileDialog = new OpenFileDialog
@@ -42,67 +48,82 @@ namespace RCS.Sudoku.Common
                 InitialDirectory = initialDirectory
             };
 
+            // Use jagged array for (supposed) speed and transferability.
+            grid = new CellContent[9][];
+
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
-                var filename = Path.GetFileName(fileDialog.FileName);
-                Trace.WriteLine($"File = '{filename}'.");
+                var filePath = fileDialog.FileName;
+                Trace.WriteLine($"File = '{filePath}'.");
 
-                string[] fileLines = File.ReadAllLines(fileDialog.FileName);
-
-                if (fileLines.Length != 9)
-                {
-                    result = $"Error: Puzzle does not have 9 rows.";
-                    Trace.WriteLine(result);
-                    return false;
-                }
-
-                digitFrequencies = new DigitFrequencies();
-
-                for (int row = 0; row < 9; row++)
-                {
-                    var fileLine = fileLines[row];
-
-                    // Only keep digits.
-                    var line = Regex.Replace(fileLine, @"\D", "");
-
-                    if (line.Length != 9)
-                    {
-                        result = $"Error: Row {row + 1} does not have 9 digits.";
-                        Trace.WriteLine(result);
-                        return false;
-                    }
-
-                    grid[row] = new CellContent[9];
-
-                    for (int column = 0; column < 9; column++)
-                    {
-                        // Currently redundant as the line should be filtered.
-                        if (int.TryParse(line[column].ToString(), out int digit))
-                        {
-                            grid[row][column] = new CellContent(digit);
-
-                            if (digit != 0)
-                                digitFrequencies[digit]++;
-                        }
-                        else
-                        {
-                            result = $"Error: Row {row + 1} does not have digits only.";
-                            Trace.WriteLine(result);
-                            return false;
-                        }
-                    }
-                }
-
-                sortedDigits = digitFrequencies.SortedDigits();
-
-                result = $"'{filename}'";
-                return true;
+                message = $"'{Path.GetFileName(filePath)}'";
+                return ProcessFile(filePath, ref message, ref grid);
             }
             else
             {
-                result = "No file read.";
+                message = "No file read.";
                 return false;
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filePath">Path to file to be read.</param>
+        /// <param name="message">Resulting messages.</param>
+        /// <param name="grid">Resulting grid.</param>
+        /// <returns></returns>
+        private bool ProcessFile(string filePath, ref string message, ref CellContent[][] grid)
+        {
+            string[] fileLines = File.ReadAllLines(filePath);
+
+            if (fileLines.Length != 9)
+            {
+                message = $"Error: Puzzle does not have 9 rows.";
+                Trace.WriteLine(message);
+                return false;
+            }
+
+            digitFrequencies = new DigitFrequencies();
+
+            for (int row = 0; row < 9; row++)
+            {
+                var fileLine = fileLines[row];
+
+                // Only keep digits.
+                var line = Regex.Replace(fileLine, @"\D", "");
+
+                if (line.Length != 9)
+                {
+                    message = $"Error: Row {row + 1} does not have 9 digits.";
+                    Trace.WriteLine(message);
+                    return false;
+                }
+
+                grid[row] = new CellContent[9];
+
+                for (int column = 0; column < 9; column++)
+                {
+                    // Currently redundant as the line should be filtered.
+                    if (int.TryParse(line[column].ToString(), out int digit))
+                    {
+                        grid[row][column] = new CellContent(digit);
+
+                        if (digit != 0)
+                            digitFrequencies[digit]++;
+                    }
+                    else
+                    {
+                        message = $"Error: Row {row + 1} does not have digits only.";
+                        Trace.WriteLine(message);
+                        return false;
+                    }
+                }
+            }
+
+            sortedDigits = digitFrequencies.SortedDigits();
+
+            return true;
         }
 
         // Currently gave up on the idea to make this generic for both a direct grid and a DataTable/DataView on CellContent.
@@ -116,8 +137,9 @@ namespace RCS.Sudoku.Common
         /// <param name="column">Startposition.</param>
         /// <param name="table">Data structure to work in.</param>
         /// <returns>Success or failure.</returns>
-        public static ActionStatus CompleteFrom(int row, int column, DataTable table)
+        public ActionStatus CompleteFrom(int row, int column, DataTable table)
         {
+            // TODO Rename to Cell.
             var cellContent = (CellContent)table.Rows[row][column];
 
             // Cell HAS a value.
@@ -172,7 +194,7 @@ namespace RCS.Sudoku.Common
                         else if ((row + 1) < 9)
                         {
                             // Next row.
-                            if (CompleteFrom(row + 1, 0, table)== ActionStatus.Succeeded)
+                            if (CompleteFrom(row + 1, 0, table) == ActionStatus.Succeeded)
                                 // No conflicts encountered for digit in remainder of table.
                                 return ActionStatus.Succeeded;
                             else
@@ -202,14 +224,18 @@ namespace RCS.Sudoku.Common
         /// <param name="cellContent">Cell to assign to.</param>
         /// <param name="digit">Digit to assign.</param>
         /// <param name="table">Containing data structure.</param>
-        private static void Assign(CellContent cellContent, int? digit, DataTable table)
+        private void Assign(CellContent cellContent, int? digit, DataTable table)
         {
-            cellContent.Digit = digit;
+            // Use Dispatcher for intermediate GUI updates.
+            uiDispatcher.Invoke(() =>
+            {
+                cellContent.Digit = digit;
 
-            // Reflect changes.
-            // TODO Looking for a working way to delay, while updating view.
-            // Thought to be optional for user, skipping both updates and delays during process.
-            table.AcceptChanges();
+                // Reflect changes.
+                // Use of Row.SetModified was not suffcicient.
+                // Actually this slows down the process considerably, which enable following it on screen.
+                table.AcceptChanges();
+            }, DispatcherPriority.Send);
         }
 
         /// <summary>
@@ -220,7 +246,7 @@ namespace RCS.Sudoku.Common
         /// <param name="testCell">Considered location.</param>
         /// <param name="table">Containing data structure.</param>
         /// <returns></returns>
-        private static bool DigitAvailableForCell(int digit, CellLocation testCell, DataTable table)
+        private bool DigitAvailableForCell(int digit, CellLocation testCell, DataTable table)
         {
             // TODO Make this conditional.
             //Debug.WriteLine();
@@ -263,4 +289,4 @@ namespace RCS.Sudoku.Common
             return true;
         }
     }
-  }
+}

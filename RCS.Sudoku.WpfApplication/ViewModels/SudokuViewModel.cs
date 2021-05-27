@@ -5,7 +5,9 @@ using RCS.Sudoku.Common;
 using RCS.Sudoku.WpfApplication.Contracts.ViewModels;
 using System;
 using System.Data;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace RCS.Sudoku.WpfApplication.ViewModels
 {
@@ -15,10 +17,16 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         [PreferredConstructor]
         public SudokuViewModel()
         {
+            uiDispatcher = Dispatcher.CurrentDispatcher;
+            sudoku = new Common.Sudoku(uiDispatcher);
+
             InitTable();
 
-            SolveReport(ActionStatus.Unprepared);
+            ReportSolving(ActionStatus.Unprepared);
         }
+
+        private Dispatcher uiDispatcher;
+        private Common.Sudoku sudoku;
 
         /// <summary>
         /// Prepare table for use and inmediate display.
@@ -76,7 +84,7 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
             {
                 fileRead = value;
 
-                SolveReport(ActionStatus.Prepared);
+                ReportSolving(ActionStatus.Prepared);
             }
         }
 
@@ -101,7 +109,7 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         /// </summary>
         /// <param name="solveStatus">New status.</param>
         /// <param name="duration">Used time.</param>
-        private void SolveReport(ActionStatus solveStatus, double? duration = default)
+        private void ReportSolving(ActionStatus solveStatus, double? duration = default)
         {
             SolveStatus = solveStatus;
 
@@ -171,7 +179,7 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         {
             CellContent[][] grid;
 
-            FileRead = Common.Sudoku.Read(out fileMessage, out grid);
+            FileRead = sudoku.Read(out fileMessage, out grid);
             FileMessage = fileMessage;
 
             if (FileRead)
@@ -207,21 +215,24 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         /// </summary>
         public RelayCommand SolveCommand => solveCommand ?? (solveCommand = new RelayCommand(Solve, () => SolveStatus == ActionStatus.Prepared));
 
-
         /// <summary>
         /// Solve sudoku and display results.
         /// </summary>
-        void Solve()
+        private void Solve()
         {
-            SolveReport(ActionStatus.Started);
+            // Use Run and Dispatcher to enable intermediate GUI updates.
+            Task.Run(() =>
+            {
+                uiDispatcher.Invoke(() => ReportSolving(ActionStatus.Started), DispatcherPriority.Send);
 
-            var timeStart = DateTime.Now;
+                var timeStart = DateTime.Now;
 
-            var status = Common.Sudoku.CompleteFrom(0, 0, table);
+                var status = sudoku.CompleteFrom(0, 0, table);
 
-            var duration = (DateTime.Now - timeStart).TotalSeconds;
+                var duration = (DateTime.Now - timeStart).TotalSeconds;
 
-            SolveReport(status, duration);
+                uiDispatcher.Invoke(() => ReportSolving(status, duration), DispatcherPriority.Send);
+            });
         }
         #endregion
 
