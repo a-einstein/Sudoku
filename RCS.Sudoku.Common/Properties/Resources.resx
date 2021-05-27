@@ -117,41 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SettingsPageTitle" xml:space="preserve">
-    <value>Settings</value>
-  </data>
-  <data name="SettingsPageAboutText" xml:space="preserve">
-    <value>Settings page placeholder text.  Your app description goes here.</value>
-  </data>
-  <data name="SettingsPageAboutTitle" xml:space="preserve">
-    <value>About this application</value>
-  </data>
-  <data name="SettingsPageChooseThemeText" xml:space="preserve">
-    <value>Choose Theme</value>
-  </data>
-  <data name="SettingsPagePersonalizationTitle" xml:space="preserve">
-    <value>Personalization</value>
-  </data>
-  <data name="SettingsPagePrivacyStatementText" xml:space="preserve">
-    <value>Privacy Statement</value>
-  </data>
-  <data name="SettingsPageRadioButtonDarkTheme" xml:space="preserve">
-    <value>Dark</value>
-  </data>
-  <data name="SettingsPageRadioButtonLightTheme" xml:space="preserve">
-    <value>Light</value>
-  </data>
-  <data name="SettingsPageRadioButtonWindowsDefaultTheme" xml:space="preserve">
-    <value>Default</value>
-  </data>
   <data name="AppDisplayName" xml:space="preserve">
     <value>Robert's Sudoku Solver</value>
-  </data>
-  <data name="FileMessageLabel" xml:space="preserve">
-    <value>File:</value>
-  </data>
-  <data name="FileReadText" xml:space="preserve">
-    <value>Read</value>
   </data>
   <data name="SolveText" xml:space="preserve">
     <value>Solve</value>
@@ -159,7 +126,40 @@
   <data name="SolveMessageLabel" xml:space="preserve">
     <value>Result:</value>
   </data>
+  <data name="StatusFailed_seconds" xml:space="preserve">
+    <value>Failed in {0} seconds.</value>
+  </data>
+  <data name="StatusPrepared" xml:space="preserve">
+    <value>Ready to start.</value>
+  </data>
+  <data name="StatusStarted" xml:space="preserve">
+    <value>Working on it...</value>
+  </data>
+  <data name="StatusSucceeded_seconds" xml:space="preserve">
+    <value>Succeeded in {0} seconds.</value>
+  </data>
+  <data name="StatusUnprepared" xml:space="preserve">
+    <value>Waiting for data...</value>
+  </data>
+  <data name="FileMessageLabel" xml:space="preserve">
+    <value>File:</value>
+  </data>
+  <data name="FileReadText" xml:space="preserve">
+    <value>Read</value>
+  </data>
   <data name="ShellGoBackButton" xml:space="preserve">
     <value>Go back</value>
+  </data>
+  <data name="ErrorPuzzleRows_rows" xml:space="preserve">
+    <value>Error: Puzzle does not have {0} rows.</value>
+  </data>
+  <data name="ErrorRowDigits_row_digits" xml:space="preserve">
+    <value>Error: Row {0} does not have {1} digits.</value>
+  </data>
+  <data name="ErrorRowNonDigits_row" xml:space="preserve">
+    <value>Error: Row {0} does not have digits only.</value>
+  </data>
+  <data name="MessageFileName_name" xml:space="preserve">
+    <value>'{0}'</value>
   </data>
 </root>

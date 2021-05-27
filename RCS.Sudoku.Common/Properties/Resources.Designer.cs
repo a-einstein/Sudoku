@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RCS.Sudoku.WpfApplication.Properties {
+namespace RCS.Sudoku.Common.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace RCS.Sudoku.WpfApplication.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RCS.Sudoku.WpfApplication.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RCS.Sudoku.Common.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -70,6 +70,33 @@ namespace RCS.Sudoku.WpfApplication.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error: Puzzle does not have {0} rows..
+        /// </summary>
+        public static string ErrorPuzzleRows_rows {
+            get {
+                return ResourceManager.GetString("ErrorPuzzleRows_rows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: Row {0} does not have {1} digits..
+        /// </summary>
+        public static string ErrorRowDigits_row_digits {
+            get {
+                return ResourceManager.GetString("ErrorRowDigits_row_digits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: Row {0} does not have digits only..
+        /// </summary>
+        public static string ErrorRowNonDigits_row {
+            get {
+                return ResourceManager.GetString("ErrorRowNonDigits_row", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File:.
         /// </summary>
         public static string FileMessageLabel {
@@ -88,83 +115,11 @@ namespace RCS.Sudoku.WpfApplication.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Settings page placeholder text.  Your app description goes here..
+        ///   Looks up a localized string similar to &apos;{0}&apos;.
         /// </summary>
-        public static string SettingsPageAboutText {
+        public static string MessageFileName_name {
             get {
-                return ResourceManager.GetString("SettingsPageAboutText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to About this application.
-        /// </summary>
-        public static string SettingsPageAboutTitle {
-            get {
-                return ResourceManager.GetString("SettingsPageAboutTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Choose Theme.
-        /// </summary>
-        public static string SettingsPageChooseThemeText {
-            get {
-                return ResourceManager.GetString("SettingsPageChooseThemeText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Personalization.
-        /// </summary>
-        public static string SettingsPagePersonalizationTitle {
-            get {
-                return ResourceManager.GetString("SettingsPagePersonalizationTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Privacy Statement.
-        /// </summary>
-        public static string SettingsPagePrivacyStatementText {
-            get {
-                return ResourceManager.GetString("SettingsPagePrivacyStatementText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dark.
-        /// </summary>
-        public static string SettingsPageRadioButtonDarkTheme {
-            get {
-                return ResourceManager.GetString("SettingsPageRadioButtonDarkTheme", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Light.
-        /// </summary>
-        public static string SettingsPageRadioButtonLightTheme {
-            get {
-                return ResourceManager.GetString("SettingsPageRadioButtonLightTheme", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Default.
-        /// </summary>
-        public static string SettingsPageRadioButtonWindowsDefaultTheme {
-            get {
-                return ResourceManager.GetString("SettingsPageRadioButtonWindowsDefaultTheme", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Settings.
-        /// </summary>
-        public static string SettingsPageTitle {
-            get {
-                return ResourceManager.GetString("SettingsPageTitle", resourceCulture);
+                return ResourceManager.GetString("MessageFileName_name", resourceCulture);
             }
         }
         
@@ -192,6 +147,51 @@ namespace RCS.Sudoku.WpfApplication.Properties {
         public static string SolveText {
             get {
                 return ResourceManager.GetString("SolveText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed in {0} seconds..
+        /// </summary>
+        public static string StatusFailed_seconds {
+            get {
+                return ResourceManager.GetString("StatusFailed_seconds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ready to start..
+        /// </summary>
+        public static string StatusPrepared {
+            get {
+                return ResourceManager.GetString("StatusPrepared", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Working on it....
+        /// </summary>
+        public static string StatusStarted {
+            get {
+                return ResourceManager.GetString("StatusStarted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Succeeded in {0} seconds..
+        /// </summary>
+        public static string StatusSucceeded_seconds {
+            get {
+                return ResourceManager.GetString("StatusSucceeded_seconds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waiting for data....
+        /// </summary>
+        public static string StatusUnprepared {
+            get {
+                return ResourceManager.GetString("StatusUnprepared", resourceCulture);
             }
         }
     }

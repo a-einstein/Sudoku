@@ -1,6 +1,6 @@
 ﻿namespace RCS.Sudoku.Common
 {
-    public class CellContent
+    public class Cell
     {
         /// <summary>
         /// Value of cell.
@@ -16,7 +16,7 @@
         /// Construct. Only way to set Original.
         /// </summary>
         /// <param name="digit">Value to assign.</param>
-        public CellContent(int? digit)
+        public Cell(int? digit)
         {
             Digit = digit != 0 ? digit : null;
             Original = digit != 0;

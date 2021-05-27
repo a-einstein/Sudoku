@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using RCS.Sudoku.Common.Properties;
+using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -10,10 +11,9 @@ namespace RCS.Sudoku.Common
     /// <summary>
     /// Core class with essential action on the puzzle itself.
     /// </summary>
-    // TODO Rename.
-    public class Sudoku
+    public class SudokuHelper
     {
-        public Sudoku(Dispatcher uiDispatcher)
+        public SudokuHelper(Dispatcher uiDispatcher)
         {
             this.uiDispatcher = uiDispatcher;
         }
@@ -37,7 +37,7 @@ namespace RCS.Sudoku.Common
         /// <param name="message">Resulting message with either the file name or error report.</param>
         /// <param name="grid">Resulting grid.</param>
         /// <returns>Success or failure.</returns>
-        public bool Read(out string message, out CellContent[][] grid)
+        public bool Read(out string message, out Cell[][] grid)
         {
             var initialDirectory = Path.GetFullPath(Directory.GetCurrentDirectory() + "\\..\\..\\..\\..\\..\\puzzles");
 
@@ -49,14 +49,14 @@ namespace RCS.Sudoku.Common
             };
 
             // Use jagged array for (supposed) speed and transferability.
-            grid = new CellContent[9][];
+            grid = new Cell[9][];
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
                 var filePath = fileDialog.FileName;
                 Trace.WriteLine($"File = '{filePath}'.");
 
-                message = $"'{Path.GetFileName(filePath)}'";
+                message = string.Format(Resources.MessageFileName_name, Path.GetFileName(filePath));
                 return ProcessFile(filePath, ref message, ref grid);
             }
             else
@@ -73,13 +73,13 @@ namespace RCS.Sudoku.Common
         /// <param name="message">Resulting messages.</param>
         /// <param name="grid">Resulting grid.</param>
         /// <returns></returns>
-        private bool ProcessFile(string filePath, ref string message, ref CellContent[][] grid)
+        private bool ProcessFile(string filePath, ref string message, ref Cell[][] grid)
         {
             string[] fileLines = File.ReadAllLines(filePath);
 
             if (fileLines.Length != 9)
             {
-                message = $"Error: Puzzle does not have 9 rows.";
+                message = string.Format(Resources.ErrorPuzzleRows_rows, 9);
                 Trace.WriteLine(message);
                 return false;
             }
@@ -95,26 +95,26 @@ namespace RCS.Sudoku.Common
 
                 if (line.Length != 9)
                 {
-                    message = $"Error: Row {row + 1} does not have 9 digits.";
+                    message = string.Format(Resources.ErrorRowDigits_row_digits, row + 1, 9);
                     Trace.WriteLine(message);
                     return false;
                 }
 
-                grid[row] = new CellContent[9];
+                grid[row] = new Cell[9];
 
                 for (int column = 0; column < 9; column++)
                 {
                     // Currently redundant as the line should be filtered.
                     if (int.TryParse(line[column].ToString(), out int digit))
                     {
-                        grid[row][column] = new CellContent(digit);
+                        grid[row][column] = new Cell(digit);
 
                         if (digit != 0)
                             digitFrequencies[digit]++;
                     }
                     else
                     {
-                        message = $"Error: Row {row + 1} does not have digits only.";
+                        message = string.Format(Resources.ErrorRowNonDigits_row, row + 1);
                         Trace.WriteLine(message);
                         return false;
                     }
@@ -139,8 +139,7 @@ namespace RCS.Sudoku.Common
         /// <returns>Success or failure.</returns>
         public ActionStatus CompleteFrom(int row, int column, DataTable table)
         {
-            // TODO Rename to Cell.
-            var cellContent = (CellContent)table.Rows[row][column];
+            var cellContent = (Cell)table.Rows[row][column];
 
             // Cell HAS a value.
             if (cellContent.Digit.HasValue)
@@ -224,7 +223,7 @@ namespace RCS.Sudoku.Common
         /// <param name="cellContent">Cell to assign to.</param>
         /// <param name="digit">Digit to assign.</param>
         /// <param name="table">Containing data structure.</param>
-        private void Assign(CellContent cellContent, int? digit, DataTable table)
+        private void Assign(Cell cellContent, int? digit, DataTable table)
         {
             // Use Dispatcher for intermediate GUI updates.
             uiDispatcher.Invoke(() =>
@@ -255,11 +254,11 @@ namespace RCS.Sudoku.Common
             for (int i = 0; i < 9; i++)
             {
                 // Check along column at cell.
-                if (((table.Rows[testCell.Row][i]) as CellContent).Digit == digit)
+                if (((table.Rows[testCell.Row][i]) as Cell).Digit == digit)
                     return false;
 
                 // Check along row at cell.
-                if (((table.Rows[i][testCell.Column]) as CellContent).Digit == digit)
+                if (((table.Rows[i][testCell.Column]) as Cell).Digit == digit)
                     return false;
             }
 
@@ -280,7 +279,7 @@ namespace RCS.Sudoku.Common
 
                     //Debug.WriteLine($"boxCell({boxCellRow},{boxcellColumn}) = {puzzle[boxCellRow, boxcellColumn]}");
 
-                    if (((table.Rows[boxCellRow][boxcellColumn]) as CellContent).Digit == digit)
+                    if (((table.Rows[boxCellRow][boxcellColumn]) as Cell).Digit == digit)
                         return false;
                 }
             }
