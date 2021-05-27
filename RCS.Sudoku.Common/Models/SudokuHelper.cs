@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using RCS.Sudoku.Common.Properties;
+using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -55,7 +56,7 @@ namespace RCS.Sudoku.Common
                 var filePath = fileDialog.FileName;
                 Trace.WriteLine($"File = '{filePath}'.");
 
-                message = $"'{Path.GetFileName(filePath)}'";
+                message = string.Format(Resources.MessageFileName_name, Path.GetFileName(filePath));
                 return ProcessFile(filePath, ref message, ref grid);
             }
             else
@@ -78,7 +79,7 @@ namespace RCS.Sudoku.Common
 
             if (fileLines.Length != 9)
             {
-                message = $"Error: Puzzle does not have 9 rows.";
+                message = string.Format(Resources.ErrorPuzzleRows_rows, 9);
                 Trace.WriteLine(message);
                 return false;
             }
@@ -94,7 +95,7 @@ namespace RCS.Sudoku.Common
 
                 if (line.Length != 9)
                 {
-                    message = $"Error: Row {row + 1} does not have 9 digits.";
+                    message = string.Format(Resources.ErrorRowDigits_row_digits, row + 1, 9);
                     Trace.WriteLine(message);
                     return false;
                 }
@@ -113,7 +114,7 @@ namespace RCS.Sudoku.Common
                     }
                     else
                     {
-                        message = $"Error: Row {row + 1} does not have digits only.";
+                        message = string.Format(Resources.ErrorRowNonDigits_row, row + 1);
                         Trace.WriteLine(message);
                         return false;
                     }

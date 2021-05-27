@@ -1,4 +1,5 @@
 ﻿using RCS.Sudoku.Common;
+using RCS.Sudoku.Common.Properties;
 using System;
 using System.Windows.Threading;
 
@@ -43,12 +44,12 @@ namespace RCS.Sudoku.ConsoleApplication
 
             if (completed)
             {
-                Console.WriteLine($"Completed in {duration}.");
+                Console.WriteLine(string.Format (Resources.StatusSucceeded_seconds,duration));
 
                 Show(grid);
             }
             else
-                Console.WriteLine($"Failed in {duration}.");
+                Console.WriteLine(string.Format(Resources.StatusFailed_seconds, duration));
         }
 
         public static void Show(Cell[][] grid)

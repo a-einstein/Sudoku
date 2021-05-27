@@ -117,19 +117,19 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
             switch (solveStatus)
             {
                 case ActionStatus.Unprepared:
-                    SolveMessage = Resources.ActionStatusUnprepared;
+                    SolveMessage = Resources.StatusUnprepared;
                     break;
                 case ActionStatus.Prepared:
-                    SolveMessage = Resources.ActionStatusPrepared;
+                    SolveMessage = Resources.StatusPrepared;
                     break;
                 case ActionStatus.Started:
-                    SolveMessage = Resources.ActionStatusStarted;
+                    SolveMessage = Resources.StatusStarted;
                     break;
                 case ActionStatus.Succeeded:
-                    SolveMessage = string.Format(Resources.ActionStatusSucceeded_Seconds, duration);
+                    SolveMessage = string.Format(Resources.StatusSucceeded_seconds, duration);
                     break;
                 case ActionStatus.Failed:
-                    SolveMessage = string.Format(Resources.ActionStatusFailed_Seconds, duration);
+                    SolveMessage = string.Format(Resources.StatusFailed_seconds, duration);
                     break;
                 default:
                     throw new Exception($"Unexpected value for {nameof(solveStatus)}.");

@@ -126,19 +126,19 @@
   <data name="SolveMessageLabel" xml:space="preserve">
     <value>Result:</value>
   </data>
-  <data name="ActionStatusFailed_Seconds" xml:space="preserve">
+  <data name="StatusFailed_seconds" xml:space="preserve">
     <value>Failed in {0} seconds.</value>
   </data>
-  <data name="ActionStatusPrepared" xml:space="preserve">
+  <data name="StatusPrepared" xml:space="preserve">
     <value>Ready to start.</value>
   </data>
-  <data name="ActionStatusStarted" xml:space="preserve">
+  <data name="StatusStarted" xml:space="preserve">
     <value>Working on it...</value>
   </data>
-  <data name="ActionStatusSucceeded_Seconds" xml:space="preserve">
+  <data name="StatusSucceeded_seconds" xml:space="preserve">
     <value>Succeeded in {0} seconds.</value>
   </data>
-  <data name="ActionStatusUnprepared" xml:space="preserve">
+  <data name="StatusUnprepared" xml:space="preserve">
     <value>Waiting for data...</value>
   </data>
   <data name="FileMessageLabel" xml:space="preserve">
@@ -149,5 +149,17 @@
   </data>
   <data name="ShellGoBackButton" xml:space="preserve">
     <value>Go back</value>
+  </data>
+  <data name="ErrorPuzzleRows_rows" xml:space="preserve">
+    <value>Error: Puzzle does not have {0} rows.</value>
+  </data>
+  <data name="ErrorRowDigits_row_digits" xml:space="preserve">
+    <value>Error: Row {0} does not have {1} digits.</value>
+  </data>
+  <data name="ErrorRowNonDigits_row" xml:space="preserve">
+    <value>Error: Row {0} does not have digits only.</value>
+  </data>
+  <data name="MessageFileName_name" xml:space="preserve">
+    <value>'{0}'</value>
   </data>
 </root>

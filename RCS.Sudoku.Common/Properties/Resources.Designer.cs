@@ -61,56 +61,38 @@ namespace RCS.Sudoku.Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failed in {0} seconds..
-        /// </summary>
-        public static string ActionStatusFailed_Seconds {
-            get {
-                return ResourceManager.GetString("ActionStatusFailed_Seconds", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ready to start..
-        /// </summary>
-        public static string ActionStatusPrepared {
-            get {
-                return ResourceManager.GetString("ActionStatusPrepared", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Working on it....
-        /// </summary>
-        public static string ActionStatusStarted {
-            get {
-                return ResourceManager.GetString("ActionStatusStarted", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Succeeded in {0} seconds..
-        /// </summary>
-        public static string ActionStatusSucceeded_Seconds {
-            get {
-                return ResourceManager.GetString("ActionStatusSucceeded_Seconds", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Waiting for data....
-        /// </summary>
-        public static string ActionStatusUnprepared {
-            get {
-                return ResourceManager.GetString("ActionStatusUnprepared", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Robert&apos;s Sudoku Solver.
         /// </summary>
         public static string AppDisplayName {
             get {
                 return ResourceManager.GetString("AppDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: Puzzle does not have {0} rows..
+        /// </summary>
+        public static string ErrorPuzzleRows_rows {
+            get {
+                return ResourceManager.GetString("ErrorPuzzleRows_rows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: Row {0} does not have {1} digits..
+        /// </summary>
+        public static string ErrorRowDigits_row_digits {
+            get {
+                return ResourceManager.GetString("ErrorRowDigits_row_digits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: Row {0} does not have digits only..
+        /// </summary>
+        public static string ErrorRowNonDigits_row {
+            get {
+                return ResourceManager.GetString("ErrorRowNonDigits_row", resourceCulture);
             }
         }
         
@@ -129,6 +111,15 @@ namespace RCS.Sudoku.Common.Properties {
         public static string FileReadText {
             get {
                 return ResourceManager.GetString("FileReadText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos;.
+        /// </summary>
+        public static string MessageFileName_name {
+            get {
+                return ResourceManager.GetString("MessageFileName_name", resourceCulture);
             }
         }
         
@@ -156,6 +147,51 @@ namespace RCS.Sudoku.Common.Properties {
         public static string SolveText {
             get {
                 return ResourceManager.GetString("SolveText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed in {0} seconds..
+        /// </summary>
+        public static string StatusFailed_seconds {
+            get {
+                return ResourceManager.GetString("StatusFailed_seconds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ready to start..
+        /// </summary>
+        public static string StatusPrepared {
+            get {
+                return ResourceManager.GetString("StatusPrepared", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Working on it....
+        /// </summary>
+        public static string StatusStarted {
+            get {
+                return ResourceManager.GetString("StatusStarted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Succeeded in {0} seconds..
+        /// </summary>
+        public static string StatusSucceeded_seconds {
+            get {
+                return ResourceManager.GetString("StatusSucceeded_seconds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waiting for data....
+        /// </summary>
+        public static string StatusUnprepared {
+            get {
+                return ResourceManager.GetString("StatusUnprepared", resourceCulture);
             }
         }
     }
