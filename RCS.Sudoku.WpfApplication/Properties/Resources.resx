@@ -117,47 +117,35 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SettingsPageTitle" xml:space="preserve">
-    <value>Settings</value>
-  </data>
-  <data name="SettingsPageAboutText" xml:space="preserve">
-    <value>Settings page placeholder text.  Your app description goes here.</value>
-  </data>
-  <data name="SettingsPageAboutTitle" xml:space="preserve">
-    <value>About this application</value>
-  </data>
-  <data name="SettingsPageChooseThemeText" xml:space="preserve">
-    <value>Choose Theme</value>
-  </data>
-  <data name="SettingsPagePersonalizationTitle" xml:space="preserve">
-    <value>Personalization</value>
-  </data>
-  <data name="SettingsPagePrivacyStatementText" xml:space="preserve">
-    <value>Privacy Statement</value>
-  </data>
-  <data name="SettingsPageRadioButtonDarkTheme" xml:space="preserve">
-    <value>Dark</value>
-  </data>
-  <data name="SettingsPageRadioButtonLightTheme" xml:space="preserve">
-    <value>Light</value>
-  </data>
-  <data name="SettingsPageRadioButtonWindowsDefaultTheme" xml:space="preserve">
-    <value>Default</value>
-  </data>
   <data name="AppDisplayName" xml:space="preserve">
     <value>Robert's Sudoku Solver</value>
-  </data>
-  <data name="FileMessageLabel" xml:space="preserve">
-    <value>File:</value>
-  </data>
-  <data name="FileReadText" xml:space="preserve">
-    <value>Read</value>
   </data>
   <data name="SolveText" xml:space="preserve">
     <value>Solve</value>
   </data>
   <data name="SolveMessageLabel" xml:space="preserve">
     <value>Result:</value>
+  </data>
+  <data name="ActionStatusFailed_Seconds" xml:space="preserve">
+    <value>Failed in {0} seconds.</value>
+  </data>
+  <data name="ActionStatusPrepared" xml:space="preserve">
+    <value>Ready to start.</value>
+  </data>
+  <data name="ActionStatusStarted" xml:space="preserve">
+    <value>Working on it...</value>
+  </data>
+  <data name="ActionStatusSucceeded_Seconds" xml:space="preserve">
+    <value>Succeeded in {0} seconds.</value>
+  </data>
+  <data name="ActionStatusUnprepared" xml:space="preserve">
+    <value>Waiting for data...</value>
+  </data>
+  <data name="FileMessageLabel" xml:space="preserve">
+    <value>File:</value>
+  </data>
+  <data name="FileReadText" xml:space="preserve">
+    <value>Read</value>
   </data>
   <data name="ShellGoBackButton" xml:space="preserve">
     <value>Go back</value>

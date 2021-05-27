@@ -61,6 +61,51 @@ namespace RCS.Sudoku.WpfApplication.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed in {0} seconds..
+        /// </summary>
+        public static string ActionStatusFailed_Seconds {
+            get {
+                return ResourceManager.GetString("ActionStatusFailed_Seconds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ready to start..
+        /// </summary>
+        public static string ActionStatusPrepared {
+            get {
+                return ResourceManager.GetString("ActionStatusPrepared", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Working on it....
+        /// </summary>
+        public static string ActionStatusStarted {
+            get {
+                return ResourceManager.GetString("ActionStatusStarted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Succeeded in {0} seconds..
+        /// </summary>
+        public static string ActionStatusSucceeded_Seconds {
+            get {
+                return ResourceManager.GetString("ActionStatusSucceeded_Seconds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waiting for data....
+        /// </summary>
+        public static string ActionStatusUnprepared {
+            get {
+                return ResourceManager.GetString("ActionStatusUnprepared", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Robert&apos;s Sudoku Solver.
         /// </summary>
         public static string AppDisplayName {
@@ -84,87 +129,6 @@ namespace RCS.Sudoku.WpfApplication.Properties {
         public static string FileReadText {
             get {
                 return ResourceManager.GetString("FileReadText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Settings page placeholder text.  Your app description goes here..
-        /// </summary>
-        public static string SettingsPageAboutText {
-            get {
-                return ResourceManager.GetString("SettingsPageAboutText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to About this application.
-        /// </summary>
-        public static string SettingsPageAboutTitle {
-            get {
-                return ResourceManager.GetString("SettingsPageAboutTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Choose Theme.
-        /// </summary>
-        public static string SettingsPageChooseThemeText {
-            get {
-                return ResourceManager.GetString("SettingsPageChooseThemeText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Personalization.
-        /// </summary>
-        public static string SettingsPagePersonalizationTitle {
-            get {
-                return ResourceManager.GetString("SettingsPagePersonalizationTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Privacy Statement.
-        /// </summary>
-        public static string SettingsPagePrivacyStatementText {
-            get {
-                return ResourceManager.GetString("SettingsPagePrivacyStatementText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dark.
-        /// </summary>
-        public static string SettingsPageRadioButtonDarkTheme {
-            get {
-                return ResourceManager.GetString("SettingsPageRadioButtonDarkTheme", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Light.
-        /// </summary>
-        public static string SettingsPageRadioButtonLightTheme {
-            get {
-                return ResourceManager.GetString("SettingsPageRadioButtonLightTheme", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Default.
-        /// </summary>
-        public static string SettingsPageRadioButtonWindowsDefaultTheme {
-            get {
-                return ResourceManager.GetString("SettingsPageRadioButtonWindowsDefaultTheme", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Settings.
-        /// </summary>
-        public static string SettingsPageTitle {
-            get {
-                return ResourceManager.GetString("SettingsPageTitle", resourceCulture);
             }
         }
         

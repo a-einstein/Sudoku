@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using RCS.Sudoku.Common;
 using RCS.Sudoku.WpfApplication.Contracts.ViewModels;
+using RCS.Sudoku.WpfApplication.Properties;
 using System;
 using System.Data;
 using System.Threading.Tasks;
@@ -113,23 +114,22 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         {
             SolveStatus = solveStatus;
 
-            // TODO Use resources.
             switch (solveStatus)
             {
                 case ActionStatus.Unprepared:
-                    SolveMessage = "Waiting for data.";
+                    SolveMessage = Resources.ActionStatusUnprepared;
                     break;
                 case ActionStatus.Prepared:
-                    SolveMessage = "Ready to start.";
+                    SolveMessage = Resources.ActionStatusPrepared;
                     break;
                 case ActionStatus.Started:
-                    SolveMessage = "Working on it...";
+                    SolveMessage = Resources.ActionStatusStarted;
                     break;
                 case ActionStatus.Succeeded:
-                    SolveMessage = ($"Succeeded in {duration} seconds.");
+                    SolveMessage = string.Format(Resources.ActionStatusSucceeded_Seconds, duration);
                     break;
                 case ActionStatus.Failed:
-                    SolveMessage = ($"Failed in {duration} seconds.");
+                    SolveMessage = string.Format(Resources.ActionStatusFailed_Seconds, duration);
                     break;
                 default:
                     throw new Exception($"Unexpected value for {nameof(solveStatus)}.");
