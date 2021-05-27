@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-    xmlns:properties="clr-namespace:RCS.Sudoku.WpfApplication.Properties"
+    xmlns:properties="clr-namespace:RCS.Sudoku.Common.Properties;assembly=RCS.Sudoku.Common"
     Style="{StaticResource CustomMetroWindow}"
     DataContext="{Binding ShellViewModel, Source={StaticResource Locator}}"
     mc:Ignorable="d"

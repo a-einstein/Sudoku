@@ -2,8 +2,8 @@
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using RCS.Sudoku.Common;
+using RCS.Sudoku.Common.Properties;
 using RCS.Sudoku.WpfApplication.Contracts.ViewModels;
-using RCS.Sudoku.WpfApplication.Properties;
 using System;
 using System.Data;
 using System.Threading.Tasks;
