@@ -28,7 +28,9 @@
         /// <returns>Digit value or null if cell is empty.</returns>
         public override string ToString()
         {
-            return Digit.ToString();
+            return Digit.HasValue
+                ? Digit.ToString()
+                : "  "; // Double space to give the empty table similar volume as the filled one.
         }
 
         /// <summary>

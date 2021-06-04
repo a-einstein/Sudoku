@@ -220,7 +220,7 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         /// </summary>
         private void Solve()
         {
-            // Use Run and Dispatcher to enable intermediate GUI updates.
+            // Use Run on a non UI-thread and Dispatcher to enable intermediate updates back on the UI-thread.
             Task.Run(() =>
             {
                 uiDispatcher.Invoke(() => ReportSolving(ActionStatus.Started), DispatcherPriority.Send);
