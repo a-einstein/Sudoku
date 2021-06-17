@@ -39,7 +39,7 @@ namespace RCS.Sudoku.ConsoleApplication
             var timeStart = DateTime.Now;
 
             // HACK Disabled, see comment at CompleteFrom.
-            var completed = false /*sudoku.CompleteFrom(0, 0, grid)*/;
+            var completed = false /*sudokuHelper.CompleteFrom(0, 0, grid)*/;
             var duration = DateTime.Now - timeStart;
 
             if (completed)
