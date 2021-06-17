@@ -1,4 +1,4 @@
-﻿namespace RCS.Sudoku.Common
+﻿namespace RCS.Sudoku.Common.Models
 {
     public class Cell
     {
@@ -30,6 +30,7 @@
         {
             return Digit.HasValue
                 ? Digit.ToString()
+                // TODO This is fine for WPF but a problem in the console.
                 : "  "; // Double space to give the empty table similar volume as the filled one.
         }
 

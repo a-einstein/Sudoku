@@ -2,8 +2,10 @@
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using RCS.Sudoku.Common;
+using RCS.Sudoku.Common.Models;
 using RCS.Sudoku.Common.Properties;
 using RCS.Sudoku.WpfApplication.Contracts.ViewModels;
+using RCS.Sudoku.WpfApplication.Models;
 using System;
 using System.Data;
 using System.Threading.Tasks;
@@ -18,22 +20,19 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         [PreferredConstructor]
         public SudokuViewModel()
         {
-            uiDispatcher = Dispatcher.CurrentDispatcher;
-            sudokuHelper = new SudokuHelper(uiDispatcher);
-
             InitTable();
-
-            ReportSolving(ActionStatus.Unprepared);
         }
 
-        private Dispatcher uiDispatcher;
-        private SudokuHelper sudokuHelper;
+        private Dispatcher uiDispatcher = Dispatcher.CurrentDispatcher;
+        private SudokuHelper sudokuHelper = new SudokuHelper();
 
         /// <summary>
         /// Prepare table for use and inmediate display.
         /// </summary>
         private void InitTable()
         {
+            table.UiDispatcher = uiDispatcher;
+
             // Define table.
             table.Columns.Add(new DataColumn("a", typeof(Cell)));
             table.Columns.Add(new DataColumn("b", typeof(Cell)));
@@ -65,7 +64,7 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         /// <summary>
         /// Main data structure.
         /// </summary>
-        static private DataTable table = new DataTable();
+        static private CellTable table = new CellTable();
 
         /// <summary>
         /// Bindable view.
@@ -238,7 +237,9 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
 
         #region Navigation
         public async void OnNavigatedTo(object parameter)
-        { }
+        {
+            ReportSolving(ActionStatus.Unprepared);
+        }
 
         public void OnNavigatedFrom()
         { }

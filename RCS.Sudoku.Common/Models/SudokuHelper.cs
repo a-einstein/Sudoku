@@ -1,25 +1,19 @@
-﻿using RCS.Sudoku.Common.Properties;
-using System.Data;
+﻿using RCS.Sudoku.Common.Models;
+using RCS.Sudoku.Common.Properties;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using System.Windows.Threading;
 
 namespace RCS.Sudoku.Common
 {
+    // TODO Take this out of Models.
+
     /// <summary>
     /// Core class with essential action on the puzzle itself.
     /// </summary>
     public class SudokuHelper
     {
-        public SudokuHelper(Dispatcher uiDispatcher)
-        {
-            this.uiDispatcher = uiDispatcher;
-        }
-
-        private Dispatcher uiDispatcher { get; set; }
-
         /// <summary>
         /// Frequency of digits present in the initial sudoku.
         /// </summary>
@@ -67,12 +61,12 @@ namespace RCS.Sudoku.Common
         }
 
         /// <summary>
-        /// 
+        /// Read a file into a grid and analyse contents.
         /// </summary>
         /// <param name="filePath">Path to file to be read.</param>
         /// <param name="message">Resulting messages.</param>
         /// <param name="grid">Resulting grid.</param>
-        /// <returns></returns>
+        /// <returns>Success.</returns>
         private bool ProcessFile(string filePath, ref string message, ref Cell[][] grid)
         {
             string[] fileLines = File.ReadAllLines(filePath);
@@ -126,20 +120,18 @@ namespace RCS.Sudoku.Common
             return true;
         }
 
-        // Currently gave up on the idea to make this generic for both a direct grid and a DataTable/DataView on Cell.
-        // Problem is that DataTable and DataView don't implement IList on both the rows and columns.
-        // Chose for this option with a table to enable easy binding to the view.
+        // TODO Remove the grid parameter if possible.
 
         /// <summary>
         /// Core recursive solution function.
         /// </summary>
         /// <param name="rowIndex">Startposition.</param>
         /// <param name="columnIndex">Startposition.</param>
-        /// <param name="table">Data structure to work in.</param>
+        /// <param name="grid">Data structure to work in.</param>
         /// <returns>Success or failure.</returns>
-        public ActionStatus CompleteFrom(int rowIndex, int columnIndex, DataTable table)
+        public ActionStatus CompleteFrom(int rowIndex, int columnIndex, ICellGrid grid)
         {
-            var cell = (Cell)table.Rows[rowIndex][columnIndex];
+            var cell = grid[rowIndex, columnIndex];
 
             // Cell HAS a value.
             if (cell.Digit.HasValue)
@@ -148,13 +140,13 @@ namespace RCS.Sudoku.Common
                 if (++columnIndex < 9)
                 {
                     // Next cell in row.
-                    return CompleteFrom(rowIndex, columnIndex, table);
+                    return CompleteFrom(rowIndex, columnIndex, grid);
                 }
                 // Rows not completed.
                 else if (++rowIndex < 9)
                 {
                     // Start on next row.
-                    return CompleteFrom(rowIndex, 0, table);
+                    return CompleteFrom(rowIndex, 0, grid);
                 }
                 // All completed from start.
                 else
@@ -170,22 +162,22 @@ namespace RCS.Sudoku.Common
                 // (Get a local sort, update the fequencies in local assignments, pass a copy to the next recursion.)
                 foreach (var digit in sortedDigits)
                 {
-                    if (DigitAvailableForCell(digit, new CellLocation(rowIndex, columnIndex), table))
+                    if (DigitAvailableForCell(digit, new CellLocation(rowIndex, columnIndex), grid))
                     {
                         // Try digit in cell.
-                        Assign(cell, digit, table);
+                        grid.Assign(cell, digit);
 
                         // Row not completed.
                         if ((columnIndex + 1) < 9)
                         {
                             // Next cell in row.
-                            if (CompleteFrom(rowIndex, columnIndex + 1, table) == ActionStatus.Succeeded)
-                                // No conflicts encountered for digit in remainder of table.
+                            if (CompleteFrom(rowIndex, columnIndex + 1, grid) == ActionStatus.Succeeded)
+                                // No conflicts encountered for digit in remainder of grid.
                                 return ActionStatus.Succeeded;
                             else
                             {
                                 // Backtrack. Next digit.
-                                Assign(cell, null, table);
+                                grid.Assign(cell, null);
                             }
 
                         }
@@ -193,16 +185,16 @@ namespace RCS.Sudoku.Common
                         else if ((rowIndex + 1) < 9)
                         {
                             // Next row.
-                            if (CompleteFrom(rowIndex + 1, 0, table) == ActionStatus.Succeeded)
-                                // No conflicts encountered for digit in remainder of table.
+                            if (CompleteFrom(rowIndex + 1, 0, grid) == ActionStatus.Succeeded)
+                                // No conflicts encountered for digit in remainder of grid.
                                 return ActionStatus.Succeeded;
                             else
                             {
                                 // Backtrack. Next digit.
-                                Assign(cell, null, table);
+                                grid.Assign(cell, null);
                             }
                         }
-                        // No conflicts encountered for digit in remainder of table.
+                        // No conflicts encountered for digit in remainder of grid.
                         else
                         {
                             return ActionStatus.Succeeded;
@@ -215,37 +207,15 @@ namespace RCS.Sudoku.Common
             return ActionStatus.Failed;
         }
 
-        // This could be part of Cell, but I kept DataTable out of there.
-
-        /// <summary>
-        /// Helper method.
-        /// </summary>
-        /// <param name="cell">Cell to assign to.</param>
-        /// <param name="digit">Digit to assign.</param>
-        /// <param name="table">Containing data structure.</param>
-        private void Assign(Cell cell, int? digit, DataTable table)
-        {
-            // Use Dispatcher for intermediate GUI updates.
-            uiDispatcher.Invoke(() =>
-            {
-                cell.Digit = digit;
-
-                // Reflect changes.
-                // Use of Row.SetModified was not suffcicient.
-                // Actually this slows down the process considerably, which enable following it on screen.
-                table.AcceptChanges();
-            }, DispatcherPriority.Send);
-        }
-
         /// <summary>
         /// Core function to consider whether digit is avalaible for a location.
         /// Consider row, column, and box of a location.
         /// </summary>
         /// <param name="digit">Considered digit.</param>
         /// <param name="testLocation">Considered location.</param>
-        /// <param name="table">Containing data structure.</param>
+        /// <param name="grid">Containing data structure.</param>
         /// <returns></returns>
-        private bool DigitAvailableForCell(int digit, CellLocation testLocation, DataTable table)
+        private bool DigitAvailableForCell(int digit, CellLocation testLocation, ICellGrid grid)
         {
             // TODO Make this conditional.
             //Debug.WriteLine();
@@ -254,11 +224,11 @@ namespace RCS.Sudoku.Common
             for (int i = 0; i < 9; i++)
             {
                 // Check along column at cell.
-                if (((table.Rows[testLocation.RowIndex][i]) as Cell).Digit == digit)
+                if (((grid[testLocation.RowIndex, i]) as Cell).Digit == digit)
                     return false;
 
                 // Check along row at cell.
-                if (((table.Rows[i][testLocation.ColumnIndex]) as Cell).Digit == digit)
+                if (((grid[i, testLocation.ColumnIndex]) as Cell).Digit == digit)
                     return false;
             }
 
@@ -279,7 +249,7 @@ namespace RCS.Sudoku.Common
 
                     //Debug.WriteLine($"boxCell({boxCellRow},{boxcellColumn}) = {puzzle[boxCellRow, boxcellColumn]}");
 
-                    if (((table.Rows[boxCellRowIndex][boxcellColumnIndex]) as Cell).Digit == digit)
+                    if (((grid[boxCellRowIndex, boxcellColumnIndex]) as Cell).Digit == digit)
                         return false;
                 }
             }

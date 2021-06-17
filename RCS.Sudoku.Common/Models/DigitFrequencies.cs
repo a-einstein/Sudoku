@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace RCS.Sudoku.Common
+namespace RCS.Sudoku.Common.Models
 {
     public class DigitFrequencies : Dictionary<int, int>
     {
