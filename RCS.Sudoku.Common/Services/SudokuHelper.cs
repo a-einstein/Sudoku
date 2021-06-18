@@ -14,11 +14,6 @@ namespace RCS.Sudoku.Common.Services
     public class SudokuHelper
     {
         /// <summary>
-        /// Frequency of digits present in the initial sudoku.
-        /// </summary>
-        private DigitFrequencies digitFrequencies = new DigitFrequencies();
-
-        /// <summary>
         /// Sorted list of digits depending on their frequencies.
         /// </summary>
         private int[] sortedDigits;
@@ -77,7 +72,8 @@ namespace RCS.Sudoku.Common.Services
                 return false;
             }
 
-            digitFrequencies = new DigitFrequencies();
+            // Frequency of digits present in the initial sudoku.
+            var digitFrequencies = new DigitFrequencies();
 
             for (int rowIndex = 0; rowIndex < 9; rowIndex++)
             {
