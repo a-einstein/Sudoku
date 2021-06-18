@@ -160,7 +160,7 @@ namespace RCS.Sudoku.Common.Services
                     if (DigitAvailableForCell(digit, new CellLocation(rowIndex, columnIndex), Grid))
                     {
                         // Try digit in cell.
-                        Grid.Assign(cell, digit);
+                        Grid.AssignValue(cell, digit);
 
                         // Row not completed.
                         if ((columnIndex + 1) < 9)
@@ -172,7 +172,7 @@ namespace RCS.Sudoku.Common.Services
                             else
                             {
                                 // Backtrack. Next digit.
-                                Grid.Assign(cell, null);
+                                Grid.AssignValue(cell, null);
                             }
 
                         }
@@ -186,7 +186,7 @@ namespace RCS.Sudoku.Common.Services
                             else
                             {
                                 // Backtrack. Next digit.
-                                Grid.Assign(cell, null);
+                                Grid.AssignValue(cell, null);
                             }
                         }
                         // No conflicts encountered for digit in remainder of grid.

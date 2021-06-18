@@ -28,7 +28,7 @@ namespace RCS.Sudoku.WpfApplication.Models
             set => Rows[rowIndex].ItemArray = value;
         }
 
-        public void Assign(Cell cell, int? digit)
+        public void AssignValue(Cell cell, int? digit)
         {
             // Use Dispatcher for intermediate GUI updates.
             UiDispatcher.Invoke(() =>

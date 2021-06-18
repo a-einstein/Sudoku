@@ -22,7 +22,12 @@ namespace RCS.Sudoku.Common.Contracts.Models
         /// <returns></returns>
         Cell[] this[int rowIndex] { get; set; }
 
-        // TODO This may be a temporary solution.
-        void Assign(Cell cell, int? digit);
+        /// <summary>
+        /// Assign value into cell.
+        /// Handle event by grid.
+        /// </summary>
+        /// <param name="cell">Receiving cell.</param>
+        /// <param name="digit">Value to assign.</param>
+        void AssignValue(Cell cell, int? digit);
     }
 }

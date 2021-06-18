@@ -24,7 +24,7 @@ namespace RCS.Sudoku.ConsoleApplication.Models
             set => grid[rowIndex] = value;
         }
 
-        public void Assign(Cell cell, int? digit)
+        public void AssignValue(Cell cell, int? digit)
         {
             cell.Digit = digit;
         }
