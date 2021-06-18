@@ -1,4 +1,5 @@
-﻿using RCS.Sudoku.Common.Models;
+﻿using RCS.Sudoku.Common.Contracts.Models;
+using RCS.Sudoku.Common.Models;
 using RCS.Sudoku.Common.Properties;
 using System.Diagnostics;
 using System.IO;

@@ -1,4 +1,5 @@
-﻿using RCS.Sudoku.Common.Models;
+﻿using RCS.Sudoku.Common.Contracts.Models;
+using RCS.Sudoku.Common.Models;
 using System.Data;
 using System.Windows.Threading;
 

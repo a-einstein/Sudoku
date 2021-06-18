@@ -1,4 +1,6 @@
-﻿namespace RCS.Sudoku.Common.Models
+﻿using RCS.Sudoku.Common.Models;
+
+namespace RCS.Sudoku.Common.Contracts.Models
 {
     /// <summary>
     /// Generalization for all applications.

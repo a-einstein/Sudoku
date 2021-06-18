@@ -1,4 +1,5 @@
-﻿using RCS.Sudoku.Common.Models;
+﻿using RCS.Sudoku.Common.Contracts.Models;
+using RCS.Sudoku.Common.Models;
 
 namespace RCS.Sudoku.ConsoleApplication.Models
 {
