@@ -1,4 +1,4 @@
-﻿namespace RCS.Sudoku.Common
+﻿namespace RCS.Sudoku.Common.Models
 {
     public class Cell
     {
@@ -16,34 +16,37 @@
         /// Construct. Only way to set Original.
         /// </summary>
         /// <param name="digit">Value to assign.</param>
-        public Cell(int? digit)
+        public Cell(int? digit = null)
         {
             Digit = digit != 0 ? digit : null;
-            Original = digit != 0;
+            Original = Digit.HasValue;
         }
 
         /// <summary>
-        /// Display cell value.
+        /// Display cell value (accommodating TableView).
         /// </summary>
-        /// <returns>Digit value or null if cell is empty.</returns>
+        /// <returns>Digit value or double space if cell is empty.</returns>
         public override string ToString()
         {
-            return Digit.HasValue
-                ? Digit.ToString()
-                : "  "; // Double space to give the empty table similar volume as the filled one.
+            // Double space to give empty table cells similar volume as the filled one.
+            return ToString("  ");
         }
 
         /// <summary>
-        /// Display cell value in textual application.
+        /// Display cell value (general).
         /// </summary>
-        /// <param name="showZeros">Choose to display empty cell as zeros.</param>
-        /// <returns></returns>
-        public string ToString(bool showZeros)
+        /// <param name="nullProxy">String to represent null value. Defaults to 0.</param>
+        /// <returns>Digit value or nullProxy.</returns>
+        public string ToString(string nullProxy = default)
         {
-            if (showZeros)
+            if (nullProxy == default)
+                // Note this results in 0 for null.
                 return Digit.GetValueOrDefault().ToString();
             else
-                return ToString();
+                return
+                    Digit.HasValue
+                    ? Digit.ToString()
+                    : nullProxy;
         }
     }
 }

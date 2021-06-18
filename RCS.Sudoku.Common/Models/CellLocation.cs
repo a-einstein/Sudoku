@@ -1,17 +1,17 @@
-﻿namespace RCS.Sudoku.Common
+﻿namespace RCS.Sudoku.Common.Models
 {
     /// <summary>
     /// Helper structure to compactly store cell location.
     /// </summary>
-    public struct CellLocation
+public struct CellLocation
     {
-        public int Row;
-        public int Column;
+        public int RowIndex;
+        public int ColumnIndex;
 
-        public CellLocation(int row, int column)
+        public CellLocation(int rowIndex, int columnIndex)
         {
-            Row = row;
-            Column = column;
+            RowIndex = rowIndex;
+            ColumnIndex = columnIndex;
         }
     }
 }

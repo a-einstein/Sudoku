@@ -1,9 +1,11 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
-using RCS.Sudoku.Common;
+using RCS.Sudoku.Common.Models;
 using RCS.Sudoku.Common.Properties;
+using RCS.Sudoku.Common.Services;
 using RCS.Sudoku.WpfApplication.Contracts.ViewModels;
+using RCS.Sudoku.WpfApplication.Models;
 using System;
 using System.Data;
 using System.Threading.Tasks;
@@ -18,22 +20,19 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         [PreferredConstructor]
         public SudokuViewModel()
         {
-            uiDispatcher = Dispatcher.CurrentDispatcher;
-            sudokuHelper = new SudokuHelper(uiDispatcher);
-
             InitTable();
-
-            ReportSolving(ActionStatus.Unprepared);
         }
 
-        private Dispatcher uiDispatcher;
-        private SudokuHelper sudokuHelper;
+        private Dispatcher uiDispatcher = Dispatcher.CurrentDispatcher;
+        private SudokuService sudokuService = new SudokuService();
 
         /// <summary>
         /// Prepare table for use and inmediate display.
         /// </summary>
         private void InitTable()
         {
+            table.UiDispatcher = uiDispatcher;
+
             // Define table.
             table.Columns.Add(new DataColumn("a", typeof(Cell)));
             table.Columns.Add(new DataColumn("b", typeof(Cell)));
@@ -45,19 +44,17 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
             table.Columns.Add(new DataColumn("h", typeof(Cell)));
             table.Columns.Add(new DataColumn("i", typeof(Cell)));
 
+            var emptyCells = new Cell[9] { new Cell(), new Cell(), new Cell(), new Cell(), new Cell(), new Cell(), new Cell(), new Cell(), new Cell() };
+
             // Add empty rows for visual appeal.
-            for (int row = 0; row < 9; row++)
+            for (int rowIndex = 0; rowIndex < 9; rowIndex++)
             {
-                var emptyRow = table.NewRow();
-
-                for (int column = 0; column < 9; column++)
-                {
-                    // Initialize for proper binding.
-                    emptyRow[column] = new Cell(0);
-                }
-
-                table.Rows.Add(emptyRow);
+                // Note NewRowArray() is protected.
+                table.Rows.Add(table.NewRow());
+                table[rowIndex] = emptyCells;
             }
+
+            table.AcceptChanges();
         }
         #endregion
 
@@ -65,7 +62,7 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         /// <summary>
         /// Main data structure.
         /// </summary>
-        static private DataTable table = new DataTable();
+        static private CellTable table = new CellTable();
 
         /// <summary>
         /// Bindable view.
@@ -179,7 +176,7 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         {
             Cell[][] grid;
 
-            FileRead = sudokuHelper.Read(out fileMessage, out grid);
+            FileRead = sudokuService.Read(out fileMessage, out grid);
             FileMessage = fileMessage;
 
             if (FileRead)
@@ -194,13 +191,9 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         /// <param name="grid"></param>
         void FillTable(Cell[][] grid)
         {
-            for (int row = 0; row < 9; row++)
+            for (int rowIndex = 0; rowIndex < 9; rowIndex++)
             {
-                // Unfortunately assigning to ItemArray does not work for int[].
-                for (int column = 0; column < 9; column++)
-                {
-                    table.Rows[row][column] = grid[row][column];
-                }
+                table[rowIndex] = grid[rowIndex];
             }
 
             // Note this generally is needed to update the view.
@@ -225,9 +218,11 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
             {
                 uiDispatcher.Invoke(() => ReportSolving(ActionStatus.Started), DispatcherPriority.Send);
 
+                sudokuService.Grid = table;
+
                 var timeStart = DateTime.Now;
 
-                var status = sudokuHelper.CompleteFrom(0, 0, table);
+                var status = sudokuService.CompleteFrom(0, 0);
 
                 var duration = (DateTime.Now - timeStart).TotalSeconds;
 
@@ -238,7 +233,9 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
 
         #region Navigation
         public async void OnNavigatedTo(object parameter)
-        { }
+        {
+            ReportSolving(ActionStatus.Unprepared);
+        }
 
         public void OnNavigatedFrom()
         { }

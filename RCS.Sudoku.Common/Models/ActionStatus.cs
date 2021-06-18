@@ -1,4 +1,4 @@
-﻿namespace RCS.Sudoku.Common
+﻿namespace RCS.Sudoku.Common.Models
 {
     public enum ActionStatus
     {
