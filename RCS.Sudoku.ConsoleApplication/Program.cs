@@ -30,7 +30,7 @@ namespace RCS.Sudoku.ConsoleApplication
         }
 
         private static SudokuHelper sudokuHelper = new SudokuHelper();
-        
+
         /// <summary>
         /// Attempt to solve a grid and display result.
         /// </summary>
@@ -38,10 +38,11 @@ namespace RCS.Sudoku.ConsoleApplication
         public static void Handle(CellGrid grid)
         {
             Show(grid);
+            sudokuHelper.Grid = grid;
 
             var timeStart = DateTime.Now;
 
-            var status = sudokuHelper.CompleteFrom(0, 0, grid);
+            var status = sudokuHelper.CompleteFrom(0, 0);
             var duration = DateTime.Now - timeStart;
 
             if (status == ActionStatus.Succeeded)

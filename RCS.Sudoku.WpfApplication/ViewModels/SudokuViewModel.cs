@@ -224,9 +224,11 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
             {
                 uiDispatcher.Invoke(() => ReportSolving(ActionStatus.Started), DispatcherPriority.Send);
 
+                sudokuHelper.Grid = table;
+
                 var timeStart = DateTime.Now;
 
-                var status = sudokuHelper.CompleteFrom(0, 0, table);
+                var status = sudokuHelper.CompleteFrom(0, 0);
 
                 var duration = (DateTime.Now - timeStart).TotalSeconds;
 

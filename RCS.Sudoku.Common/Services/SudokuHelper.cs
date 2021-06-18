@@ -115,18 +115,18 @@ namespace RCS.Sudoku.Common.Services
             return true;
         }
 
-        // TODO Remove the grid parameter if possible.
+        public ICellGrid Grid { get;  set; }
 
         /// <summary>
         /// Core recursive solution function.
         /// </summary>
         /// <param name="rowIndex">Startposition.</param>
         /// <param name="columnIndex">Startposition.</param>
-        /// <param name="grid">Data structure to work in.</param>
+        /// 
         /// <returns>Success or failure.</returns>
-        public ActionStatus CompleteFrom(int rowIndex, int columnIndex, ICellGrid grid)
+        public ActionStatus CompleteFrom(int rowIndex, int columnIndex)
         {
-            var cell = grid[rowIndex, columnIndex];
+            var cell = Grid[rowIndex, columnIndex];
 
             // Cell HAS a value.
             if (cell.Digit.HasValue)
@@ -135,13 +135,13 @@ namespace RCS.Sudoku.Common.Services
                 if (++columnIndex < 9)
                 {
                     // Next cell in row.
-                    return CompleteFrom(rowIndex, columnIndex, grid);
+                    return CompleteFrom(rowIndex, columnIndex);
                 }
                 // Rows not completed.
                 else if (++rowIndex < 9)
                 {
                     // Start on next row.
-                    return CompleteFrom(rowIndex, 0, grid);
+                    return CompleteFrom(rowIndex, 0);
                 }
                 // All completed from start.
                 else
@@ -157,22 +157,22 @@ namespace RCS.Sudoku.Common.Services
                 // (Get a local sort, update the fequencies in local assignments, pass a copy to the next recursion.)
                 foreach (var digit in sortedDigits)
                 {
-                    if (DigitAvailableForCell(digit, new CellLocation(rowIndex, columnIndex), grid))
+                    if (DigitAvailableForCell(digit, new CellLocation(rowIndex, columnIndex), Grid))
                     {
                         // Try digit in cell.
-                        grid.Assign(cell, digit);
+                        Grid.Assign(cell, digit);
 
                         // Row not completed.
                         if ((columnIndex + 1) < 9)
                         {
                             // Next cell in row.
-                            if (CompleteFrom(rowIndex, columnIndex + 1, grid) == ActionStatus.Succeeded)
+                            if (CompleteFrom(rowIndex, columnIndex + 1) == ActionStatus.Succeeded)
                                 // No conflicts encountered for digit in remainder of grid.
                                 return ActionStatus.Succeeded;
                             else
                             {
                                 // Backtrack. Next digit.
-                                grid.Assign(cell, null);
+                                Grid.Assign(cell, null);
                             }
 
                         }
@@ -180,13 +180,13 @@ namespace RCS.Sudoku.Common.Services
                         else if ((rowIndex + 1) < 9)
                         {
                             // Next row.
-                            if (CompleteFrom(rowIndex + 1, 0, grid) == ActionStatus.Succeeded)
+                            if (CompleteFrom(rowIndex + 1, 0) == ActionStatus.Succeeded)
                                 // No conflicts encountered for digit in remainder of grid.
                                 return ActionStatus.Succeeded;
                             else
                             {
                                 // Backtrack. Next digit.
-                                grid.Assign(cell, null);
+                                Grid.Assign(cell, null);
                             }
                         }
                         // No conflicts encountered for digit in remainder of grid.
