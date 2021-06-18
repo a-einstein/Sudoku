@@ -24,7 +24,7 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         }
 
         private Dispatcher uiDispatcher = Dispatcher.CurrentDispatcher;
-        private SudokuHelper sudokuHelper = new SudokuHelper();
+        private SudokuService sudokuService = new SudokuService();
 
         /// <summary>
         /// Prepare table for use and inmediate display.
@@ -178,7 +178,7 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         {
             Cell[][] grid;
 
-            FileRead = sudokuHelper.Read(out fileMessage, out grid);
+            FileRead = sudokuService.Read(out fileMessage, out grid);
             FileMessage = fileMessage;
 
             if (FileRead)
@@ -224,11 +224,11 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
             {
                 uiDispatcher.Invoke(() => ReportSolving(ActionStatus.Started), DispatcherPriority.Send);
 
-                sudokuHelper.Grid = table;
+                sudokuService.Grid = table;
 
                 var timeStart = DateTime.Now;
 
-                var status = sudokuHelper.CompleteFrom(0, 0);
+                var status = sudokuService.CompleteFrom(0, 0);
 
                 var duration = (DateTime.Now - timeStart).TotalSeconds;
 

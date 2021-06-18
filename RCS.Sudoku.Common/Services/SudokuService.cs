@@ -11,7 +11,7 @@ namespace RCS.Sudoku.Common.Services
     /// <summary>
     /// Core class with essential action on the puzzle itself.
     /// </summary>
-    public class SudokuHelper
+    public class SudokuService
     {
         /// <summary>
         /// Sorted list of digits depending on their frequencies.

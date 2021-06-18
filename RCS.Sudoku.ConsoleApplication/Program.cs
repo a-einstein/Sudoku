@@ -17,7 +17,7 @@ namespace RCS.Sudoku.ConsoleApplication
             string readResult;
             Cell[][] fileGrid;
 
-            bool fileRead = sudokuHelper.Read(out readResult, out fileGrid);
+            bool fileRead = sudokuService.Read(out readResult, out fileGrid);
 
             CellGrid grid = new CellGrid(fileGrid);
 
@@ -29,7 +29,7 @@ namespace RCS.Sudoku.ConsoleApplication
             }
         }
 
-        private static SudokuHelper sudokuHelper = new SudokuHelper();
+        private static SudokuService sudokuService = new SudokuService();
 
         /// <summary>
         /// Attempt to solve a grid and display result.
@@ -38,11 +38,11 @@ namespace RCS.Sudoku.ConsoleApplication
         public static void Handle(CellGrid grid)
         {
             Show(grid);
-            sudokuHelper.Grid = grid;
+            sudokuService.Grid = grid;
 
             var timeStart = DateTime.Now;
 
-            var status = sudokuHelper.CompleteFrom(0, 0);
+            var status = sudokuService.CompleteFrom(0, 0);
             var duration = DateTime.Now - timeStart;
 
             if (status == ActionStatus.Succeeded)
