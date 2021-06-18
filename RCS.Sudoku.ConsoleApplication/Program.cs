@@ -70,9 +70,9 @@ namespace RCS.Sudoku.ConsoleApplication
                 if (rowIndex % 3 == 0) Console.WriteLine(boxLine);
 
                 for (int columnIndex = 0; columnIndex < 9; columnIndex++)
-                    // TODO Rather have a space. See comments there.
+                    // Note dot ASCII 250 is used, not a period.
                     // TODO Check this notation elsewhere.
-                    Console.Write($"{(columnIndex % 3 == 0 ? "| " : " ")}{grid[rowIndex][columnIndex].ToString(true)} ");
+                    Console.Write($"{(columnIndex % 3 == 0 ? "| " : " ")}{grid[rowIndex][columnIndex].ToString("·")} ");
 
                 Console.WriteLine("|");
             }
