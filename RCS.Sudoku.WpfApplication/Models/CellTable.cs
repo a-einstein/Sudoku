@@ -22,6 +22,12 @@ namespace RCS.Sudoku.WpfApplication.Models
             set => Rows[rowIndex][columnIndex] = value;
         }
 
+        public Cell[] this[int rowIndex]
+        {
+            get => (Cell[])(Rows[rowIndex].ItemArray);
+            set => Rows[rowIndex].ItemArray = value;
+        }
+
         public void Assign(Cell cell, int? digit)
         {
             // Use Dispatcher for intermediate GUI updates.
@@ -31,7 +37,7 @@ namespace RCS.Sudoku.WpfApplication.Models
 
                 // Reflect changes.
                 // Use of Row.SetModified was not suffcicient.
-                // Actually this slows down the process considerably, which enable following it on screen.
+                // Actually this slows the process down considerably, which enables following it on screen without explicit stalling.
                 AcceptChanges();
             }, DispatcherPriority.Send);
         }

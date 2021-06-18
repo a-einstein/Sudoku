@@ -16,10 +16,10 @@
         /// Construct. Only way to set Original.
         /// </summary>
         /// <param name="digit">Value to assign.</param>
-        public Cell(int? digit)
+        public Cell(int? digit = null)
         {
             Digit = digit != 0 ? digit : null;
-            Original = digit != 0;
+            Original = Digit.HasValue;
         }
 
         /// <summary>

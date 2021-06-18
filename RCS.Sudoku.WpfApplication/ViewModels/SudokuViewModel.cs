@@ -44,19 +44,17 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
             table.Columns.Add(new DataColumn("h", typeof(Cell)));
             table.Columns.Add(new DataColumn("i", typeof(Cell)));
 
+            var emptyCells = new Cell[9] { new Cell(), new Cell(), new Cell(), new Cell(), new Cell(), new Cell(), new Cell(), new Cell(), new Cell() };
+
             // Add empty rows for visual appeal.
-            for (int row = 0; row < 9; row++)
+            for (int rowIndex = 0; rowIndex < 9; rowIndex++)
             {
-                var emptyRow = table.NewRow();
-
-                for (int column = 0; column < 9; column++)
-                {
-                    // Initialize for proper binding.
-                    emptyRow[column] = new Cell(0);
-                }
-
-                table.Rows.Add(emptyRow);
+                // Note NewRowArray() is protected.
+                table.Rows.Add(table.NewRow());
+                table[rowIndex] = emptyCells;
             }
+
+            table.AcceptChanges();
         }
         #endregion
 
@@ -193,13 +191,9 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         /// <param name="grid"></param>
         void FillTable(Cell[][] grid)
         {
-            for (int row = 0; row < 9; row++)
+            for (int rowIndex = 0; rowIndex < 9; rowIndex++)
             {
-                // Unfortunately assigning to ItemArray does not work for int[].
-                for (int column = 0; column < 9; column++)
-                {
-                    table.Rows[row][column] = grid[row][column];
-                }
+                table[rowIndex] = grid[rowIndex];
             }
 
             // Note this generally is needed to update the view.

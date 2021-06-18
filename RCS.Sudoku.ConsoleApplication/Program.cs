@@ -71,7 +71,6 @@ namespace RCS.Sudoku.ConsoleApplication
 
                 for (int columnIndex = 0; columnIndex < 9; columnIndex++)
                     // Note dot ASCII 250 is used, not a period.
-                    // TODO Check this notation elsewhere.
                     Console.Write($"{(columnIndex % 3 == 0 ? "| " : " ")}{grid[rowIndex][columnIndex].ToString("·")} ");
 
                 Console.WriteLine("|");

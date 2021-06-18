@@ -18,7 +18,6 @@ namespace RCS.Sudoku.ConsoleApplication.Models
             set => grid[rowIndex][columnIndex] = value;
         }
 
-        // TODO Put this in the interface too? If at all used.
         public Cell[] this[int rowIndex]
         {
             get => grid[rowIndex];
