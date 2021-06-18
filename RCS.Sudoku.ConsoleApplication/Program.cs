@@ -1,6 +1,6 @@
-﻿using RCS.Sudoku.Common;
-using RCS.Sudoku.Common.Models;
+﻿using RCS.Sudoku.Common.Models;
 using RCS.Sudoku.Common.Properties;
+using RCS.Sudoku.Common.Services;
 using RCS.Sudoku.ConsoleApplication.Models;
 using System;
 

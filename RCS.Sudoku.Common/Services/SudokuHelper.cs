@@ -6,10 +6,8 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
-namespace RCS.Sudoku.Common
+namespace RCS.Sudoku.Common.Services
 {
-    // TODO Take this out of Models.
-
     /// <summary>
     /// Core class with essential action on the puzzle itself.
     /// </summary>

@@ -1,9 +1,9 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
-using RCS.Sudoku.Common;
 using RCS.Sudoku.Common.Models;
 using RCS.Sudoku.Common.Properties;
+using RCS.Sudoku.Common.Services;
 using RCS.Sudoku.WpfApplication.Contracts.ViewModels;
 using RCS.Sudoku.WpfApplication.Models;
 using System;
