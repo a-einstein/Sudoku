@@ -27,23 +27,29 @@ namespace RCS.Sudoku.ConsoleApplication
             {
                 Handle(grid);
             }
+
+            // TODO Choose to try another file.
         }
 
         private static SudokuService sudokuService = new SudokuService();
 
         /// <summary>
-        /// Attempt to solve a grid and display result.
+        /// Attempt to solve a sudoku and display result.
         /// </summary>
         /// <param name="grid">Sudoku puzzle.</param>
         public static void Handle(CellGrid grid)
         {
+            // TODO Share more with SudokuViewModel.
+
             Show(grid);
+
             sudokuService.Grid = grid;
 
             var timeStart = DateTime.Now;
 
             var status = sudokuService.CompleteFrom(0, 0);
-            var duration = DateTime.Now - timeStart;
+
+            var duration = (DateTime.Now - timeStart).TotalSeconds;
 
             if (status == ActionStatus.Succeeded)
             {

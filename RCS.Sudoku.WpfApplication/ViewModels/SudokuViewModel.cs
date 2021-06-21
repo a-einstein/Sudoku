@@ -209,7 +209,7 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         public RelayCommand SolveCommand => solveCommand ?? (solveCommand = new RelayCommand(Solve, () => SolveStatus == ActionStatus.Prepared));
 
         /// <summary>
-        /// Solve sudoku and display results.
+        /// Attempt to solve a sudoku and display result.
         /// </summary>
         private void Solve()
         {
