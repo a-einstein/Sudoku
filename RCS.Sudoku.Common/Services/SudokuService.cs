@@ -1,6 +1,7 @@
 ﻿using RCS.Sudoku.Common.Contracts.Models;
 using RCS.Sudoku.Common.Models;
 using RCS.Sudoku.Common.Properties;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -115,7 +116,26 @@ namespace RCS.Sudoku.Common.Services
             return true;
         }
 
-        public ICellGrid Grid { get;  set; }
+        /// <summary>
+        /// Attempt to solve a sudoku and measure duration.
+        /// </summary>
+        /// <param name="grid">Sudoku.</param>
+        /// <param name="duration">Spent time.</param>
+        /// <returns>Succes or failure.</returns>
+        public ActionStatus Solve(ICellGrid grid, out double duration)
+        {
+            this.grid = grid;
+
+            var timeStart = DateTime.Now;
+
+            var status = CompleteFrom(0, 0);
+
+            duration = (DateTime.Now - timeStart).TotalSeconds;
+
+            return status;
+        }
+
+        private ICellGrid grid;
 
         /// <summary>
         /// Core recursive solution function.
@@ -124,9 +144,9 @@ namespace RCS.Sudoku.Common.Services
         /// <param name="columnIndex">Startposition.</param>
         /// 
         /// <returns>Success or failure.</returns>
-        public ActionStatus CompleteFrom(int rowIndex, int columnIndex)
+        private ActionStatus CompleteFrom(int rowIndex, int columnIndex)
         {
-            var cell = Grid[rowIndex, columnIndex];
+            var cell = grid[rowIndex, columnIndex];
 
             // Cell HAS a value.
             if (cell.Digit.HasValue)
@@ -157,10 +177,10 @@ namespace RCS.Sudoku.Common.Services
                 // (Get a local sort, update the fequencies in local assignments, pass a copy to the next recursion.)
                 foreach (var digit in sortedDigits)
                 {
-                    if (DigitAvailableForCell(digit, new CellLocation(rowIndex, columnIndex), Grid))
+                    if (DigitAvailableForCell(digit, new CellLocation(rowIndex, columnIndex), grid))
                     {
                         // Try digit in cell.
-                        Grid.AssignValue(cell, digit);
+                        grid.AssignValue(cell, digit);
 
                         // Row not completed.
                         if ((columnIndex + 1) < 9)
@@ -172,7 +192,7 @@ namespace RCS.Sudoku.Common.Services
                             else
                             {
                                 // Backtrack. Next digit.
-                                Grid.AssignValue(cell, null);
+                                grid.AssignValue(cell, null);
                             }
 
                         }
@@ -186,7 +206,7 @@ namespace RCS.Sudoku.Common.Services
                             else
                             {
                                 // Backtrack. Next digit.
-                                Grid.AssignValue(cell, null);
+                                grid.AssignValue(cell, null);
                             }
                         }
                         // No conflicts encountered for digit in remainder of grid.

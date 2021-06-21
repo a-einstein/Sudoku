@@ -53,17 +53,11 @@ namespace RCS.Sudoku.ConsoleApplication
         /// <param name="grid">Sudoku puzzle.</param>
         public static void Handle(CellGrid grid)
         {
-            // TODO Share more with SudokuViewModel.
-
             Show(grid);
 
-            sudokuService.Grid = grid;
+            double duration;
 
-            var timeStart = DateTime.Now;
-
-            var status = sudokuService.CompleteFrom(0, 0);
-
-            var duration = (DateTime.Now - timeStart).TotalSeconds;
+            var status = sudokuService.Solve(grid, out duration);
 
             Console.WriteLine();
 
@@ -74,7 +68,9 @@ namespace RCS.Sudoku.ConsoleApplication
                 Show(grid);
             }
             else
+            {
                 Console.WriteLine(string.Format(Resources.StatusFailed_seconds, duration));
+            }
         }
 
         /// <summary>

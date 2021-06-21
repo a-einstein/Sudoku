@@ -82,7 +82,7 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
             {
                 fileRead = value;
 
-                ReportSolving(ActionStatus.Prepared);
+                Report(ActionStatus.Prepared);
             }
         }
 
@@ -107,7 +107,7 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         /// </summary>
         /// <param name="solveStatus">New status.</param>
         /// <param name="duration">Used time.</param>
-        private void ReportSolving(ActionStatus solveStatus, double? duration = default)
+        private void Report(ActionStatus solveStatus, double? duration = default)
         {
             SolveStatus = solveStatus;
 
@@ -216,17 +216,13 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
             // Use Run on a non UI-thread and Dispatcher to enable intermediate updates back on the UI-thread.
             Task.Run(() =>
             {
-                uiDispatcher.Invoke(() => ReportSolving(ActionStatus.Started), DispatcherPriority.Send);
+                uiDispatcher.Invoke(() => Report(ActionStatus.Started), DispatcherPriority.Send);
 
-                sudokuService.Grid = table;
+                double duration;
 
-                var timeStart = DateTime.Now;
+                var status = sudokuService.Solve(table, out duration);
 
-                var status = sudokuService.CompleteFrom(0, 0);
-
-                var duration = (DateTime.Now - timeStart).TotalSeconds;
-
-                uiDispatcher.Invoke(() => ReportSolving(status, duration), DispatcherPriority.Send);
+                uiDispatcher.Invoke(() => Report(status, duration), DispatcherPriority.Send);
             });
         }
         #endregion
@@ -234,7 +230,7 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         #region Navigation
         public async void OnNavigatedTo(object parameter)
         {
-            ReportSolving(ActionStatus.Unprepared);
+            Report(ActionStatus.Unprepared);
         }
 
         public void OnNavigatedFrom()
