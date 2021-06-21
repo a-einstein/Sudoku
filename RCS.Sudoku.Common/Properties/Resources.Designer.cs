@@ -133,6 +133,15 @@ namespace RCS.Sudoku.Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Press any key to try another Sudoku, or escape to quit..
+        /// </summary>
+        public static string RepeatOrQuit {
+            get {
+                return ResourceManager.GetString("RepeatOrQuit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Go back.
         /// </summary>
         public static string ShellGoBackButton {

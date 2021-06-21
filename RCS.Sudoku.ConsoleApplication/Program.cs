@@ -36,7 +36,7 @@ namespace RCS.Sudoku.ConsoleApplication
                 }
 
                 Console.WriteLine();
-                Console.WriteLine("Press any key to try another Sudoku, or escape to quit.");
+                Console.WriteLine(Resources.RepeatOrQuit);
 
                 keyInfo = Console.ReadKey();
 
