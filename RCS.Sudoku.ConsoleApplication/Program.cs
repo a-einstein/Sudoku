@@ -11,24 +11,38 @@ namespace RCS.Sudoku.ConsoleApplication
         [STAThread]
         static void Main(string[] args)
         {
-            var taskLine = "===============================";
-            Console.WriteLine(taskLine);
+            ConsoleKeyInfo keyInfo;
 
-            string readResult;
-            Cell[][] fileGrid;
-
-            bool fileRead = sudokuService.Read(out readResult, out fileGrid);
-
-            CellGrid grid = new CellGrid(fileGrid);
-
-            Console.WriteLine(readResult);
-
-            if (fileRead)
+            do
             {
-                Handle(grid);
-            }
+                var taskLine = "=====================================";
 
-            // TODO Choose to try another file.
+                Console.WriteLine();
+                Console.WriteLine(taskLine);
+
+                string readResult;
+                Cell[][] fileGrid;
+
+                bool fileRead = sudokuService.Read(out readResult, out fileGrid);
+
+                CellGrid grid = new CellGrid(fileGrid);
+
+                Console.WriteLine();
+                Console.WriteLine(readResult);
+
+                if (fileRead)
+                {
+                    Handle(grid);
+                }
+
+                Console.WriteLine();
+                Console.WriteLine("Press any key to try another Sudoku, or escape to quit.");
+
+                keyInfo = Console.ReadKey();
+
+            } while (keyInfo.Key != ConsoleKey.Escape);
+
+            // Note the console will only directly close if not running from Visual Studio.
         }
 
         private static SudokuService sudokuService = new SudokuService();
@@ -50,6 +64,8 @@ namespace RCS.Sudoku.ConsoleApplication
             var status = sudokuService.CompleteFrom(0, 0);
 
             var duration = (DateTime.Now - timeStart).TotalSeconds;
+
+            Console.WriteLine();
 
             if (status == ActionStatus.Succeeded)
             {
@@ -83,8 +99,6 @@ namespace RCS.Sudoku.ConsoleApplication
             }
 
             Console.WriteLine(boxLine);
-
-            Console.WriteLine();
         }
     }
 }
