@@ -165,7 +165,7 @@
   <data name="FileReadTitle" xml:space="preserve">
     <value>Read Sudoku</value>
   </data>
-  <data name="RepeatOrQuit" xml:space="preserve">
-    <value>Press any key to try another Sudoku, or escape to quit.</value>
+  <data name="ReadOrQuit" xml:space="preserve">
+    <value>Press any key to read a Sudoku, or escape to quit.</value>
   </data>
 </root>

@@ -11,9 +11,9 @@ namespace RCS.Sudoku.ConsoleApplication
         [STAThread]
         static void Main(string[] args)
         {
-            ConsoleKeyInfo keyInfo;
+            var playing = ReadOrQuit();
 
-            do
+            while (playing)
             {
                 string readResult;
                 Cell[][] fileGrid;
@@ -23,24 +23,30 @@ namespace RCS.Sudoku.ConsoleApplication
                 CellGrid grid = new CellGrid(fileGrid);
 
                 Console.WriteLine();
-                Console.WriteLine(readResult);
+                Console.WriteLine($"{Resources.FileMessageLabel} {readResult}");
 
                 if (fileRead)
                 {
                     Handle(grid);
                 }
 
-                Console.WriteLine();
-                Console.WriteLine(Resources.RepeatOrQuit);
-
-                keyInfo = Console.ReadKey();
+                playing = ReadOrQuit();
 
                 Console.WriteLine();
                 Console.WriteLine("============================================================");
-
-            } while (keyInfo.Key != ConsoleKey.Escape);
+            }
 
             // Note the console will only directly close if not running from Visual Studio.
+        }
+
+        private static bool ReadOrQuit()
+        {
+            Console.WriteLine();
+            Console.WriteLine(Resources.ReadOrQuit);
+
+            var keyInfo = Console.ReadKey();
+
+            return keyInfo.Key != ConsoleKey.Escape;
         }
 
         private static SudokuService sudokuService = new SudokuService();

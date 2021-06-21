@@ -133,11 +133,11 @@ namespace RCS.Sudoku.Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Press any key to try another Sudoku, or escape to quit..
+        ///   Looks up a localized string similar to Press any key to read a Sudoku, or escape to quit..
         /// </summary>
-        public static string RepeatOrQuit {
+        public static string ReadOrQuit {
             get {
-                return ResourceManager.GetString("RepeatOrQuit", resourceCulture);
+                return ResourceManager.GetString("ReadOrQuit", resourceCulture);
             }
         }
         
