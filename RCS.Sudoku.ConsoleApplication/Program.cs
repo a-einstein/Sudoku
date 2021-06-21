@@ -15,11 +15,6 @@ namespace RCS.Sudoku.ConsoleApplication
 
             do
             {
-                var taskLine = "=====================================";
-
-                Console.WriteLine();
-                Console.WriteLine(taskLine);
-
                 string readResult;
                 Cell[][] fileGrid;
 
@@ -39,6 +34,9 @@ namespace RCS.Sudoku.ConsoleApplication
                 Console.WriteLine(Resources.RepeatOrQuit);
 
                 keyInfo = Console.ReadKey();
+
+                Console.WriteLine();
+                Console.WriteLine("============================================================");
 
             } while (keyInfo.Key != ConsoleKey.Escape);
 
