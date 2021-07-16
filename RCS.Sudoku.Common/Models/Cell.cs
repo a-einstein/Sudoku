@@ -25,11 +25,10 @@
         /// <summary>
         /// Display cell value (accommodating TableView).
         /// </summary>
-        /// <returns>Digit value or double space if cell is empty.</returns>
+        /// <returns>Digit value or empty string if cell is empty.</returns>
         public override string ToString()
         {
-            // Double space to give empty table cells similar volume as the filled one.
-            return ToString("  ");
+            return ToString(string.Empty);
         }
 
         /// <summary>

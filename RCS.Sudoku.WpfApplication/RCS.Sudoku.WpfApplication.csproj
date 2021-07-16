@@ -13,7 +13,6 @@
     <Page Remove="Behaviors\**" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MahApps.Metro" Version="2.4.5" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
     <PackageReference Include="MvvmLightLibsStd10" Version="5.4.1.1" />
   </ItemGroup>

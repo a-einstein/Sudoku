@@ -13,16 +13,17 @@
 
     <Page.Resources>
         <ResourceDictionary>
+            <Style TargetType="{x:Type DataGridColumnHeader}">
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+             </Style>
+
             <!--Could not simply assign this to DataGrid.CellStyle and have it as base within the columns.-->
             <Style TargetType="{x:Type DataGridCell}">
-                <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="HorizontalAlignment" Value="Center" />
-                <Setter Property="Margin" Value="4,0,4,0"/>
-                <Setter Property="FontSize" Value="{StaticResource MediumFontSize}" />
+                <Setter Property="TextBlock.TextAlignment" Value="Center" />
             </Style>
         </ResourceDictionary>
     </Page.Resources>
-
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -50,6 +51,7 @@
             <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding SolveMessage, Mode=OneWay}" Style="{StaticResource SudokuTextValueStyle}" />
         </Grid>
 
+        <!--TODO Add Rowheaders.-->
         <DataGrid
             Grid.Row="1"
             Name="SudokuGrid"
@@ -58,8 +60,12 @@
             CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False"
             Margin="10"
             HorizontalAlignment="Center" VerticalAlignment="Top" 
-            BorderThickness="1,1,1,1" 
+            BorderThickness="1"
             GridLinesVisibility="All"
+            HorizontalGridLinesBrush="LightGray"
+            VerticalGridLinesBrush="LightGray"
+            HeadersVisibility="Column"
+            FontSize="{StaticResource MediumFontSize}"
             >
 
             <!--Manually defined columns to enable colouring.-->
