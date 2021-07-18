@@ -1,4 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+	
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -6,16 +7,12 @@
     <UseWPF>true</UseWPF>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Remove="Behaviors\**" />
-    <EmbeddedResource Remove="Behaviors\**" />
-    <None Remove="Behaviors\**" />
-    <Page Remove="Behaviors\**" />
-  </ItemGroup>
+	
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
     <PackageReference Include="MvvmLightLibsStd10" Version="5.4.1.1" />
   </ItemGroup>
+	
   <ItemGroup>
     <ProjectReference Include="..\RCS.Sudoku.Common\RCS.Sudoku.Common.csproj" />
   </ItemGroup>
@@ -25,4 +22,5 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+	
 </Project>
