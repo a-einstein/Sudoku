@@ -15,7 +15,26 @@
         <ResourceDictionary>
             <Style TargetType="{x:Type DataGridColumnHeader}">
                 <Setter Property="HorizontalContentAlignment" Value="Center" />
-             </Style>
+            </Style>
+
+            <Style TargetType="{x:Type DataGridRowHeader}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type DataGridRowHeader}">
+                            <Border BorderBrush="LightGray" BorderThickness="0,0,1,1">
+                                <TextBlock Text="{Binding a}"  Width="20" VerticalAlignment="Center" TextAlignment="Center">
+                                    <TextBlock.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Color="White" Offset="0.1"/>
+                                            <GradientStop Color="#FFF3F3F3" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </TextBlock.Background>
+                                </TextBlock>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
 
             <!--Could not simply assign this to DataGrid.CellStyle and have it as base within the columns.-->
             <Style TargetType="{x:Type DataGridCell}">
@@ -23,7 +42,7 @@
             </Style>
         </ResourceDictionary>
     </Page.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -64,8 +83,10 @@
             GridLinesVisibility="All"
             HorizontalGridLinesBrush="LightGray"
             VerticalGridLinesBrush="LightGray"
-            HeadersVisibility="Column"
+            HeadersVisibility="All"
             FontSize="{StaticResource MediumFontSize}"
+            ColumnWidth="22"
+            RowHeight="22"
             >
 
             <!--Manually defined columns to enable colouring.-->
