@@ -62,7 +62,7 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         /// <summary>
         /// Main data structure.
         /// </summary>
-        static private CellTable table = new CellTable();
+        static private CellTable table = new();
 
         /// <summary>
         /// Bindable view.

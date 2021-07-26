@@ -49,7 +49,7 @@ namespace RCS.Sudoku.ConsoleApplication
             return keyInfo.Key != ConsoleKey.Escape;
         }
 
-        private static SudokuService sudokuService = new SudokuService();
+        private static SudokuService sudokuService = new();
 
         /// <summary>
         /// Attempt to solve a sudoku and display result.
