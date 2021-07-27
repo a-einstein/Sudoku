@@ -62,7 +62,7 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         /// <summary>
         /// Main data structure.
         /// </summary>
-        static private CellTable table = new CellTable();
+        static private CellTable table = new();
 
         /// <summary>
         /// Bindable view.
@@ -111,26 +111,15 @@ namespace RCS.Sudoku.WpfApplication.ViewModels
         {
             SolveStatus = solveStatus;
 
-            switch (solveStatus)
+            SolveMessage = solveStatus switch
             {
-                case ActionStatus.Unprepared:
-                    SolveMessage = Resources.StatusUnprepared;
-                    break;
-                case ActionStatus.Prepared:
-                    SolveMessage = Resources.StatusPrepared;
-                    break;
-                case ActionStatus.Started:
-                    SolveMessage = Resources.StatusStarted;
-                    break;
-                case ActionStatus.Succeeded:
-                    SolveMessage = string.Format(Resources.StatusSucceeded_seconds, duration);
-                    break;
-                case ActionStatus.Failed:
-                    SolveMessage = string.Format(Resources.StatusFailed_seconds, duration);
-                    break;
-                default:
-                    throw new Exception($"Unexpected value for {nameof(solveStatus)}.");
-            }
+                ActionStatus.Unprepared => Resources.StatusUnprepared,
+                ActionStatus.Prepared => Resources.StatusPrepared,
+                ActionStatus.Started => Resources.StatusStarted,
+                ActionStatus.Succeeded => string.Format(Resources.StatusSucceeded_seconds, duration),
+                ActionStatus.Failed => string.Format(Resources.StatusFailed_seconds, duration),
+                _ => throw new Exception($"Unexpected value for {nameof(solveStatus)}.")
+            };
         }
 
         private ActionStatus solveStatus = ActionStatus.Unprepared;
