@@ -7,6 +7,7 @@ namespace RCS.Sudoku.WpfApplication.Models
 {
     public class CellTable : DataTable, ICellGrid
     {
+        #region Construction
         public CellTable() { }
 
         public CellTable(Dispatcher uiDispatcher)
@@ -15,7 +16,9 @@ namespace RCS.Sudoku.WpfApplication.Models
         }
 
         public Dispatcher UiDispatcher { get; set; }
+        #endregion
 
+        #region ICellGrid
         public Cell this[int rowIndex, int columnIndex]
         {
             get => (Cell)Rows[rowIndex][columnIndex];
@@ -41,5 +44,6 @@ namespace RCS.Sudoku.WpfApplication.Models
                 AcceptChanges();
             }, DispatcherPriority.Send);
         }
+        #endregion
     }
 }
