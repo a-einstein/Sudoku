@@ -1,8 +1,10 @@
 ## Sudoku
 
-|![](Screenshots/empty.JPG)|![](Screenshots/read.JPG)|![](Screenshots/solved.JPG)|![](Screenshots/console.JPG)|
-|:---:|:---:|:---:|:---:|
-|WPF Empty|WPF Read|WPF Solved|Console|
+|![](Screenshots/empty.JPG)|![](Screenshots/read.JPG)|![](Screenshots/solved.JPG)|
+|:---:|:---:|:---:|
+|WPF Empty|WPF Read|WPF Solved|
+||![](Screenshots/console.JPG)||
+||Console||
 
 #### Description
 Working desktop applications for test and demo purpose solving Sudoku-puzzles by means of a backtracking algorithm.
