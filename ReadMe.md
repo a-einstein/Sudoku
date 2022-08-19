@@ -1,17 +1,19 @@
 ## Sudoku
 
-|![Empty](Screenshots/empty.jpg)|![overview](Screenshots/read.jpg)|![details](Screenshots/solved.jpg)|
-|:-:|:-:|:-:|
-|Empty|Read|Solved|
+|![Empty](Screenshots/empty.jpg)|![overview](Screenshots/read.jpg)|![details](Screenshots/solved.jpg)|![details](Screenshots/console.jpg)|
+|:-:|:-:|:-:|:-:|
+|WPF Empty|WPF Read|WPF Solved|Console|
 
 #### Description
 Working desktop applications for test and demo purpose solving Sudoku-puzzles by means of a backtracking algorithm.
 
 Implementation in C# the following varieties.
-*  WPF.
-*  Console.
-
-As a fun aspect, in the WPF implementation it animates the intermediate states during the solving process.
+*  WPF. 
+   * Interactive screen.
+   * Animates the intermediate states during the solving process.
+*  Console. 
+   *  Bare bones. 
+   *  A lot faster.
 
 #### Aspects
 * WPF.

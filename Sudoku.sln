@@ -16,6 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Screenshots", "Screenshots", "{F9B94A66-15BE-4E62-BFCA-3F29FFBEF689}"
 	ProjectSection(SolutionItems) = preProject
+		Screenshots\console.JPG = Screenshots\console.JPG
 		Screenshots\empty.JPG = Screenshots\empty.JPG
 		Screenshots\read.JPG = Screenshots\read.JPG
 		Screenshots\solved.JPG = Screenshots\solved.JPG
