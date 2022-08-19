@@ -6,13 +6,13 @@ using System;
 
 namespace RCS.Sudoku.ConsoleApplication
 {
-    // TODO Customize the window title.
-
     class Program
     {
         [STAThread]
         static void Main(string[] args)
         {
+            Console.Title = Resources.AppDisplayName;
+
             var playing = ReadOrQuit();
 
             while (playing)
