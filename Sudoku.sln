@@ -1,13 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31205.134
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32804.467
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RCS.Sudoku.Common", "RCS.Sudoku.Common\RCS.Sudoku.Common.csproj", "{E5C31C10-2ACF-482B-ADFD-DCDB9E53A2D4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RCS.Sudoku.WpfApplication", "RCS.Sudoku.WpfApplication\RCS.Sudoku.WpfApplication.csproj", "{1E9AE496-926C-4866-B303-ED545383DA7D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RCS.Sudoku.ConsoleApplication", "RCS.Sudoku.ConsoleApplication\RCS.Sudoku.ConsoleApplication.csproj", "{6704F45F-A291-43CE-A934-D63F2FAE4659}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2BD6C002-48F3-47D2-AB46-F50B1D980EFD}"
+	ProjectSection(SolutionItems) = preProject
+		ReadMe.md = ReadMe.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Screenshots", "Screenshots", "{F9B94A66-15BE-4E62-BFCA-3F29FFBEF689}"
+	ProjectSection(SolutionItems) = preProject
+		Screenshots\empty.JPG = Screenshots\empty.JPG
+		Screenshots\read.JPG = Screenshots\read.JPG
+		Screenshots\solved.JPG = Screenshots\solved.JPG
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

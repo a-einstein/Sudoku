@@ -7,6 +7,8 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Threading;
 
+// TODO Note that MvvmLight is deprecated. Possibly replace, as suggested at the package.
+
 namespace RCS.Sudoku.WpfApplication
 {
     // For more inforation about application lifecyle events see https://docs.microsoft.com/dotnet/framework/wpf/app-development/application-management-overview
