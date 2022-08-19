@@ -12,6 +12,8 @@ namespace RCS.Sudoku.ConsoleApplication
         static void Main(string[] args)
         {
             Console.Title = Resources.AppDisplayName;
+            Console.WindowHeight = 80;
+            Console.BufferHeight = 800;
 
             var playing = ReadOrQuit();
 
