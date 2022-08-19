@@ -11,6 +11,11 @@ namespace RCS.Sudoku.ConsoleApplication
         [STAThread]
         static void Main(string[] args)
         {
+            // TODO Maybe solve the annoying lack of margin.
+            Console.Title = Resources.AppDisplayName;
+            Console.WindowHeight = 80;
+            Console.BufferHeight = 800;
+
             var playing = ReadOrQuit();
 
             while (playing)

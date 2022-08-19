@@ -28,6 +28,7 @@ namespace RCS.Sudoku.Common.Services
         /// <returns>Success or failure.</returns>
         public bool Read(out string message, out Cell[][] grid)
         {
+            // TODO Add examples to solution.
             var initialDirectory = Path.GetFullPath(Directory.GetCurrentDirectory() + "\\..\\..\\..\\..\\..\\puzzles");
 
             var fileDialog = new OpenFileDialog
