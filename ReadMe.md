@@ -1,6 +1,6 @@
 ## Sudoku
 
-|![WPF Empty](Screenshots/empty.jpg)|![WPF Read](Screenshots/read.jpg)|![WPF Solved](Screenshots/solved.jpg)|![Console](Screenshots/console.jpg)|
+|![](Screenshots/empty.JPG)|![](Screenshots/read.JPG)|![](Screenshots/solved.JPG)|![](Screenshots/console.JPG)|
 |:---:|:---:|:---:|:---:|
 |WPF Empty|WPF Read|WPF Solved|Console|
 
